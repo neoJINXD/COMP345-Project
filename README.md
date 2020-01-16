@@ -1,2 +1,0 @@
-# COMP345-Project
--
