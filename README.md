@@ -1,7 +1,10 @@
 # COMP345-Project
 ---
 Project for the COMP 345 course - Advanced Program Design with C++
-
+---
+## Project Info
+Once info about the project is released, this section will be updated
+---
 Team Members:
 - Anik Patel
 - Joshua Parial Bolusan
