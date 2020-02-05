@@ -6,6 +6,8 @@
 
 #### Project consists of recreating the game of New Haven
 
+Game Rules and Project Descriptions are in the repo under the `Documentation/` folder
+
 ---
 
 ## Team Members
