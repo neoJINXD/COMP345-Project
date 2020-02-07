@@ -3,63 +3,89 @@
 #include <map>
 #include <string>
 #include <iostream>
+//#include <memory>
 
 namespace GB {
-	//Will change this later to hold Tile objects
-	class Node {
-	private:
-		std::string name;
-		//std::vector<Node>* adjacent_nodes;
-	public:
-		Node(const std::string& _name) : name(_name) {}
-		std::string get_name() { return name; };
-
-		inline friend bool operator<(const Node& node1, const Node& node2) { return node1.name < node2.name; }
-		inline friend bool operator==(const Node& node1, const Node& node2) { return node1.name == node2.name; }
-		inline friend bool operator>(const Node& node1, const Node& node2) { return node1.name > node2.name;  }
-
+	
+	enum Players  {
+		
 	};
 
-	
+	class Node {
+	private:
+		//const std::string& name; //Replace with Tile object
+		int* nodeId;
+
+		std::vector<Node>* adj_list = new std::vector<Node>();
+	public:
+		Node(int _nodeId) : nodeId(new int(_nodeId)) {}
+		int getId() { return *nodeId; }
+
+		void insertAdj(Node node);
+
+		void printAdjList();
+		/*
+		inline bool operator<(const Node& node) { return this->nodeId < node.nodeId; }
+		inline friend bool operator<(const Node& node1, const Node& node2) { return node1.nodeId < node2.nodeId; }
+		inline friend bool operator==(const Node& node1, const Node& node2) { return node1.nodeId == node2.nodeId; }
+		inline friend bool operator>(const Node& node1, const Node& node2) { return node1.nodeId > node2.nodeId;  }
+		*/
+		
+	};
 
 	class Graph
 	{
 	private:
 		//typedef Node square;
-		int max_nodes;
+		//int* numberOfNodes = new int(0);
+		const int* maxNodes;
 
-		//square S1 is the present node, and the vector<square> contains all nodes adjacent to S1 
-		std::map<Node, std::vector<Node>> graph;
-		
-		
 
+		std::map<int, Node>  *graph = new std::map<int, Node>();
+
+		
 	public:
 
+		//Graph(int* _numberOfNodes) : numberOfNodes(_numberOfNodes), graph(new std::map<int, Node>()) {}
+		Graph() = default;
+		~Graph();
 		//Add vertex no edge
-		void addVertex(Node src);
+		void addVertex(int src);
 		//Create edge between two nodes
-		void addEdge(Node n1, Node n2);
+		void addEdge(int src, int dest);
+		
 
-		void traverse(); //Traveser all vertexes and list adjacents
-
-
-
+		void printGraph(); //Traveser all vertexes and list adjacents
+		
 	};
 
 	class GBMap
 	{
-	private:
-		int n_players = 4;
 
+	private:
+		const int* numberOfPlayers = new int(4);
+		Graph* graph = new Graph();
+
+		
+		void createFullBoard();
+		void create5By7();
+		void create5By5();
 
 	public:
-		void print();
-		void createGrid(); //create grid based on number of players
+
+		GBMap() = default;
+		explicit GBMap(const int* _players) : numberOfPlayers(_players), graph(new Graph()) {}
+		//~GBMap(); // Delete all pointers
+		void createGrid(int row, int col);
+		inline void print();
+
 	};
 
 	
 	class GBMapDriver {
+
 	public:
+		
 		
 		void run();
 

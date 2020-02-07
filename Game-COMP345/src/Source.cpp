@@ -1,13 +1,13 @@
 #include <SFML/Graphics.hpp>
 #include "GBMaps/GBMap.h";
 #include "VGMaps/VGMap.h";
-
+//#include <map>
 
 int main()
 {
 
-	VG::VGMap vgTest;
-	GB::GBMap gbTest;
+	//VG::VGMap vgTest;
+	//GB::GBMap gbTest;
 
 	GB::GBMapDriver test;
 

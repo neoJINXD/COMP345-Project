@@ -3,40 +3,123 @@
 //#include <map>
 //#include <iterator>
 //#include <vector>
+//#include <utility>
+//#include <map>
 
-void GB::GBMap::print()
+GB::Graph::~Graph()
 {
-	std::cout << "GBMap is working!\n";
+	delete graph;
 }
 
-void GB::Graph::addVertex(Node src)
+void GB::Graph::addVertex(int srcId)
 {
-	if (graph.find(src) == graph.end())
+	//auto graphPtr = graph.get;
+
+	//If the node with srcId is not found in the map
+	if (graph->find(srcId) == graph->end())
 	{
-		graph[src];
+		Node node(srcId);
+		graph->insert(std::pair<int, Node>(srcId, node));
+
 		return;
 	}
 
 	std::cout << "That node already exists!" << std::endl;
 }
 
-void GB::Graph::traverse()
+void GB::Node::insertAdj(Node node)
 {
+	this->adj_list->push_back(node);
+}
+
+void GB::Graph::addEdge(int src, int dest) 
+{
+
+	Node srcObj = graph->find(src)->second;
+	Node destObj = graph->find(dest)->second;
+
+	//Undirected Graph
+	srcObj.insertAdj(destObj);
+	destObj.insertAdj(srcObj);
+
+
+}
+
+void GB::Node::printAdjList()
+{
+	std::size_t sz = adj_list->size();
 	int i = 0;
-	for (auto  pair : graph) {
-		
+	for (auto node : *adj_list)
+	{
 		i++;
-		std::cout << i << std::endl;
+		std::cout << node.getId();
+		if (i == sz)
+		{
+			std::cout << "\n";
+		}
+		else
+		{
+			std::cout << ", ";
+		}
 	}
+}
+
+void GB::Graph::printGraph()
+{
+	std::cout << "Node|\tAdjacentNodes\n";	
+	for (auto pair : *graph)
+	{
+		std::cout << pair.first << ":\t";
+		pair.second.printAdjList();
+		std::cout << std::endl;
+	}
+}
+
+void GB::GBMap::createGrid(int rows, int cols)
+{
+	int totalVertexes = rows * cols;
+	
+	//Create vertexes
+	for (int vertex = 1; vertex <= totalVertexes; vertex++)
+	{
+		graph->addVertex(vertex);
+	}
+
+	//Link cols
+	for (int vertex = 1; vertex <= totalVertexes; vertex++) 
+	{
+		//Link node on the right
+		//Check if the current vertex is not the last vertex on that row
+		if ((vertex % cols) != 0)
+		{
+			graph->addEdge(vertex, vertex + 1);
+		}
+
+		if (vertex + cols <= totalVertexes)
+		{
+			graph->addEdge(vertex, vertex + cols);
+		}
+	}
+
+	//Link rows
+	
+
+	graph->printGraph();
 }
 
 void GB::GBMapDriver::run()
 {
-	Graph* testGraph = new Graph;
+	//Graph* testGraph = new Graph();
+	GBMap* testMap = new GBMap();
 
-	testGraph->addVertex(Node("T1"));
-	testGraph->addVertex(Node("T2"));
+	testMap->createGrid(4, 6);
+}
 
-	testGraph->traverse();
+
+void GB::GBMap::createFullBoard() 
+{
+	
+	
+
 
 }
