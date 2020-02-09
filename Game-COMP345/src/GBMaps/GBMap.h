@@ -7,8 +7,10 @@
 
 namespace GB {
 	
-	enum Players  {
-		
+	enum PLAYERS {
+		TWO,
+		THREE,
+		FOUR
 	};
 
 	class Node {
@@ -48,11 +50,20 @@ namespace GB {
 
 		//Graph(int* _numberOfNodes) : numberOfNodes(_numberOfNodes), graph(new std::map<int, Node>()) {}
 		Graph() = default;
+
+		//Cleanup memory
 		~Graph();
+
 		//Add vertex no edge
 		void addVertex(int src);
+		
 		//Create edge between two nodes
 		void addEdge(int src, int dest);
+
+		
+		void getNode();
+		
+		void getEdges();
 		
 
 		void printGraph(); //Traveser all vertexes and list adjacents
@@ -70,13 +81,16 @@ namespace GB {
 		void createFullBoard();
 		void create5By7();
 		void create5By5();
+		void createGrid(int row, int col);
 
 	public:
 
 		GBMap() = default;
 		explicit GBMap(const int* _players) : numberOfPlayers(_players), graph(new Graph()) {}
 		//~GBMap(); // Delete all pointers
-		void createGrid(int row, int col);
+		void buildBoard();
+
+
 		inline void print();
 
 	};
