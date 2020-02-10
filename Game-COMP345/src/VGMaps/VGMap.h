@@ -8,12 +8,18 @@ namespace VG {
 	class Node {
 	private:
 		//const std::string& name; //Replace with Tile object
+		
+		//Member that is used to identify / locate the node only. Can convert it into a different type later, example string
 		int* nodeId;
+		int* spaceCost;
 
 		std::vector<Node>* adj_list = new std::vector<Node>();
 	public:
 		Node(int _nodeId) : nodeId(new int(_nodeId)) {}
 		int getId() { return *nodeId; }
+		void setCost(int value);
+		void getCost();
+
 
 		void insertAdj(Node node);
 

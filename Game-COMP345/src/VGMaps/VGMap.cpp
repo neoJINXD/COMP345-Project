@@ -5,8 +5,6 @@ void VG::Node::insertAdj(Node node)
 	this->adj_list->push_back(node);
 }
 
-
-
 void VG::Node::printAdjList()
 {
 	std::size_t sz = adj_list->size();
@@ -71,6 +69,8 @@ void VG::Graph::printGraph()
 		std::cout << std::endl;
 	}
 }
+
+
 
 
 void VG::VGMap::printVillage() {

@@ -17,6 +17,7 @@ namespace GB {
 	private:
 		//const std::string& name; //Replace with Tile object
 		int* nodeId;
+		std::vector<std::string> owners;
 
 		std::vector<Node>* adj_list = new std::vector<Node>();
 	public:
@@ -77,7 +78,6 @@ namespace GB {
 		const int* numberOfPlayers = new int(4);
 		Graph* graph = new Graph();
 
-		
 		void createFullBoard();
 		void create5By7();
 		void create5By5();
@@ -90,8 +90,9 @@ namespace GB {
 		//~GBMap(); // Delete all pointers
 		void buildBoard();
 
-
-		inline void print();
+		void setOwner(int loc, std::string player);
+		void getOwner(int loc);
+		//inline void print();
 
 	};
 
