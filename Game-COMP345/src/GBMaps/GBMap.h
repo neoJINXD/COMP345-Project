@@ -86,6 +86,7 @@ namespace GB {
 	public:
 
 		GBMap() = default;
+		~GBMap();
 		explicit GBMap(const int* _players) : numberOfPlayers(_players), graph(new Graph()) {}
 		//~GBMap(); // Delete all pointers
 		void buildBoard();

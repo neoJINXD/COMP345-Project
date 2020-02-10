@@ -1,5 +1,7 @@
 #include "VGMap.h"
 #include <iostream>
+
+//Node Implementations
 void VG::Node::insertAdj(Node node)
 {
 	this->adj_list->push_back(node);
@@ -72,7 +74,7 @@ void VG::Graph::printGraph()
 
 
 
-
+//VGMap Implementations
 void VG::VGMap::printVillage() {
 	std::cout << "This is " << owner << " village!";
 }

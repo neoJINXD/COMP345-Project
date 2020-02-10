@@ -7,7 +7,7 @@
 //#include <map>
 
 
-
+//Node Implementations
 void GB::Node::insertAdj(Node node)
 {
 	this->adj_list->push_back(node);
@@ -39,6 +39,11 @@ void GB::Node::printAdjList()
 GB::Graph::~Graph()
 {
 	delete graph;
+	
+	if (graph != nullptr)
+	{
+		graph = nullptr;
+	}
 }
 
 void GB::Graph::addVertex(int srcId)
@@ -153,6 +158,14 @@ void GB::GBMap::createFullBoard()
 	createGrid(7, 7);
 }
 
+GB::GBMap::~GBMap()
+{
+	delete graph;
+	if (graph != nullptr)
+	{
+		graph == nullptr;
+	}
+}
 
 void GB::GBMapDriver::run()
 {
