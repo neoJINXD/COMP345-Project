@@ -5,7 +5,7 @@
 #include <cstdlib>
 
 
-// declaring struct for each tile
+// Harvest deck tile
 struct Tile
 {
 	Tile(ResourceType _one, ResourceType _two, ResourceType _three, ResourceType _four)
@@ -40,8 +40,9 @@ public:
 	HarvestDeck();
 	~HarvestDeck();
 	void buildDeckOfHarvest();
-	void shuffle(std::vector<Tile> harvestDeck);
+	void shuffle();
+	void printFirst();
 
 private:
-
+	std::vector<Tile>* deckOfHarvestTile;
 };

@@ -141,10 +141,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BuildingDeck.cpp" />
     <ClCompile Include="HarvestDeck.cpp" />
     <ClCompile Include="src\Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BuildingDeck.h" />
     <ClInclude Include="HarvestDeck.h" />
     <ClInclude Include="ResourceType.h" />
   </ItemGroup>
