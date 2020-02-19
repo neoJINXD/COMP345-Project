@@ -1,6 +1,9 @@
 #include "HarvestDeck.h"
 #include<iostream>
 
+
+
+
 HarvestDeck::HarvestDeck()
 {
 
@@ -84,7 +87,7 @@ void HarvestDeck::buildDeckOfHarvest()
 	deckOfHarvestTile->push_back(Tile(Timber, Stone, Stone, Timber)); // TIle 60
 
 	// Shuffle the deck
-	HarvestDeck::shuffle();
+	shuffle();
 }
 
 // Shuffle the deck
@@ -93,7 +96,7 @@ void HarvestDeck::shuffle()
 {	
 	// using built-in random generator to shuffle the harvestDeck
 	std::random_shuffle(deckOfHarvestTile->begin(), deckOfHarvestTile->end());
-	std::random_shuffle(deckOfHarvestTile->begin(), deckOfHarvestTile->end(), deckOfHarvestTile);
+	//std::random_shuffle(deckOfHarvestTile.begin(), deckOfHarvestTile.end(), deckOfHarvestTile);
 }
 
 void HarvestDeck::printFirst()

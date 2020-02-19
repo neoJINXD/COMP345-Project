@@ -43,6 +43,6 @@ public:
 	void shuffle();
 	void printFirst();
 
-private:
 	std::vector<Tile>* deckOfHarvestTile;
+private:
 };

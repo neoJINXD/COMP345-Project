@@ -21,8 +21,13 @@ int main()
 		window.display();
 	}*/
 
-	HarvestDeck deck();
-	std::cout<<deck
+	HarvestDeck deck = HarvestDeck();
+	
+	std::cout << deck.deckOfHarvestTile->at(0).resources.at(1);
+	deck.shuffle();
+	std::cout << deck.deckOfHarvestTile->at(0).resources.at(1);
+	deck.shuffle();
 
+	int x;
 	return 0;
 }
