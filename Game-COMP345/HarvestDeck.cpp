@@ -4,6 +4,8 @@
 HarvestDeck::HarvestDeck()
 {
 
+	// creates a deck of harvest
+	HarvestDeck::buildDeckOfHarvest();
 }
 
 HarvestDeck::~HarvestDeck()
@@ -44,7 +46,39 @@ void HarvestDeck::buildDeckOfHarvest()
 	deckOfHarvestTile.push_back(Tile(Sheep, Wheat, Sheep, Timber)); //Tile 25
 	deckOfHarvestTile.push_back(Tile(Stone, Wheat, Timber, Stone)); //Tile 26
 	deckOfHarvestTile.push_back(Tile(Wheat, Sheep, Wheat, Timber)); // Tile 27
-	deckOfHarvestTile.push_back(Tile(Stone, Stone, Timber, Stone)); //
+	deckOfHarvestTile.push_back(Tile(Stone, Stone, Timber, Stone)); // Tile 28
+	deckOfHarvestTile.push_back(Tile(Timber, Sheep, Sheep, Timber)); // Tile 29
+	deckOfHarvestTile.push_back(Tile(Wheat, Stone, Wheat, Timber)); // Tile 30
+	deckOfHarvestTile.push_back(Tile(Sheep, Stone, Wheat, Sheep)); // Tile 31
+	deckOfHarvestTile.push_back(Tile(Wheat, Timber, Sheep, Wheat)); // Tile 32
+	deckOfHarvestTile.push_back(Tile(Stone, Sheep, Timber, Stone)); //Tile 33
+	deckOfHarvestTile.push_back(Tile(Timber, Wheat, Sheep, Timber)); // Tile 34
+	deckOfHarvestTile.push_back(Tile(Timber, Stone, Timber, Wheat)); //Tile 35
+	deckOfHarvestTile.push_back(Tile(Wheat, Wheat, Timber, Wheat)); //Tile 36
+	deckOfHarvestTile.push_back(Tile(Sheep, Timber, Wheat, Sheep)); // Tile 37
+	deckOfHarvestTile.push_back(Tile(Timber, Sheep, Sheep, Timber)); // Tile 38
+	deckOfHarvestTile.push_back(Tile(Wheat, Wheat, Sheep, Wheat)); // Tile 39
+	deckOfHarvestTile.push_back(Tile(Wheat, Wheat, Stone, Wheat)); // Tile 40
+	deckOfHarvestTile.push_back(Tile(Timber, Sheep, Wheat, Timber)); // Tile 41
+	deckOfHarvestTile.push_back(Tile(Stone, Timber, Wheat, Stone)); // Tile 42
+	deckOfHarvestTile.push_back(Tile(Sheep, Stone, Timber, Sheep)); // Tile 43
+	deckOfHarvestTile.push_back(Tile(Stone, Wheat, Stone, Timber)); // Tile 44
+	deckOfHarvestTile.push_back(Tile(Timber, Stone, Sheep, Timber)); // Tile 45
+	deckOfHarvestTile.push_back(Tile(Sheep, Stone, Stone, Sheep)); //Tile 46
+	deckOfHarvestTile.push_back(Tile(Stone, Timber, Sheep, Stone)); // Tile 47
+	deckOfHarvestTile.push_back(Tile(Timber, Timber, Wheat, Timber)); //Tile 48
+	deckOfHarvestTile.push_back(Tile(Sheep, Wheat, Wheat, Sheep)); // Tile 49
+	deckOfHarvestTile.push_back(Tile(Wheat, Sheep, Stone, Wheat)); // Tile 50
+	deckOfHarvestTile.push_back(Tile(Timber, Wheat, Timber, Sheep)); // Tile 51
+	deckOfHarvestTile.push_back(Tile(Wheat, Stone, Stone, Wheat)); // Tile 52
+	deckOfHarvestTile.push_back(Tile(Wheat, Stone, Timber, Wheat)); // Tile 53
+	deckOfHarvestTile.push_back(Tile(Stone, Sheep, Stone, Timber)); //Tile 54
+	deckOfHarvestTile.push_back(Tile(Stone, Wheat, Stone, Sheep)); // Tile 55
+	deckOfHarvestTile.push_back(Tile(Sheep, Wheat, Timber, Sheep)); // Tile 56
+	deckOfHarvestTile.push_back(Tile(Timber, Timber, Sheep, Timber)); //Tile 57
+	deckOfHarvestTile.push_back(Tile(Sheep, Timber, Stone, Sheep)); // Tile 58
+	deckOfHarvestTile.push_back(Tile(Wheat, Stone, Wheat, Sheep)); // Tile 59
+	deckOfHarvestTile.push_back(Tile(Timber, Stone, Stone, Timber)); // TIle 60
 
 
 }

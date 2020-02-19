@@ -1,21 +1,32 @@
 #pragma once
-enum ResourceType {
-	Wheat,
-	Sheep,
-	Timber,
-	Stone
-};
+#include <vector>
+#include <algorithm>
+#include "ResourceType.h"
+
 
 // declaring struct for each tile
 struct Tile
 {
 	Tile(ResourceType _one, ResourceType _two, ResourceType _three, ResourceType _four)
 	{
+		resources = {_one, _two,_three,_four};
+		
 		one = _one;
 		two = _two;
 		three = _three;
 		four = _four;
 	}
+
+	void rotateLeft() {
+		std::rotate(resources.begin(), resources.begin() + 1, resources.end());
+	}
+
+	void rotateRight() {
+		std::rotate(resources.rbegin(), resources.rbegin() + 1, resources.rend());
+	}
+
+	std::vector<ResourceType> resources;
+	
 	ResourceType one;
 	ResourceType two;
 	ResourceType three;
