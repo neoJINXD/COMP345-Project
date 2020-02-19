@@ -4,16 +4,32 @@
 
 ### Project for the COMP 345 course - Advanced Program Design with C++
 
-#### Once info about the project is released, this section will be updated
+#### Project consists of recreating the game of New Haven
+
+Game Rules and Project Descriptions are in the repo under the `Documentation/` folder
 
 ---
 
-Team Members:
+## Team Members
 
-- Anik Patel
-- Joshua Parial Bolusan
-- Trung Hieu Doan
-- Duc Minh Bui
+|                      |
+| -------------------- |
+| Anik Patel           |
+| Joshu-Parial Bolusan |
+| Trung Hieu Doan      |
+| Duc Minh Bui         |
+
+---
+
+## Tools Used
+
+### Using a [Trello Board](https://trello.com/b/GOEwCy3g/game-project-comp-345 "Board") to keep track of everything
+
+### Using SFML as a GUI library
+
+### Everyone on the team is using a Windows 10 device therefore, we are using Visual Studio
+
+---
 
 ## How to get the project running
 
