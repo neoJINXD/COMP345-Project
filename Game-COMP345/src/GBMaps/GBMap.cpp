@@ -1,19 +1,10 @@
 #include "GBMap.h"
-//#include <iostream>
-//#include <map>
-//#include <iterator>
-//#include <vector>
-//#include <utility>
-//#include <map>
-
 
 //Node Implementations
 void GB::Node::insertAdj(Node node)
 {
 	this->adj_list->push_back(node);
 }
-
-
 
 void GB::Node::printAdjList()
 {
@@ -61,6 +52,7 @@ void GB::Graph::addVertex(int srcId)
 
 	std::cout << "That node already exists!" << std::endl;
 }
+
 void GB::Graph::addEdge(int src, int dest)
 {
 
@@ -161,10 +153,7 @@ void GB::GBMap::createFullBoard()
 GB::GBMap::~GBMap()
 {
 	delete graph;
-	if (graph != nullptr)
-	{
-		graph == nullptr;
-	}
+	graph = nullptr;
 }
 
 void GB::GBMapDriver::run()

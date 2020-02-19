@@ -27,10 +27,10 @@ void VG::Node::printAdjList()
 }
 
 //Graph Implmentations
-
 VG::Graph::~Graph()
 {
 	delete graph;
+	graph = nullptr;
 }
 
 void VG::Graph::addVertex(int srcId)
@@ -77,4 +77,10 @@ void VG::Graph::printGraph()
 //VGMap Implementations
 void VG::VGMap::printVillage() {
 	std::cout << "This is " << owner << " village!";
+}
+
+VG::VGMap::~VGMap() {
+	delete village;
+	village = nullptr;
+	
 }

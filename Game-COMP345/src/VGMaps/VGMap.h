@@ -70,7 +70,7 @@ namespace VG {
 		const std::string& owner;
 	public:
 		VGMap(const std::string& _owner) : owner(_owner) {}
-		
+		~VGMap();
 		void printVillage();
 
 	};

@@ -13,6 +13,11 @@ namespace GB {
 		FOUR
 	};
 
+	class DummyTile 
+	{
+		
+	};
+
 	class Node {
 	private:
 		//const std::string& name; //Replace with Tile object
@@ -33,7 +38,7 @@ namespace GB {
 		inline friend bool operator==(const Node& node1, const Node& node2) { return node1.nodeId == node2.nodeId; }
 		inline friend bool operator>(const Node& node1, const Node& node2) { return node1.nodeId > node2.nodeId;  }
 		*/
-		
+	
 	};
 
 	class Graph
