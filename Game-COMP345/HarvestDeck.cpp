@@ -4,8 +4,9 @@
 HarvestDeck::HarvestDeck()
 {
 
-	// creates a deck of harvest
+	// creates a shuffled deck of harvest
 	HarvestDeck::buildDeckOfHarvest();
+	
 }
 
 HarvestDeck::~HarvestDeck()
@@ -14,6 +15,8 @@ HarvestDeck::~HarvestDeck()
 
 }
 
+
+// Input data for the Harvest deck
 void HarvestDeck::buildDeckOfHarvest()
 {
 	// create a array of Harvest Tile
@@ -80,5 +83,15 @@ void HarvestDeck::buildDeckOfHarvest()
 	deckOfHarvestTile.push_back(Tile(Wheat, Stone, Wheat, Sheep)); // Tile 59
 	deckOfHarvestTile.push_back(Tile(Timber, Stone, Stone, Timber)); // TIle 60
 
+	// Shuffle the deck
+	HarvestDeck::shuffle(deckOfHarvestTile);
+}
 
+// Shuffle the deck
+
+void HarvestDeck::shuffle(std::vector<Tile> harvestDeck)
+{	
+	// using built-in random generator to shuffle the harvestDeck
+	std::random_shuffle(harvestDeck.begin(), harvestDeck.end());
+	std::random_shuffle(harvestDeck.begin(), harvestDeck.end(), harvestDeck);
 }

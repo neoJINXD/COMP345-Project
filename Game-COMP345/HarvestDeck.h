@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include "ResourceType.h"
+#include <cstdlib>
 
 
 // declaring struct for each tile
@@ -39,7 +40,7 @@ public:
 	HarvestDeck();
 	~HarvestDeck();
 	void buildDeckOfHarvest();
-
+	void shuffle(std::vector<Tile> harvestDeck);
 
 private:
 
