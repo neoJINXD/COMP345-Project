@@ -1,6 +1,9 @@
+
 #include <SFML/Graphics.hpp>
 #include<iostream>
 #include "../HarvestDeck.h"
+
+
 int main()
 {
 	/*sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
@@ -21,13 +24,10 @@ int main()
 		window.display();
 	}*/
 
-	HarvestDeck deck = HarvestDeck();
-	
-	std::cout << deck.deckOfHarvestTile->at(0).resources.at(1);
-	deck.shuffle();
-	std::cout << deck.deckOfHarvestTile->at(0).resources.at(1);
-	deck.shuffle();
+	deck::HarvestDriver test;
+	test.run();
 
-	int x;
+	system("pause");
+	
 	return 0;
 }

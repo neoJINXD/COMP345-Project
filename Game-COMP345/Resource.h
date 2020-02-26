@@ -1,5 +1,5 @@
 #pragma once
-enum ResourceType {
+enum Resource {
 	Wheat,
 	Sheep,
 	Timber,
