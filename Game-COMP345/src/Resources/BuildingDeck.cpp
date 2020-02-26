@@ -4,6 +4,9 @@
 #include <ctime>
 #include <random>
 
+#include <iostream>
+
+
 deck::BuildingDeck::~BuildingDeck()
 {
 	delete deck;

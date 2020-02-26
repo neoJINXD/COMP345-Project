@@ -1,26 +1,49 @@
-#include "HarvestDeck.h"
-#include <iostream>
-#include <ctime>
+#include "Resources.h"
 
-void deck::Tile::rotateLeft() {
+
+#include <ctime>
+#include <random>
+
+
+
+//Random Generator with random seeding
+int IOP(int x)
+{
+	srand(time(nullptr));
+	return std::rand() % x;
+}
+
+//////////////////////////////// HarvestTile deck
+
+deck::Tile::~Tile() 
+{
+	//TODO
+}
+
+void deck::Tile::rotateLeft() 
+{
 	std::rotate(resources->begin(), resources->begin() + 1, resources->end());
 }
 
-void deck::Tile::rotateRight() {
+void deck::Tile::rotateRight() 
+{
 	std::rotate(resources->rbegin(), resources->rbegin() + 1, resources->rend());
 }
 
-void deck::Tile::printInfo() {
+void deck::Tile::printInfo() 
+{
 	std::cout << "Card: " << resources->at(0) << resources->at(1) << resources->at(2) << resources->at(3) << std::endl;
 }
 
 
-deck::HarvestDeck::~HarvestDeck() {
-
+deck::HarvestDeck::~HarvestDeck() 
+{
+	//TODO
 }
 
 
 // Input data for the Harvest deck
+//TODO try to not have it hardcoded
 void deck::HarvestDeck::buildDeck()
 {
 
@@ -90,16 +113,13 @@ void deck::HarvestDeck::buildDeck()
 	shuffle();
 }
 
-int myrandom(int i) 
-{ 
-	srand(time(nullptr)); // sets the random seed
-	return std::rand() % i; 
-}
+
+
 // Shuffle the deck
 void deck::HarvestDeck::shuffle()
-{	
+{
 	// using built-in random generator to shuffle the harvestDeck
-	std::random_shuffle(deck->begin(), deck->end(), myrandom);
+	std::random_shuffle(deck->begin(), deck->end(), IOP);
 }
 
 deck::Tile deck::HarvestDeck::draw()
@@ -109,14 +129,16 @@ deck::Tile deck::HarvestDeck::draw()
 	return top;
 }
 
-void deck::HarvestDeck::printDeck() {
-	for (auto i : *deck) {
+void deck::HarvestDeck::printDeck() 
+{
+	for (auto i : *deck) 
+	{
 		i.printInfo();
 	}
 }
 
 
-void deck::HarvestDriver::run() 
+void deck::HarvestDriver::run()
 {
 	HarvestDeck test;
 	//test.printDeck();
@@ -125,3 +147,80 @@ void deck::HarvestDriver::run()
 	card.rotateLeft();
 	card.printInfo();
 }
+
+
+//////////////////////////////// Building deck
+
+deck::BuildingDeck::~BuildingDeck()
+{
+	delete deck;
+	deck = nullptr;
+}
+
+
+void deck::BuildingDeck::shuffle()
+{
+
+	std::random_shuffle(deck->begin(), deck->end(), IOP);
+}
+
+void deck::BuildingDeck::buildDeck()
+{
+
+	for (int res = Wheat; res <= Stone + 1 - 1; res++)
+	{
+		Resource resource = static_cast<Resource>(res);
+		for (int cost = 1; cost <= 6; cost++)
+		{
+			for (int i = 0; i < 6; i++)
+			{
+				Building building{ new int(cost), new Resource(resource) };
+				deck->push_back(building);
+			}
+
+		}
+
+	}
+
+	this->shuffle();
+
+}
+
+//Someone fix this later
+deck::Building deck::BuildingDeck::draw()
+{
+	Building top = deck->back();
+	deck->pop_back();
+
+	return top;
+}
+
+void deck::Building::printInfo()
+{
+	std::cout << "Cost: " << *cost << "\tResource: " << *resource << std::endl;
+}
+
+void deck::BuildingDeck::printDeck()
+{
+	int* count = new int(0);
+	for (auto b : *deck)
+	{
+		b.printInfo();
+		(*count)++;
+	}
+
+	std::cout << "Building counter: " << *count << std::endl;
+
+	draw().printInfo();
+	draw().printInfo();
+
+}
+
+void deck::BuildingDriver::run()
+{
+	BuildingDeck deck;
+
+	deck.printDeck();
+
+}
+
