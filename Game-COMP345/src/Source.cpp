@@ -1,8 +1,8 @@
 
 #include <SFML/Graphics.hpp>
 #include<iostream>
-#include "../HarvestDeck.h"
-#include "../BuildingDeck.h"
+#include "Resources/HarvestDeck.h"
+#include "Resources/BuildingDeck.h"
 
 int main()
 {
