@@ -37,12 +37,13 @@ struct Tile
 class HarvestDeck
 {
 public:
-	HarvestDeck();
+	HarvestDeck()= default;
 	~HarvestDeck();
 	void buildDeckOfHarvest();
 	void shuffle();
 	void printFirst();
 
-	std::vector<Tile>* deckOfHarvestTile = new std::vector<Tile>();
+	
 private:
+	std::vector<Tile>* deckOfHarvestTile = new std::vector<Tile>();
 };
