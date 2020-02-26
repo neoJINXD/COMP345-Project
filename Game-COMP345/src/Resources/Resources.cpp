@@ -15,10 +15,7 @@ int IOP(int x)
 
 //////////////////////////////// HarvestTile deck
 
-deck::Tile::~Tile() 
-{
-	//TODO
-}
+
 
 void deck::Tile::rotateLeft() 
 {
@@ -38,7 +35,8 @@ void deck::Tile::printInfo()
 
 deck::HarvestDeck::~HarvestDeck() 
 {
-	//TODO
+	delete deck;
+	deck = nullptr;
 }
 
 

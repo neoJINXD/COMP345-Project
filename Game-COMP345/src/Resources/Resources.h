@@ -5,6 +5,7 @@
 #include <vector>
 #include <iostream>
 
+//TODO maybe have both decks extend from a base deck class
 
 enum Resource {
 	Wheat,
@@ -16,17 +17,15 @@ enum Resource {
 namespace deck 
 {
 	//////////////////////////////// HarvestTile deck
-	class Tile
+	struct Tile
 	{
-	private:
-		std::vector<Resource>* resources = new std::vector<Resource>();
 
-	public:
 		Tile(Resource _one, Resource _two, Resource _three, Resource _four)
 		{
 			*resources = { _one, _two,_three,_four };
 		}
-		~Tile();
+		//TODO deleting this?
+		std::vector<Resource>* resources = new std::vector<Resource>();
 
 		void rotateLeft();
 		void rotateRight();
@@ -47,7 +46,6 @@ namespace deck
 		~HarvestDeck();
 
 		Tile draw();
-
 		void printDeck();
 
 	};
@@ -63,6 +61,7 @@ namespace deck
 	//////////////////////////////// Building deck
 	struct Building 
 	{
+		//TODO need to delete these
 		int* cost;
 		Resource* resource;
 	public:
