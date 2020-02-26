@@ -12,7 +12,7 @@ deck::BuildingDeck::~BuildingDeck()
 //This function basically ruins your fucking gacha experience
 int gaben(int x)
 {
-	srand(time(NULL)); 
+	srand(time(nullptr)); 
 	return std::rand() % x;
 }
 
