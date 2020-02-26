@@ -1,29 +1,42 @@
-//#include "ResourceType.h"
-//
-//
-//// Building Tile
-//
-//struct Tile
-//{
-//	Tile(ResourceType r, int n)
-//	{
-//		rType = r;
-//		num = n;
-//	}
-//	ResourceType rType;
-//	int num;
-//};
-//
-//// Building deck class
-//
-//class buildingDeck
-//{
-//public:
-//	buildingDeck();
-//	~buildingDeck();
-//	void buildDeckOfBuilding();
-//
-//private:
-//
-//};
-//
+
+#include "Resource.h"
+#include <vector>
+#include <algorithm>
+#include <iostream>
+
+// Building Tile
+
+
+// Building deck class
+
+namespace deck {
+
+	struct Building {
+		int* cost;
+		Resource* resource;
+	public:
+		void printInfo();
+	};
+
+	class BuildingDeck
+	{
+	private:
+		std::vector<Building>* deck;
+		void buildDeck();
+		void shuffle();
+
+	public:
+		BuildingDeck() : deck(new std::vector<Building>()) { buildDeck(); }
+		~BuildingDeck();
+		
+		Building draw();
+		void printDeck();
+	};
+
+	class BuildingDriver
+	{
+	public:
+		void run();
+	};
+}
+
