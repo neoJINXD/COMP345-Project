@@ -1,22 +1,4 @@
-<<<<<<< HEAD
-//#include "BuildingDeck.h"
-//
-//
-//
-//buildingDeck::buildingDeck()
-//{
-//}
-//
-//buildingDeck::~buildingDeck()
-//{
-//}
-//
-//
-//void buildingDeck::buildDeckOfBuilding()
-//{
-//
-//}
-=======
+
 #include "BuildingDeck.h"
 #include <cstdlib>
 #include <ctime>
@@ -46,12 +28,12 @@ void deck::BuildingDeck::buildDeck()
 	
 	for (int res = Wheat; res <= Stone + 1 - 1; res++)
 	{
-		ResourceType resource = static_cast<ResourceType>(res);
+		Resource resource = static_cast<Resource>(res);
 		for (int cost = 1; cost <= 6; cost++)
 		{
 			for (int i = 0; i < 6; i++)
 			{
-				Building building { new int(cost), new ResourceType(resource)};
+				Building building { new int(cost), new Resource(resource)};
 				deck->push_back(building);
 			}
 
@@ -103,4 +85,4 @@ void deck::BuildingDriver::run()
 	dickTesting9inches.printDeck();
 
 }
->>>>>>> 04d97acdaf9dadf25b1dec56d2341d5a2e07d4d9
+

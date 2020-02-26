@@ -21,15 +21,18 @@
     <ClCompile Include="BuildingDeck.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="HarvestDeck.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HarvestDeck.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceType.h">
+    <ClInclude Include="BuildingDeck.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="BuildingDeck.h">
+    <ClInclude Include="Resource.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
