@@ -24,7 +24,7 @@ namespace deck
 		{
 			*resources = { _one, _two,_three,_four };
 		}
-		//TODO deleting this?
+		//TODO deleting this? Hmmm? UmU <3
 		std::vector<Resource>* resources = new std::vector<Resource>();
 
 		void rotateLeft();
@@ -61,7 +61,7 @@ namespace deck
 	//////////////////////////////// Building deck
 	struct Building 
 	{
-		//TODO need to delete these
+		
 		int* cost;
 		Resource* resource;
 	public:

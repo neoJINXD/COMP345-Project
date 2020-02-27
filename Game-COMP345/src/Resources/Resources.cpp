@@ -47,7 +47,7 @@ deck::HarvestDeck::~HarvestDeck()
 void deck::HarvestDeck::buildDeck()
 {
 	//push each elements in the array
-	deck->push_back(deck::Tile(Wheat, Stone, Stone, Wheat));  // Tile 1
+	deck->push_back(deck::Tile(Wheat, Stone, Stone, Wheat));  // Tile 1 
 	deck->push_back(deck::Tile(Timber, Timber, Stone, Timber)); // Tile 2
 	deck->push_back(deck::Tile(Sheep, Sheep, Stone, Sheep)); // Tile 3
 	deck->push_back(deck::Tile(Wheat, Timber, Stone, Wheat)); // Tile 4
@@ -164,9 +164,9 @@ deck::BuildingDeck::~BuildingDeck()
 	for (auto tile : *deck)
 	{
 		delete tile.cost;
-		delete tile.resource;
-
 		tile.cost = nullptr;
+
+		delete tile.resource;
 		tile.resource = nullptr;
 
 	}
