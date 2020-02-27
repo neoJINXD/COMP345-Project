@@ -161,6 +161,17 @@ void deck::Building::printInfo()
 
 deck::BuildingDeck::~BuildingDeck()
 {
+	for (auto tile : *deck)
+	{
+		delete tile.cost;
+		delete tile.resource;
+
+		tile.cost = nullptr;
+		tile.resource = nullptr;
+
+	}
+	deck->clear();
+
 	delete deck;
 	deck = nullptr;
 }

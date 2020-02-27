@@ -15,7 +15,8 @@ void deck::Tile::printInfo() {
 }
 
 
-deck::HarvestDeck::~HarvestDeck() {
+deck::HarvestDeck::~HarvestDeck() 
+{
 
 }
 
