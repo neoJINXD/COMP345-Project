@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{411d7e14-6ed9-44fe-9900-d2988efd1551}</ProjectGuid>
     <RootNamespace>Game_COMP345</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
     <ProjectName>Game-COMP345</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -142,12 +142,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\GBMaps\GBMap.cpp" />
+    <ClCompile Include="src\Resources\Resources.cpp" />
     <ClCompile Include="src\Source.cpp" />
     <ClCompile Include="src\VGMaps\VGMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GBMaps\GBMap.h" />
     <ClInclude Include="src\VGMaps\VGMap.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Resources\Resources.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

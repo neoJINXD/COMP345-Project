@@ -1,37 +1,20 @@
-#include <SFML/Graphics.hpp>
+#include <iostream>
+
 #include "GBMaps/GBMap.h";
 #include "VGMaps/VGMap.h";
-//#include <map>
+#include "Resources/Resources.h"
+
 
 int main()
 {
-
-	//VG::VGMap vgTest;
-	//GB::GBMap gbTest;
-
 	GB::GBMapDriver test;
+	//test.run();
 
-	test.run();
-
-	/*sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Cyan);
-
-	while (window.isOpen())
-	{
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-		}
-
-		window.clear();
-		window.draw(shape);
-		window.display();
-	}*/
+	deck::HarvestDriver test1;
+	//test1.run();
+	deck::BuildingDriver test2;
+	//test2.run();
 
 	system("pause");
-
 	return 0;
 }
