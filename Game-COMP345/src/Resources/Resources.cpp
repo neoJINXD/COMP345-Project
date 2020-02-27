@@ -249,6 +249,9 @@ void deck::BuildingDriver::run()
 
 }
 
+//////////////////////////////// Hand
+
+
 deck::Hand::Hand(HarvestDeck* HDeck, BuildingDeck* BDeck)
 {
 	_HarvestDeck = HDeck;
@@ -311,8 +314,5 @@ void deck::HandDriver::run()
 	test.drawBuilding();
 	test.displayBuildings();
 
-	/*delete Hdeck;
-	Hdeck = nullptr;
-	delete Ddeck;
-	Ddeck = nullptr;*/
+
 }

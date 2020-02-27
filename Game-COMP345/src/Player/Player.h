@@ -36,6 +36,8 @@ namespace player {
 		//std::string getName() { return name; }
 		void createHand(deck::HarvestDeck* HDeck, deck::BuildingDeck* BDeck);
 
+		void printHand();
+
 		//part5
 		void PlaceHarvestTile();
 		void DrawBuilding();
