@@ -16,6 +16,9 @@
     <Filter Include="Source Files\Resources">
       <UniqueIdentifier>{3b663dbd-8491-4cd4-9a09-7875e04f76a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Player">
+      <UniqueIdentifier>{01a5c60e-7c67-4dee-b575-7cbfe156e23a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GBMaps\GBMap.cpp">
@@ -30,9 +33,15 @@
     <ClCompile Include="src\Resources\Resources.cpp">
       <Filter>Source Files\Resources</Filter>
     </ClCompile>
+    <ClCompile Include="src\Player\Player.cpp">
+      <Filter>Source Files\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Resources\Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Player\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
