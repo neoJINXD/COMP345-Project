@@ -6,6 +6,21 @@ void GB::Node::insertAdj(Node node)
 	this->adj_list->push_back(node);
 }
 
+void GB::Node::setTile(deck::Tile _tile)
+{
+	*tile = _tile;
+}
+
+deck::Tile GB::Node::getTile() const
+{
+	return *tile;
+}
+
+std::string GB::Node::getOwner() const
+{
+	return *owner;
+}
+
 void GB::Node::printAdjList()
 {
 	std::size_t sz = adj_list->size();
@@ -55,7 +70,6 @@ void GB::Graph::addVertex(int srcId)
 
 void GB::Graph::addEdge(int src, int dest)
 {
-
 	Node srcObj = graph->find(src)->second;
 	Node destObj = graph->find(dest)->second;
 
@@ -64,6 +78,23 @@ void GB::Graph::addEdge(int src, int dest)
 	destObj.insertAdj(srcObj);
 
 
+}
+
+GB::Node GB::Graph::getNode(int nodeId)
+{
+	return graph->find(nodeId)->second;
+}
+
+void GB::Graph::insertTile(int nodeId, deck::Tile* tile)
+{
+	deck::Tile* newTile = &graph->find(nodeId)->second.getTile();
+	if (newTile != nullptr)
+	{
+		std::cout << "A tile already exists at that location!\n";
+		return;
+	}
+
+	graph->find(nodeId)->second.setTile(*tile);
 }
 
 void GB::Graph::printGraph()
@@ -79,17 +110,12 @@ void GB::Graph::printGraph()
 
 //GBMap Implementations
 
-//GB::GBMap::GBMap() 
-//{
-//
-//}
-
 void GB::GBMap::createGrid(int rows, int cols)
 {
 	int totalVertexes = rows * cols;
 	
 	//Create vertexes
-	for (int vertex = 1; vertex <= totalVertexes; vertex++)
+	for (int vertex = 1; vertex <= totalVertexes; vertex++) 
 	{
 		graph->addVertex(vertex);
 	}
@@ -137,6 +163,16 @@ void GB::GBMap::buildBoard()
 	}
 }
 
+void GB::GBMap::setOwner(int loc, std::string player)
+{
+}
+
+std::string GB::GBMap::getOwner(int loc) const
+{
+
+	return graph->getNode(loc).getOwner();
+}
+
 void GB::GBMap::create5By7() {
 	createGrid(5, 7);
 }
@@ -156,12 +192,15 @@ GB::GBMap::~GBMap()
 	graph = nullptr;
 }
 
+
+
 void GB::GBMapDriver::run()
 {
 	//Graph* testGraph = new Graph();
 	GBMap* testMap = new GBMap();
 
 	testMap->buildBoard();
+	
 }
 
 

@@ -7,8 +7,10 @@
 
 int main()
 {
-	GB::GBMapDriver test;
+	GB::GBMapDriver testGb;
 	//test.run();
+	VG::VGMapDriver testVg;
+	testVg.run();
 
 	deck::HarvestDriver test1;
 	//test1.run();
