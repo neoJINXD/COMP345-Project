@@ -15,7 +15,7 @@ Game Rules and Project Descriptions are in the repo under the `Documentation/` f
 |                      |
 | -------------------- |
 | Anik Patel           |
-| Joshu-Parial Bolusan |
+| Joshua-Parial Bolusan |
 | Trung Hieu Doan      |
 | Duc Minh Bui         |
 
