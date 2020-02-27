@@ -1,20 +1,20 @@
 #pragma once
 #include "../VGMaps/VGMap.h"
+#include "../Resources/Resources.h"
 #include <string>
 
 namespace player {
 	class Player
 	{
 	private:
-		std::string name;
+		std::string* const name;
 
 		//Village Board
-		VG::VGMap* village;
+		const VG::VGMap* village;
 
 		//Harvest Tile "hand"
-
 		//Building Tile "hand"
-
+		deck::Hand* hands;
 
 		//Resource Counter Markers
 		//is temporary
@@ -27,12 +27,14 @@ namespace player {
 
 		//Scoring from village board state(part 6)
 
+		void initVB();
 
 	public:
-		Player(std::string _name);
+		Player(std::string* _name) : name(_name) { initVB(); }
 		~Player();
 
-		std::string getName() { return name; }
+		//std::string getName() { return name; }
+		void createHand(deck::HarvestDeck* HDeck, deck::BuildingDeck* BDeck);
 
 		//part5
 		void PlaceHarvestTile();

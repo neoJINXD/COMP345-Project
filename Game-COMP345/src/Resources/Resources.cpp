@@ -135,6 +135,7 @@ deck::Tile deck::HarvestDeck::draw()
 	// using the back of the vector as the "top" of the "pile"
 	Tile top = deck->back();
 	deck->pop_back();
+	this->shuffle();
 	return top;
 }
 
@@ -217,6 +218,7 @@ deck::Building deck::BuildingDeck::draw()
 {
 	Building top = deck->back();
 	deck->pop_back();
+	this->shuffle();
 	return top;
 }
 
@@ -247,3 +249,70 @@ void deck::BuildingDriver::run()
 
 }
 
+deck::Hand::Hand(HarvestDeck* HDeck, BuildingDeck* BDeck)
+{
+	_HarvestDeck = HDeck;
+	_BuildingDeck = BDeck;
+}
+
+deck::Hand::~Hand()
+{
+	//TODO delete the hands
+
+	delete _HarvestDeck;
+	_HarvestDeck = nullptr;
+	delete _BuildingDeck;
+	_BuildingDeck = nullptr;
+}
+
+void deck::Hand::drawTile()
+{
+	HarvestHand->push_back(_HarvestDeck->draw());
+}
+
+void deck::Hand::drawBuilding()
+{
+	BuildingHand->push_back(_BuildingDeck->draw());
+}
+
+
+void deck::Hand::displayTiles()
+{
+	std::cout << "Your Tiles are: " << std::endl;
+	for (auto i : *HarvestHand)
+	{
+		i.printInfo();
+	}
+}
+
+void deck::Hand::displayBuildings()
+{
+	std::cout << "Your Buildings are: " << std::endl;
+	for (auto i : *BuildingHand)
+	{
+		i.printInfo();
+	}
+}
+
+void deck::HandDriver::run()
+{
+	HarvestDeck* Hdeck = new HarvestDeck();
+	BuildingDeck* Ddeck = new BuildingDeck();
+
+
+	Hand test(Hdeck, Ddeck);
+
+	test.drawTile();
+	test.drawTile();
+	test.displayTiles();
+
+	test.drawBuilding();
+	test.drawBuilding();
+	test.drawBuilding();
+	test.displayBuildings();
+
+	/*delete Hdeck;
+	Hdeck = nullptr;
+	delete Ddeck;
+	Ddeck = nullptr;*/
+}

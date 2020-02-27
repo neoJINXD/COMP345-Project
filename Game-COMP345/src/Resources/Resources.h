@@ -86,5 +86,31 @@ namespace deck
 	public:
 		void run();
 	};
+
+	class Hand
+	{
+	private:
+		std::vector<Tile>* HarvestHand = new std::vector<Tile>();
+		std::vector<Building>* BuildingHand = new std::vector<Building>();
+
+		HarvestDeck* _HarvestDeck;
+		BuildingDeck* _BuildingDeck;
+	public:
+		Hand(HarvestDeck* HDeck, BuildingDeck* BDeck);
+		~Hand();
+
+		void drawTile();
+		void drawBuilding();
+
+		void exchange();
+		void displayTiles();
+		void displayBuildings();
+	};
+
+	class HandDriver
+	{
+	public:
+		void run();
+	};
 }
 
