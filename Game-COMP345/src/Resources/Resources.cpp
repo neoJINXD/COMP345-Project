@@ -37,6 +37,14 @@ void deck::Tile::printInfo()
 
 deck::HarvestDeck::~HarvestDeck() 
 {
+	for (auto tile : *deck)
+	{
+		tile.resources->clear();
+		delete tile.resources;
+		tile.resources = nullptr;
+	}
+	deck->clear();
+
 	delete deck;
 	deck = nullptr;
 }
