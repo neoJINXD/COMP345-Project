@@ -1,5 +1,6 @@
 #pragma once
 #include "../Resources/Resources.h"
+#include "../GBMaps/GBMap.h"
 #include <string>
 
 
@@ -9,7 +10,7 @@ namespace maploader
 	class MapLoader
 	{
 	public:
-		void loadMap(std::string path); // returns GBMap
+		GB::GBMap* loadMap(std::string path, int playerCount); // returns GBMap
 
 	};
 

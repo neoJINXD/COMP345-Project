@@ -4,17 +4,17 @@
 #include <fstream>
 #include <sstream>
 
-void maploader::MapLoader::loadMap(std::string path)
+GB::GBMap* maploader::MapLoader::loadMap(std::string path, int playerCount)
 {
 	std::vector<int> nullKeys;
-	std::unordered_map<int, deck::Tile> starterTiles;
+	std::unordered_map<int, deck::Tile*> starterTiles;
 
 	std::ifstream inFile(path);
 
 	if (!inFile)
 	{
 		std::cout << "Error: Failed to open file" << std::endl;
-		return;
+		return nullptr;
 	}
 
 	//char str[255];
@@ -80,7 +80,7 @@ void maploader::MapLoader::loadMap(std::string path)
 			if (i < TILESIZE)
 			{
 				std::cout << "Error: Invalid Tile format in file" << std::endl;
-				return;
+				return nullptr;
 			}
 			
 			for (i = 0; i < TILESIZE; i++)
@@ -88,7 +88,7 @@ void maploader::MapLoader::loadMap(std::string path)
 				numbers[i] = std::stoi(line[i]);
 			}
 			
-			starterTiles.insert({ numbers[0], deck::Tile(static_cast<Resource>(numbers[1]), static_cast<Resource>(numbers[2]), static_cast<Resource>(numbers[3]), static_cast<Resource>(numbers[4])) });
+			starterTiles.insert({ numbers[0], new deck::Tile(static_cast<Resource>(numbers[1]), static_cast<Resource>(numbers[2]), static_cast<Resource>(numbers[3]), static_cast<Resource>(numbers[4])) });
 		}
 		if (nulls)
 		{
@@ -99,13 +99,13 @@ void maploader::MapLoader::loadMap(std::string path)
 	if (tiles || nulls)
 	{
 		std::cout << "Error: Invalid Ending Flags in text file" << std::endl;
-		return;
+		return nullptr;
 	}
 
 	if (starterTiles.size() == 0)
 	{
 		std::cout << "Error: No Starting Tiles specified" << std::endl;
-		return;
+		return nullptr;
 	}
 
 	inFile.close();
@@ -113,19 +113,39 @@ void maploader::MapLoader::loadMap(std::string path)
 	//Create GB from file
 	std::cout << "Success" << std::endl;
 
+	GB::GBMap* newMap = new GB::GBMap(playerCount);
+
+	if (newMap->buildABear())
+	{
+		if (nullKeys.size() > 0)
+			newMap->blockKeys(nullKeys);
+		for (auto it : starterTiles)
+		{
+			newMap->placeTile(it.first, it.second);
+			//std::cout << "key: " << it.first << std::endl;
+			//it.second->printInfo();
+		}
+
+	}
+
+	return newMap;
 }
 
 void maploader::MapLoaderDriver::run()
 {
 	maploader::MapLoader loader;
 	std::cout << "Loading 2 player default map" << std::endl;
-	loader.loadMap("./src/Maps/2player.txt");
+	GB::GBMap* two = loader.loadMap("./src/Maps/2player.txt", 2);
+	std::cout << "Default tile at 1 is: " << std::endl;
+	two->peekTile(1)->printInfo();
 	//std::cout << std::endl;
 	//std::cout << "Loading 3 player default map" << std::endl;
-	//loader.loadMap("./src/Maps/3player.txt");
+	//loader.loadMap("./src/Maps/3player.txt", 3);
 	//std::cout << std::endl;
-	//std::cout << "Loading 4 player default map" << std::endl;
-	//loader.loadMap("./src/Maps/4player.txt");
+	std::cout << "Loading 4 player default map" << std::endl;
+	GB::GBMap* four = loader.loadMap("./src/Maps/4player.txt", 4);
+	std::cout << "Default tile at 9 is: " << std::endl;
+	four->peekTile(9)->printInfo();
 	//std::cout << "Loading" << std::endl;
 	//loader.loadMap("./src/Maps/InvalidTileFormat.txt");
 	std::cout << std::endl;
