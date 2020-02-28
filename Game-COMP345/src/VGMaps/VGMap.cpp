@@ -4,6 +4,10 @@
 class VG::Node;
 class VG::Graph;
 class VG::VGMap;
+deck::Building* VG::Node::getBuilding()
+{
+	return building;
+}
 //Node Implementations
 void VG::Node::insertAdj(Node node)
 {
@@ -79,9 +83,14 @@ void VG::Graph::printGraph()
 
 //VGMap Implementations
 
-void VG::VGMap::placeBuilding(int loc, deck::Building building)
+void VG::VGMap::placeBuilding(int loc, deck::Building *building)
 {
-	graph->getGraph().find(loc)->second.setBuilding(building);
+	graph->getGraph()->find(loc)->second.setBuilding(building);
+}
+
+deck::Building* VG::VGMap::peekBuilding(int loc)
+{
+	return graph->getGraph()->find(loc)->second.getBuilding();
 }
 
 void VG::VGMap::buildBoard(int rows, int cols)
@@ -114,7 +123,7 @@ void VG::VGMap::buildBoard(int rows, int cols)
 	//Set costs
 
 	int cost = 1;
-	for (auto pair : graph->getGraph())
+	for (auto pair : *graph->getGraph())
 	{
 
 		pair.second.setCost(cost);
@@ -142,10 +151,12 @@ VG::VGMap::~VGMap() {
 void VG::VGMapDriver::run()
 {
 	VGMap* test = new VGMap();
-	//deck::Building b1;
-	///*b1.cost = new int(12);
-	//b1.resource = new Resource();
+	
+	deck::Building* b1 = new deck::Building();
+	b1->cost = new int(6);
+	b1->resource = new Resource(Wheat);
 
-	//test->placeBuilding(1, b1);*/
+	test->placeBuilding(1,b1);
+	test->peekBuilding(1)->printInfo();
 
 }

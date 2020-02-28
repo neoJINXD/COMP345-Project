@@ -4,7 +4,6 @@
 #include "VGMaps/VGMap.h"
 #include "Resources/Resources.h"
 #include "Player/Player.h"
-
 #include "MapLoader/MapLoader.h"
 
 #include <sstream>
@@ -13,15 +12,15 @@ int main()
 {
 
 
-	//player::Player p1("dio");
-
-	//std::cout << p1.getName() << std::endl;
-
 
 	//GB::GBMapDriver test;
 	//test.run();
 	//deck::HarvestDriver test1;
 
+	//GB::GBMapDriver testGb;
+	//testGb.run();
+	//VG::VGMapDriver testVg;
+	//testVg.run();
 	//GB::GBMapDriver testGb;
 	//testGb.run();
 	//VG::VGMapDriver testVg;
@@ -73,7 +72,7 @@ int main()
 		std::cout << arr[i] << std::endl;
 	}*/
 
-	std::cout << "Ending Reading file" << std::endl;
+	//std::cout << "Ending Reading file" << std::endl;
 
 
 	system("pause");
