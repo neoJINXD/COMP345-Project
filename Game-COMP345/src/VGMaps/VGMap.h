@@ -2,6 +2,8 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <memory>
+#include "../Resources/Resources.h" 
 
 namespace VG {
 
@@ -10,16 +12,19 @@ namespace VG {
 		//const std::string& name; //Replace with Tile object
 		
 		//Member that is used to identify / locate the node only. Can convert it into a different type later, example string
-		int* nodeId;
-		int* spaceCost;
+		int* const nodeId;
+		int* const placementCost;
+		deck::Building* building;
+
+		//std::unique_ptr<int> nodeId;
 
 		std::vector<Node>* adj_list = new std::vector<Node>();
 	public:
-		Node(int _nodeId) : nodeId(new int(_nodeId)) {}
+		Node(int _nodeId) : nodeId(new int(_nodeId)), placementCost(new int(0)), building(nullptr) {}
 		int getId() { return *nodeId; }
-		void setCost(int value);
-		void getCost();
-
+		void setCost(int value) { *placementCost = value; }
+		int getCost() { return *placementCost; }
+		void setBuilding(deck::Building _building) { *building = _building; }
 
 		void insertAdj(Node node);
 
@@ -41,7 +46,7 @@ namespace VG {
 	public:
 
 		//Graph(int* _numberOfNodes) : numberOfNodes(_numberOfNodes), graph(new std::map<int, Node>()) {}
-		Graph();
+		Graph() = default;
 
 		//Cleanup memory
 		~Graph();
@@ -52,27 +57,38 @@ namespace VG {
 		//Create edge between two nodes
 		void addEdge(int src, int dest);
 
+		std::map<int, Node> getGraph() { return *graph; }
 
-		void getNode();
+		//void getNode();
 
-		void getEdges();
+		//void getEdges();
 
 
 		void printGraph(); //Traveser all vertexes and list adjacents
 
 	};
 
+	
 	class VGMap
 	{
 
 	private:
-		Graph* village;
-		const std::string& owner;
+		Graph* graph;
+		//std::string owner;
+		void buildBoard(int rows, int cols);
 	public:
-		VGMap(const std::string& _owner) : owner(_owner) {}
+		VGMap();
+		//VGMap(std::string _owner) : owner(_owner), graph(new Graph()) { buildBoard(6, 5); }
 		~VGMap();
-		void printVillage();
+		//void printVillage();
+		void placeBuilding(int loc, deck::Building building);
+		void peekBuilding(int loc);
+	};
 
+	class VGMapDriver 
+	{
+	public:
+		void run();
 	};
 }
 

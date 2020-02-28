@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\MapLoader\MapLoader.cpp" />
     <ClCompile Include="src\GBMaps\GBMap.cpp" />
     <ClCompile Include="src\Player\Player.cpp" />
     <ClCompile Include="src\Resources\Resources.cpp" />
@@ -148,12 +149,21 @@
     <ClCompile Include="src\VGMaps\VGMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\MapLoader\MapLoader.h" />
     <ClInclude Include="src\GBMaps\GBMap.h" />
     <ClInclude Include="src\Player\Player.h" />
     <ClInclude Include="src\VGMaps\VGMap.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Resources\Resources.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\Maps\4player.txt" />
+    <Text Include="src\Maps\3player.txt" />
+    <Text Include="src\Maps\2player.txt" />
+    <Text Include="src\Maps\InvalidTileFormat.txt" />
+    <Text Include="src\Maps\MissingEnd.txt" />
+    <Text Include="src\Maps\NoTiles.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
