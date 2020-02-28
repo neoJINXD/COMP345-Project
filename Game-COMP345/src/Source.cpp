@@ -5,15 +5,42 @@
 #include "Resources/Resources.h"
 
 
+#include "MapLoader/MapLoader.h"
+
+#include <sstream>
+
 int main()
 {
-	GB::GBMapDriver test;
+	//GB::GBMapDriver test;
 	//test.run();
-
-	deck::HarvestDriver test1;
+	//deck::HarvestDriver test1;
 	//test1.run();
-	deck::BuildingDriver test2;
+	//deck::BuildingDriver test2;
 	//test2.run();
+
+
+	std::cout << "Begin Reading file" << std::endl;
+	std::cout << std::endl;
+
+
+	maploader::MapLoaderDriver mapTest;
+	mapTest.run();
+
+
+	/*std::string line = "1 3 1 2 2";
+	const int size = 5;
+	std::string arr[size];
+	int i = 0;
+	std::stringstream ssin(line);
+	while (ssin.good() && i < size) {
+		ssin >> arr[i];
+		++i;
+	}
+	for (i = 0; i < 4; i++) {
+		std::cout << arr[i] << std::endl;
+	}*/
+
+	std::cout << "Ending Reading file" << std::endl;
 
 	system("pause");
 	return 0;

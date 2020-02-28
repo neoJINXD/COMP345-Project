@@ -16,6 +16,9 @@
     <Filter Include="Source Files\Resources">
       <UniqueIdentifier>{3b663dbd-8491-4cd4-9a09-7875e04f76a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\MapLoader">
+      <UniqueIdentifier>{b1484466-d6a8-4512-b56a-eaf3695aa03f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GBMaps\GBMap.cpp">
@@ -30,9 +33,15 @@
     <ClCompile Include="src\Resources\Resources.cpp">
       <Filter>Source Files\Resources</Filter>
     </ClCompile>
+    <ClCompile Include="src\MapLoader\MapLoader.cpp">
+      <Filter>Source Files\MapLoader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Resources\Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MapLoader\MapLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -43,5 +52,13 @@
     <ClInclude Include="src\VGMaps\VGMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\Maps\2player.txt" />
+    <Text Include="src\Maps\3player.txt" />
+    <Text Include="src\Maps\4player.txt" />
+    <Text Include="src\Maps\MissingEnd.txt" />
+    <Text Include="src\Maps\InvalidTileFormat.txt" />
+    <Text Include="src\Maps\NoTiles.txt" />
   </ItemGroup>
 </Project>
