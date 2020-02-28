@@ -19,14 +19,20 @@
     <Filter Include="Source Files\MapLoader">
       <UniqueIdentifier>{b1484466-d6a8-4512-b56a-eaf3695aa03f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Maps">
+      <UniqueIdentifier>{557e61ee-f79b-4d87-afa9-b8e8894cc6ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Player">
+      <UniqueIdentifier>{d97bb00f-37fb-4024-bb70-bcadc5bf1c58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GBMap">
+      <UniqueIdentifier>{814ff6c8-d74e-4b75-b5f4-1399d7c7f9a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\VBMap">
+      <UniqueIdentifier>{1dd10163-c5bb-4eef-9d40-a39df0d66c08}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\GBMaps\GBMap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\VGMaps\VGMap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -36,12 +42,24 @@
     <ClCompile Include="src\MapLoader\MapLoader.cpp">
       <Filter>Source Files\MapLoader</Filter>
     </ClCompile>
+    <ClCompile Include="src\Player\Player.cpp">
+      <Filter>Source Files\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GBMaps\GBMap.cpp">
+      <Filter>Source Files\GBMap</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VGMaps\VGMap.cpp">
+      <Filter>Source Files\VBMap</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Resources\Resources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\MapLoader\MapLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Player\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -54,11 +72,23 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="src\Maps\2player.txt" />
-    <Text Include="src\Maps\3player.txt" />
-    <Text Include="src\Maps\4player.txt" />
-    <Text Include="src\Maps\MissingEnd.txt" />
-    <Text Include="src\Maps\InvalidTileFormat.txt" />
-    <Text Include="src\Maps\NoTiles.txt" />
+    <Text Include="src\Maps\2player.txt">
+      <Filter>Resource Files\Maps</Filter>
+    </Text>
+    <Text Include="src\Maps\3player.txt">
+      <Filter>Resource Files\Maps</Filter>
+    </Text>
+    <Text Include="src\Maps\4player.txt">
+      <Filter>Resource Files\Maps</Filter>
+    </Text>
+    <Text Include="src\Maps\InvalidTileFormat.txt">
+      <Filter>Resource Files\Maps</Filter>
+    </Text>
+    <Text Include="src\Maps\MissingEnd.txt">
+      <Filter>Resource Files\Maps</Filter>
+    </Text>
+    <Text Include="src\Maps\NoTiles.txt">
+      <Filter>Resource Files\Maps</Filter>
+    </Text>
   </ItemGroup>
 </Project>
