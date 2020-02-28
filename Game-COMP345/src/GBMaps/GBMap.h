@@ -78,7 +78,7 @@ namespace GB
 	private:
 		const int* numberOfPlayers = new int(4);
 		Graph* graph = new Graph();
-		std::vector<int>* blockedKeys = nullptr;
+		std::vector<int>* blockedKeys = new std::vector<int>();
 
 		void createFullBoard();
 		void create5By7();

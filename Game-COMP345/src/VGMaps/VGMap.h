@@ -24,8 +24,8 @@ namespace VG {
 		int getId() { return *nodeId; }
 		void setCost(int value) { *placementCost = value; }
 		int getCost() { return *placementCost; }
-		void setBuilding(deck::Building _building) { *building = _building; }
-
+		void setBuilding(deck::Building* _building) { building = _building; }
+		deck::Building* getBuilding();
 		void insertAdj(Node node);
 
 		void printAdjList();
@@ -57,11 +57,12 @@ namespace VG {
 		//Create edge between two nodes
 		void addEdge(int src, int dest);
 
-		std::map<int, Node> getGraph() { return *graph; }
+		std::map<int, Node>* getGraph() { return graph; }
 
 		//void getNode();
 
 		//void getEdges();
+
 
 
 		void printGraph(); //Traveser all vertexes and list adjacents
@@ -81,8 +82,8 @@ namespace VG {
 		//VGMap(std::string _owner) : owner(_owner), graph(new Graph()) { buildBoard(6, 5); }
 		~VGMap();
 		//void printVillage();
-		void placeBuilding(int loc, deck::Building building);
-		void peekBuilding(int loc);
+		void placeBuilding(int loc, deck::Building* building);
+		deck::Building* peekBuilding(int loc);
 	};
 
 	class VGMapDriver 

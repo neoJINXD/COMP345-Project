@@ -1,6 +1,6 @@
 #include "GBMap.h"
 
-//Node Implementations
+//Node Implementations, might switch to have vector hold pointers to node
 void GB::Node::insertAdj(Node node)
 {
 	this->adj_list->push_back(node);
