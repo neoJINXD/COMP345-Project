@@ -316,3 +316,24 @@ void deck::HandDriver::run()
 
 
 }
+
+void deck::Hand::exchange() {
+	//have player select a Tile from list
+	displayTiles();
+
+	int location;
+	std::cout << "Select a location" << std::endl;
+	std::cin >> location;
+
+	int selection;
+	std::cout << "Select a tile" << std::endl;
+	std::cin >> selection;
+
+	Tile selected = HarvestHand->at(selection);
+	HarvestHand->erase(HarvestHand->begin() + selection);
+	displayTiles();
+
+	//place on board
+
+	
+}

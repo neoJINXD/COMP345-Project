@@ -54,5 +54,7 @@ void player::Player::DrawHarvestTile()
 
 void player::Player::PlaceHarvestTile()
 {
-	//take from hand, call its exchange with 
+	
+
+
 }
