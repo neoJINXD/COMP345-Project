@@ -111,22 +111,23 @@ void maploader::MapLoader::loadMap(std::string path)
 	inFile.close();
 
 	//Create GB from file
+	std::cout << "Success" << std::endl;
 
 }
 
 void maploader::MapLoaderDriver::run()
 {
 	maploader::MapLoader loader;
-	//std::cout << "Loading 2 player default map" << std::endl;
-	//loader.loadMap("./src/Maps/2player.txt");
+	std::cout << "Loading 2 player default map" << std::endl;
+	loader.loadMap("./src/Maps/2player.txt");
 	//std::cout << std::endl;
 	//std::cout << "Loading 3 player default map" << std::endl;
 	//loader.loadMap("./src/Maps/3player.txt");
 	//std::cout << std::endl;
 	//std::cout << "Loading 4 player default map" << std::endl;
 	//loader.loadMap("./src/Maps/4player.txt");
-	std::cout << "Loading" << std::endl;
-	loader.loadMap("./src/Maps/InvalidTileFormat.txt");
+	//std::cout << "Loading" << std::endl;
+	//loader.loadMap("./src/Maps/InvalidTileFormat.txt");
 	std::cout << std::endl;
 
 }

@@ -2,36 +2,34 @@
 #include <vector>
 #include <map>
 #include <string>
-#include <iostream>
+//#include <iostream>
+#include "../Resources/Resources.h"
 //#include <memory>
 
-namespace GB {
-	
-	enum PLAYERS {
-		TWO,
-		THREE,
-		FOUR
-	};
+namespace GB 
+{
 
-	class DummyTile 
+	class Node 
 	{
-		
-	};
-
-	class Node {
 	private:
 		//const std::string& name; //Replace with Tile object
 		int* nodeId;
-		std::vector<std::string> owners;
+		std::string* const owner; // Replace with player
+		deck::Tile* tile = nullptr;
 
 		std::vector<Node>* adj_list = new std::vector<Node>();
 	public:
-		Node(int _nodeId) : nodeId(new int(_nodeId)) {}
+		Node(int _nodeId) : nodeId(new int(_nodeId)), owner(new std::string("Free Real Estate")){}
+		//Node(int _nodeId, std::string _owner) : nodeId(new int(_nodeId)), owner() { }
 		int getId() { return *nodeId; }
 
 		void insertAdj(Node node);
-
+		void setTile(deck::Tile* _tile); // func(new Tile()) func(&tile)
+		deck::Tile* getTile() const;
+		void setOwner(std::string _owner) { *owner = _owner; }
+		std::string getOwner() const;
 		void printAdjList();
+
 		/*
 		inline bool operator<(const Node& node) { return this->nodeId < node.nodeId; }
 		inline friend bool operator<(const Node& node1, const Node& node2) { return node1.nodeId < node2.nodeId; }
@@ -46,9 +44,7 @@ namespace GB {
 	private:
 		//typedef Node square;
 		//int* numberOfNodes = new int(0);
-		const int* maxNodes;
-
-
+		//const int* maxNodes;
 		std::map<int, Node>  *graph = new std::map<int, Node>();
 
 		
@@ -66,12 +62,12 @@ namespace GB {
 		//Create edge between two nodes
 		void addEdge(int src, int dest);
 
+		Node* getNode(int nodeId);
 		
-		void getNode();
-		
-		void getEdges();
+		void getEdges(int nodeId);
 		
 
+		void insertTile(int nodeId, deck::Tile* tile);
 		void printGraph(); //Traveser all vertexes and list adjacents
 		
 	};
@@ -82,6 +78,7 @@ namespace GB {
 	private:
 		const int* numberOfPlayers = new int(4);
 		Graph* graph = new Graph();
+		std::vector<int>* blockedKeys = nullptr;
 
 		void createFullBoard();
 		void create5By7();
@@ -92,13 +89,16 @@ namespace GB {
 
 		GBMap() = default;
 		~GBMap();
-		explicit GBMap(const int* _players) : numberOfPlayers(_players), graph(new Graph()) {}
+		GBMap(const int _players) : numberOfPlayers(new int(_players)), graph(new Graph()) {}
 		//~GBMap(); // Delete all pointers
-		void buildBoard();
+		bool buildABear();
+		void blockKeys(std::vector<int> badKeys);
 
 		void setOwner(int loc, std::string player);
-		void getOwner(int loc);
-		//inline void print();
+		std::string getOwner(int loc) const;
+		void placeTile(int loc, deck::Tile* tile);
+		deck::Tile* peekTile(int loc);
+		void printBoard();
 
 	};
 
