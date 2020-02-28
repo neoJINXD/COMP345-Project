@@ -8,9 +8,9 @@ namespace player {
 	class Player
 	{
 	private:
-		GB::GBMap* board;
+		const GB::GBMap* board;
 
-		std::string* const name;
+		const std::string* name;
 
 		//Village Board
 		const VG::VGMap* village;

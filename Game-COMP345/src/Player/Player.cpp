@@ -6,14 +6,27 @@ void player::Player::initVB()
 {
 	//TODO await josh
 	std::cout << "Creating Village" << std::endl;
+
 }
 
 
 player::Player::~Player()
 {
+	delete board;
+	board = nullptr;
+
 	//delete name
+	delete name;
+	name = nullptr;
+
 	//delete village
+	delete village;
+	village = nullptr;
+
 	//delete hands
+	delete hands;
+	hands = nullptr;
+
 }
 
 void player::Player::createHand(deck::HarvestDeck* HDeck, deck::BuildingDeck* BDeck)
@@ -37,4 +50,9 @@ void player::Player::DrawBuilding()
 void player::Player::DrawHarvestTile() 
 {
 	hands->drawTile();
+}
+
+void player::Player::PlaceHarvestTile()
+{
+	//take from hand, call its exchange with 
 }
