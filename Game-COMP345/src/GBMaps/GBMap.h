@@ -9,7 +9,6 @@
 namespace GB 
 {
 
-
 	class Node 
 	{
 	private:
@@ -25,8 +24,8 @@ namespace GB
 		int getId() { return *nodeId; }
 
 		void insertAdj(Node node);
-		void setTile(deck::Tile _tile); // func(new Tile()) func(&tile)
-		deck::Tile getTile() const;
+		void setTile(deck::Tile* _tile); // func(new Tile()) func(&tile)
+		deck::Tile* getTile() const;
 		void setOwner(std::string _owner) { *owner = _owner; }
 		std::string getOwner() const;
 		void printAdjList();
@@ -63,7 +62,7 @@ namespace GB
 		//Create edge between two nodes
 		void addEdge(int src, int dest);
 
-		Node getNode(int nodeId);
+		Node* getNode(int nodeId);
 		
 		void getEdges(int nodeId);
 		
@@ -79,6 +78,7 @@ namespace GB
 	private:
 		const int* numberOfPlayers = new int(4);
 		Graph* graph = new Graph();
+		std::vector<int>* blockedKeys = nullptr;
 
 		void createFullBoard();
 		void create5By7();
@@ -89,14 +89,16 @@ namespace GB
 
 		GBMap() = default;
 		~GBMap();
-		explicit GBMap(const int* _players) : numberOfPlayers(_players), graph(new Graph()) {}
+		GBMap(const int _players) : numberOfPlayers(new int(_players)), graph(new Graph()) {}
 		//~GBMap(); // Delete all pointers
-		void buildBoard();
+		bool buildABear();
+		void blockKeys(std::vector<int> badKeys);
 
 		void setOwner(int loc, std::string player);
 		std::string getOwner(int loc) const;
-		void insertTile(int loc, deck::Tile tile);
-		//inline void print();
+		void placeTile(int loc, deck::Tile* tile);
+		deck::Tile* peekTile(int loc);
+		void printBoard();
 
 	};
 

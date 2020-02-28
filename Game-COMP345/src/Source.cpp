@@ -8,9 +8,9 @@
 int main()
 {
 	GB::GBMapDriver testGb;
-	//test.run();
+	testGb.run();
 	VG::VGMapDriver testVg;
-	testVg.run();
+	//testVg.run();
 
 	deck::HarvestDriver test1;
 	//test1.run();

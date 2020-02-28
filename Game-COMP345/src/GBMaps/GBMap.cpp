@@ -6,14 +6,14 @@ void GB::Node::insertAdj(Node node)
 	this->adj_list->push_back(node);
 }
 
-void GB::Node::setTile(deck::Tile _tile)
+void GB::Node::setTile(deck::Tile* _tile)
 {
-	*tile = _tile;
+	tile = _tile;
 }
 
-deck::Tile GB::Node::getTile() const
+deck::Tile* GB::Node::getTile() const
 {
-	return *tile;
+	return tile;
 }
 
 std::string GB::Node::getOwner() const
@@ -80,21 +80,16 @@ void GB::Graph::addEdge(int src, int dest)
 
 }
 
-GB::Node GB::Graph::getNode(int nodeId)
+GB::Node* GB::Graph::getNode(int nodeId)
 {
-	return graph->find(nodeId)->second;
+	return &graph->find(nodeId)->second;
 }
 
 void GB::Graph::insertTile(int nodeId, deck::Tile* tile)
 {
-	deck::Tile* newTile = &graph->find(nodeId)->second.getTile();
-	if (newTile != nullptr)
-	{
-		std::cout << "A tile already exists at that location!\n";
-		return;
-	}
 
-	graph->find(nodeId)->second.setTile(*tile);
+
+	graph->find(nodeId)->second.setTile(tile);
 }
 
 void GB::Graph::printGraph()
@@ -143,7 +138,7 @@ void GB::GBMap::createGrid(int rows, int cols)
 	graph->printGraph();
 }
 
-void GB::GBMap::buildBoard()
+bool GB::GBMap::buildABear()
 {
 	switch (*numberOfPlayers)
 	{
@@ -157,20 +152,48 @@ void GB::GBMap::buildBoard()
 		createFullBoard();
 		break;
 	default:
-		std::cout << "Invalid number of players!";
-		break;
+		std::cout << "Invalid number of players!" << std::endl;
+		return false;
 
 	}
+
+	return true; // uhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+}
+
+void GB::GBMap::blockKeys(std::vector<int> badKeys)
+{
+	blockedKeys = new std::vector<int>(badKeys); // UmU
 }
 
 void GB::GBMap::setOwner(int loc, std::string player)
 {
+	graph->getNode(loc)->setOwner(player);
 }
 
 std::string GB::GBMap::getOwner(int loc) const
 {
 
-	return graph->getNode(loc).getOwner();
+	return graph->getNode(loc)->getOwner();
+}
+
+void GB::GBMap::placeTile(int loc, deck::Tile* tile)
+{
+
+	
+
+	if (peekTile(loc) != nullptr || 
+		std::find(blockedKeys->begin(), blockedKeys->end(), loc) != blockedKeys->end())
+	{
+		std::cout << "It is not free estate!\n";
+		return;
+	}
+	graph->insertTile(loc, tile);
+}
+
+deck::Tile* GB::GBMap::peekTile(int loc)
+{
+
+	return graph->getNode(loc)->getTile();
 }
 
 void GB::GBMap::create5By7() {
@@ -199,7 +222,14 @@ void GB::GBMapDriver::run()
 	//Graph* testGraph = new Graph();
 	GBMap* testMap = new GBMap();
 
-	testMap->buildBoard();
+	if (testMap->buildABear()) 
+	{
+		testMap->blockKeys({1,2,3,4});
+		testMap->placeTile(5, new deck::Tile(Wheat, Wheat, Stone, Timber));
+		testMap->peekTile(5)->printInfo();
+		testMap->setOwner(1, "C-MS <3");
+		std::cout << "Owner UmU:\t" << testMap->getOwner(1) << std::endl;
+	}
 	
 }
 
