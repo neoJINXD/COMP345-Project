@@ -1,4 +1,5 @@
 #pragma once
+#include "../GBMaps/GBMap.h"
 #include "../VGMaps/VGMap.h"
 #include "../Resources/Resources.h"
 #include <string>
@@ -7,6 +8,8 @@ namespace player {
 	class Player
 	{
 	private:
+		GB::GBMap* board;
+
 		std::string* const name;
 
 		//Village Board
@@ -30,7 +33,7 @@ namespace player {
 		void initVB();
 
 	public:
-		Player(std::string* _name) : name(_name) { initVB(); }
+		Player(std::string* _name, GB::GBMap* _board) : name(_name), board(_board) { initVB(); }
 		~Player();
 
 		//std::string getName() { return name; }
