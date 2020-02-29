@@ -31,7 +31,14 @@ void deck::Tile::rotateRight()
 // Prints the Tile
 void deck::Tile::printInfo() 
 {
-	std::cout << "Card: " << resources->at(0) << resources->at(1) << resources->at(2) << resources->at(3) << std::endl;
+	if (this)
+	{
+		std::cout << "Card: " << resources->at(0) << resources->at(1) << resources->at(2) << resources->at(3) << std::endl;
+	}
+	else
+	{
+		std::cout << "Empty" << std::endl;
+	}
 }
 
 
@@ -281,20 +288,30 @@ void deck::Hand::drawBuilding()
 
 void deck::Hand::displayTiles()
 {
-	std::cout << "Your Tiles are: " << std::endl;
-	for (auto i : *HarvestHand)
+	if (HarvestHand->size() > 0)
 	{
-		i.printInfo();
+		std::cout << "Your Tiles are: " << std::endl;
+		for (auto i : *HarvestHand)
+		{
+			i.printInfo();
+		}
 	}
+	else
+		std::cout << "Empty Harvest Hand" << std::endl;
 }
 
 void deck::Hand::displayBuildings()
 {
-	std::cout << "Your Buildings are: " << std::endl;
-	for (auto i : *BuildingHand)
+	if (BuildingHand->size() > 0) 
 	{
-		i.printInfo();
+		std::cout << "Your Buildings are: " << std::endl;
+		for (auto i : *BuildingHand)
+		{
+			i.printInfo();
+		}
 	}
+	else
+		std::cout << "Empty Building Hand" << std::endl;
 }
 
 void deck::HandDriver::run()

@@ -8,12 +8,15 @@ namespace player {
 	class Player
 	{
 	private:
-		const GB::GBMap* board;
+		 GB::GBMap* board;
 
 		const std::string* name;
 
 		//Village Board
 		const VG::VGMap* village;
+
+		deck::HarvestDeck* Hdeck;
+		deck::BuildingDeck* Bdeck;
 
 		//Harvest Tile "hand"
 		//Building Tile "hand"
@@ -30,10 +33,10 @@ namespace player {
 
 		//Scoring from village board state(part 6)
 
-		void initVB();
+		void init();
 
 	public:
-		Player(std::string* _name, GB::GBMap* _board) : name(_name), board(_board) { initVB(); }
+		Player(std::string* _name, GB::GBMap* _board, deck::HarvestDeck* _Hdeck, deck::BuildingDeck* _Bdeck) : name(_name) { board = _board; Hdeck = _Hdeck; Bdeck = _Bdeck;  init(); }
 		~Player();
 
 		//std::string getName() { return name; }
@@ -53,6 +56,12 @@ namespace player {
 
 
 
+	};
+
+	class PlayerDriver
+	{
+	public:
+		void run();
 	};
 
 }
