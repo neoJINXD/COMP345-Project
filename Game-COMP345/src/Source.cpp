@@ -33,8 +33,8 @@ int main()
 	//test2.run();
 
 
-	//deck::HandDriver zahando;
-	//zahando.run();
+	deck::HandDriver zahando;
+	zahando.run();
 
 	//deck::HarvestDeck HDeck;
 	//deck::BuildingDeck BDeck;

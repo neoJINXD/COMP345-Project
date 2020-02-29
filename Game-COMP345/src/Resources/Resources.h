@@ -102,7 +102,7 @@ namespace deck
 		void drawTile();
 		void drawBuilding();
 
-		void exchange();
+		std::pair<int, deck::Tile> exchange();
 		void displayTiles();
 		void displayBuildings();
 	};

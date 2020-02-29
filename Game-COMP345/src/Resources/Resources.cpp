@@ -314,10 +314,13 @@ void deck::HandDriver::run()
 	test.drawBuilding();
 	test.displayBuildings();
 
+	std::pair<int, deck::Tile> picked = test.exchange();
+	std::cout << "You picked location "<< picked.first << " and Tile : " << std::endl;
+	picked.second.printInfo();
 
 }
 
-void deck::Hand::exchange() {
+std::pair<int, deck::Tile> deck::Hand::exchange() {
 	//have player select a Tile from list
 	displayTiles();
 
@@ -332,8 +335,9 @@ void deck::Hand::exchange() {
 	Tile selected = HarvestHand->at(selection);
 	HarvestHand->erase(HarvestHand->begin() + selection);
 	displayTiles();
-
-	//place on board
-
 	
+	std::pair<int, deck::Tile> result = {location, selected};
+
+
+	return result;	
 }
