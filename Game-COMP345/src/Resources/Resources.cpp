@@ -358,3 +358,10 @@ std::pair<int, deck::Tile> deck::Hand::exchange() {
 
 	return result;	
 }
+
+deck::Building deck::Hand::getBuilding(int location) 
+{
+	deck::Building selected = BuildingHand->at(location);
+	BuildingHand->erase(BuildingHand->begin() + location);
+	return selected;
+}

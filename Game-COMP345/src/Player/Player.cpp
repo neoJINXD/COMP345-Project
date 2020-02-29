@@ -6,7 +6,7 @@ void player::Player::init()
 	hands = new deck::Hand(Hdeck, Bdeck);
 	//TODO await josh
 	std::cout << "Creating Village" << std::endl;
-
+	village = new VG::VGMap();
 }
 
 
@@ -60,6 +60,24 @@ void player::Player::PlaceHarvestTile()
 	//calls resource tracker to call the couting of resources
 }
 
+void player::Player::BuildVillage()
+{
+	hands->displayBuildings();
+
+	int location;
+	std::cout << "Select a location" << std::endl;
+	std::cin >> location;
+
+	int selection;
+	std::cout << "Select a building" << std::endl;
+	std::cin >> selection;
+
+	deck::Building selected = hands->getBuilding(selection);
+	village->placeBuilding(location, &selected);
+	std::cout << "Placing at " << location << std::endl;
+	village->peekBuilding(location)->printInfo();
+}
+
 void player::PlayerDriver::run()
 {
 	GB::GBMap* map = new GB::GBMap(2);
@@ -78,6 +96,9 @@ void player::PlayerDriver::run()
 	jojo.DrawHarvestTile();
 	jojo.DrawHarvestTile();
 
-	jojo.PlaceHarvestTile();
+	std::cout << "Attempting to place Harvest Tile on Game Board" << std::endl;
+	//jojo.PlaceHarvestTile();
 	
+	std::cout << "Attempting to place Building on Village Board" << std::endl;
+	jojo.BuildVillage();
 }

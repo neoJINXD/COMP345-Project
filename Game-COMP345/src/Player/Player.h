@@ -13,7 +13,7 @@ namespace player {
 		const std::string* name;
 
 		//Village Board
-		const VG::VGMap* village;
+		VG::VGMap* village;
 
 		deck::HarvestDeck* Hdeck;
 		deck::BuildingDeck* Bdeck;

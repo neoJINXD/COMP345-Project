@@ -105,6 +105,8 @@ namespace deck
 		std::pair<int, deck::Tile> exchange();
 		void displayTiles();
 		void displayBuildings();
+
+		Building getBuilding(int location);
 	};
 
 	class HandDriver
