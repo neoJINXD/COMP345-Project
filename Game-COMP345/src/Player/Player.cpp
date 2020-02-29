@@ -57,6 +57,7 @@ void player::Player::PlaceHarvestTile()
 	std::cout << "Placing at " << placement.first << std::endl;
 	board->peekTile(placement.first)->printInfo();
 
+	//calls resource tracker to call the couting of resources
 }
 
 void player::PlayerDriver::run()
