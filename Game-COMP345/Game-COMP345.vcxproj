@@ -141,6 +141,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ResourceCounter\ResouceCounter.cpp" />
+    <ClCompile Include="src\Scoring\Scoring.cpp" />
     <ClCompile Include="src\MapLoader\MapLoader.cpp" />
     <ClCompile Include="src\GBMaps\GBMap.cpp" />
     <ClCompile Include="src\Player\Player.cpp" />
@@ -149,6 +151,8 @@
     <ClCompile Include="src\VGMaps\VGMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\ResourceCounter\ResouceCounter.h" />
+    <ClInclude Include="src\Scoring\Scoring.h" />
     <ClInclude Include="src\MapLoader\MapLoader.h" />
     <ClInclude Include="src\GBMaps\GBMap.h" />
     <ClInclude Include="src\Player\Player.h" />

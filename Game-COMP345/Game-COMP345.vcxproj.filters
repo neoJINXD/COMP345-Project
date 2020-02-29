@@ -31,6 +31,12 @@
     <Filter Include="Source Files\VBMap">
       <UniqueIdentifier>{1dd10163-c5bb-4eef-9d40-a39df0d66c08}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ResourceCounter">
+      <UniqueIdentifier>{38616d90-a8a7-4f6d-9281-99397b679e7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scoring">
+      <UniqueIdentifier>{07df2a12-d7e0-40b3-8cb8-762b3f2ecfac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Source.cpp">
@@ -51,6 +57,12 @@
     <ClCompile Include="src\VGMaps\VGMap.cpp">
       <Filter>Source Files\VBMap</Filter>
     </ClCompile>
+    <ClCompile Include="src\ResourceCounter\ResouceCounter.cpp">
+      <Filter>Source Files\ResourceCounter</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scoring\Scoring.cpp">
+      <Filter>Source Files\Scoring</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Resources\Resources.h">
@@ -60,6 +72,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Player\Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scoring\Scoring.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ResourceCounter\ResouceCounter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
