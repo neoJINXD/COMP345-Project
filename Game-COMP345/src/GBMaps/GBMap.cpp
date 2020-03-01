@@ -1,4 +1,42 @@
 #include "GBMap.h"
+//#include <sstream>
+
+//Misc
+std::string EdgeToStr(EdgeLoc edge) {
+	switch (edge)
+	{
+	case EdgeLoc::Top:
+		return "Top";
+	case EdgeLoc::Bot:
+		return "Bot";
+	case EdgeLoc::Right:
+		return "Right";
+	case EdgeLoc::Left:
+		return "Left";
+	default:
+		return "NULL";
+		break;
+	}
+}
+
+//Node Implementaitonss
+void GB::Node::insertAdj(EdgeLoc edge, Node node)
+{
+	this->adjList->push_back({ edge, node });
+}
+
+int GB::Node::getAdj(EdgeLoc edge)
+{
+	for (auto pair : *adjList)
+	{
+		if (pair.first == edge)
+		{
+			return *pair.second.nodeId;
+		}
+	}
+
+	return -1; //node with that edge does not exist
+}
 
 //Node Implementations, might switch to have vector hold pointers to node
 void GB::Node::insertAdj(Node node)
@@ -25,10 +63,24 @@ void GB::Node::printAdjList()
 {
 	std::size_t sz = adj_list->size();
 	int i = 0;
-	for (auto node : *adj_list)
+	/*for (auto node : *adj_list)
 	{
 		i++;
 		std::cout << node.getId();
+		if (i == sz)
+		{
+			std::cout << "\n";
+		}
+		else
+		{
+			std::cout << ", ";
+		}
+	}*/
+
+	for (auto v : *adjList)
+	{
+		i++;
+		std::cout << "(E:" << EdgeToStr(v.first) << " | V:" << v.second.getId() << ")";
 		if (i == sz)
 		{
 			std::cout << "\n";
@@ -66,6 +118,17 @@ void GB::Graph::addVertex(int srcId)
 	}
 
 	std::cout << "That node already exists!" << std::endl;
+}
+
+//
+void GB::Graph::addEdge(int src, int dest, EdgeLoc edgeToDest, EdgeLoc edgeToSrc)
+{
+	Node srcNode = graph->find(src)->second;
+	Node destNode = graph->find(dest)->second;
+
+	//Undirected Graph
+	srcNode.insertAdj(edgeToDest, destNode);
+	destNode.insertAdj(edgeToSrc, srcNode);
 }
 
 void GB::Graph::addEdge(int src, int dest)
@@ -109,7 +172,7 @@ void GB::GBMap::createGrid(int rows, int cols)
 {
 	int totalVertexes = rows * cols;
 	
-	//Create vertexes
+	//Create vertexes, initialize the nodeIds / locations
 	for (int vertex = 1; vertex <= totalVertexes; vertex++) 
 	{
 		graph->addVertex(vertex);
@@ -123,12 +186,14 @@ void GB::GBMap::createGrid(int rows, int cols)
 		if ((vertex % cols) != 0)
 		{
 			graph->addEdge(vertex, vertex + 1);
+			graph->addEdge(vertex, vertex + 1, EdgeLoc::Right, EdgeLoc::Left);
 		}
 
 		//Link path to the node below current node
 		if (vertex + cols <= totalVertexes)
 		{
 			graph->addEdge(vertex, vertex + cols);
+			graph->addEdge(vertex, vertex + cols, EdgeLoc::Bot, EdgeLoc::Top);
 		}
 	}
 
@@ -179,8 +244,6 @@ std::string GB::GBMap::getOwner(int loc) const
 void GB::GBMap::placeTile(int loc, deck::Tile* tile)
 {
 
-	
-
 	if (peekTile(loc) != nullptr || 
 		std::find(blockedKeys->begin(), blockedKeys->end(), loc) != blockedKeys->end())
 	{
@@ -188,12 +251,23 @@ void GB::GBMap::placeTile(int loc, deck::Tile* tile)
 		return;
 	}
 	graph->insertTile(loc, tile);
+	*recentTile = loc; 
 }
 
 deck::Tile* GB::GBMap::peekTile(int loc)
 {
 
 	return graph->getNode(loc)->getTile();
+}
+
+deck::Tile* GB::GBMap::getAdjTile(int loc, EdgeLoc adjDir)
+{
+	int adjNodeId = graph->getNode(loc)->getAdj(adjDir);
+	if (adjNodeId == -1)
+	{
+		return nullptr;
+	}
+	return peekTile(adjNodeId);
 }
 
 void GB::GBMap::create5By7() {
@@ -224,11 +298,17 @@ void GB::GBMapDriver::run()
 
 	if (testMap->buildABear()) 
 	{
-		testMap->blockKeys({1,2,3,4});
-		testMap->placeTile(5, new deck::Tile(Wheat, Wheat, Stone, Timber));
-		testMap->peekTile(5)->printInfo();
+		//testMap->blockKeys({1,2,3,4});
+		testMap->placeTile(8, new deck::Tile(Wheat, Wheat, Stone, Timber));
+		testMap->placeTile(4, new deck::Tile(Stone, Wheat, Stone, Timber));
+		testMap->placeTile(3, new deck::Tile(Wheat, Sheep, Stone, Timber));
+		testMap->placeTile(2, new deck::Tile(Wheat, Timber, Stone, Timber));
+		testMap->placeTile(1, new deck::Tile(Sheep, Wheat, Stone, Timber));
+		testMap->getAdjTile(1, EdgeLoc::Bot)->printInfo();
+		/*testMap->peekTile(5)->printInfo();
 		testMap->setOwner(1, "C-MS <3");
-		std::cout << "Owner UmU:\t" << testMap->getOwner(1) << std::endl;
+		std::cout << "Owner:\t" << testMap->getOwner(1) << std::endl;*/
+		
 	}
 	
 }

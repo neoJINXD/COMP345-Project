@@ -17,8 +17,8 @@ int main()
 	//test.run();
 	//deck::HarvestDriver test1;
 
-	//GB::GBMapDriver testGb;
-	//testGb.run();
+	GB::GBMapDriver testGb;
+	testGb.run();
 	//VG::VGMapDriver testVg;
 	//testVg.run();
 	//GB::GBMapDriver testGb;
@@ -39,8 +39,8 @@ int main()
 	//deck::HarvestDeck HDeck;
 	//deck::BuildingDeck BDeck;
 
-	player::PlayerDriver playerTest;
-	playerTest.run();
+	//player::PlayerDriver playerTest;
+	//playerTest.run();
 
 	//std::string p1 = "jojo";
 	//player::Player jojo(&p1);

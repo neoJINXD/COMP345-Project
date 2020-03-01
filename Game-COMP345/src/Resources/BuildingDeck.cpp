@@ -74,7 +74,7 @@ void deck::BuildingDeck::printDeck()
 		(*count)++;
 	}
 
-	std::cout << "N-word counter: " << *count << std::endl;
+	std::cout << "Counter: " << *count << std::endl;
 
 	draw().printInfo();
 	draw().printInfo();
