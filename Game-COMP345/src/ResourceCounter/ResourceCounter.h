@@ -49,6 +49,7 @@ namespace counter
 		typedef std::pair<int, SubNode> SubTile;
 		std::map<SubTile, ResourceNode>* graph = new std::map<SubTile, ResourceNode>();
 		std::vector<int>* nodeIds = new std::vector<int>();
+		
 
 	public:
 
@@ -67,6 +68,7 @@ namespace counter
 		//Read resource at this vertex
 		ResourceNode getResource(SubTile nodeLoc);
 		ResourceNode* getAdj(SubTile nodeLoc, EdgeLoc edgeDir);
+		void dfs(SubTile root, std::map<SubTile, bool> visited, Resource target, int* count);
 
 		void buildGraph();
 		void printGraph(); //Travese all vertexes and list adjacents
@@ -95,15 +97,17 @@ namespace counter
 		
 		void connectAdjTiles(int recentId, int adjId, EdgeLoc dir);
 		
-
+		//A little thicc on space, need to optimize later
 	public:
-		ResourceCounter() : counter(new ResourceScores()), harvestGraph(new SubGraph()) {}
+		ResourceCounter();
 		
 		void display() { harvestGraph->printGraph(); }
-		void mapToGraph(GB::Node recentNode);
-		void buildSubGraph();
-		void calcResourceCount(deck::Tile recentTile);
-
+		void harvestCount(GB::Node recentNode); //Keeps state of graph
+		//void buildSubGraph();
+		//void calcResourceCount(deck::Tile recentTile);
+		//void countResources(int tileId);
+		//void dfs(std::pair<int, SubNode> root, std::map<std::pair<int, SubNode>, bool> visited);
+		void displayScores();
 	};
 
 

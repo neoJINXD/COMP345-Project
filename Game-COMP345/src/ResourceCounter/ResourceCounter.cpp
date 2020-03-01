@@ -96,6 +96,34 @@ void counter::ResourceNode::displayLoc()
 	std::cout << std::endl;
 }
 
+void counter::SubGraph::dfs(SubTile root, std::map<SubTile, bool> visited, Resource target, int* count)
+{
+	
+	if (visited[root])
+	{
+		return;
+	}
+	visited[root] = true;
+
+	
+	ResourceNode currV = graph->find(root)->second;
+	std::cout << "traversing.. Count:" << *count <<"\n";
+	auto vAdjList = currV.getAdjResources();
+	//std::cout << currV.getNodeId().first << ", " << snToStr(currV.getNodeId().second);
+	for (auto i : vAdjList)
+	{
+		if (i.second.getResource() != target)
+			continue;
+		else if (!visited[i.second.getNodeId()])
+		{
+			*count += 1;
+			dfs(i.second.getNodeId(), visited, target, count);
+		}
+	}
+	
+
+}
+
 counter::SubGraph::~SubGraph()
 {
 }
@@ -172,20 +200,30 @@ void counter::ResourceCounterDriver::run()
 	{
 		//testMap->blockKeys({1,2,3,4});
 		testMap->placeTile(1, new deck::Tile(Wheat, Wheat, Stone, Timber));
-		testCnt.mapToGraph(testMap->getRecentNode());
+		testCnt.harvestCount(testMap->getRecentNode());
+		//testCnt.display();
 		testMap->placeTile(2, new deck::Tile(Stone, Timber, Timber, Wheat));
-		testCnt.mapToGraph(testMap->getRecentNode());
+		testCnt.harvestCount(testMap->getRecentNode());
 		testMap->placeTile(4, new deck::Tile(Stone, Timber, Timber, Wheat));
-		testCnt.mapToGraph(testMap->getRecentNode());
+		testCnt.harvestCount(testMap->getRecentNode());
 		testMap->placeTile(3, new deck::Tile(Stone, Timber, Timber, Wheat));
-		testCnt.mapToGraph(testMap->getRecentNode());
+		testCnt.harvestCount(testMap->getRecentNode());
+		testCnt.displayScores();
 	}
 	
-	testCnt.display();
+	//testCnt.display();
 
 }
 
-
+counter::ResourceCounter::ResourceCounter() : 
+	counter(new ResourceScores()), harvestGraph(new SubGraph()) 
+{
+	const Resource rsrcTypes[] = { Wheat, Stone, Timber, Sheep };
+	for (auto rsrc : rsrcTypes)
+	{
+		counter->emplace(rsrc, 0);
+	}
+}
 //Return nodeId of the adj tile if it exists
 void counter::ResourceCounter::connectAdjTiles(int recentId, int adjId, EdgeLoc dir)
 {
@@ -228,7 +266,7 @@ void counter::ResourceCounter::connectAdjTiles(int recentId, int adjId, EdgeLoc 
 
 }
 
-void counter::ResourceCounter::mapToGraph(GB::Node recentNode) 
+void counter::ResourceCounter::harvestCount(GB::Node recentNode) 
 {
 	int tileId = recentNode.getId();
 	std::vector<Resource> curResources = *recentNode.getTile()->resources;
@@ -271,6 +309,29 @@ void counter::ResourceCounter::mapToGraph(GB::Node recentNode)
 
 	}
 
+	std::map<std::pair<int, counter::SubNode>, bool> visited;
+
+	for (auto key : *harvestGraph->getGraph())
+	{
+		visited.insert({key.first, false});
+	}
+
+	for (auto subLoc : subLocations)
+	{
+		int count = 0;
+		ResourceNode root = harvestGraph->getResource({ tileId, subLoc });
+		harvestGraph->dfs(root.getNodeId(), visited, root.getResource(), &count);
+		counter->emplace(root.getResource(), count);
+		//counter[root.getResource()] += count;
+	}
 
 }
 
+
+void counter::ResourceCounter::displayScores()
+{
+	for (auto k : *counter)
+	{
+		std::cout << "Res: " << k.first << "\tCount: " << k.second << std::endl;
+	}
+}
