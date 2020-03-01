@@ -92,6 +92,35 @@ void GB::Node::printAdjList()
 	}
 }
 
+bool GB::Node::isAdj(Node adjNode)
+{
+	for (auto pair : *adjList)
+	{
+		if (pair.second.getId() == adjNode.getId())
+		{ 
+			return true;
+		}
+	}
+
+	return false;
+}
+
+EdgeLoc* GB::Node::getEdge(Node adjNode)
+{
+	if (isAdj(adjNode))
+	{
+		for (auto i : *adjList)
+		{
+			if (i.second.getId() == adjNode.getId())
+			{
+				return &i.first;
+			}
+		}
+	}
+
+	return nullptr;
+}
+
 //Graph Implmentations
 
 GB::Graph::~Graph()

@@ -5,6 +5,7 @@
 #include "Resources/Resources.h"
 #include "Player/Player.h"
 #include "MapLoader/MapLoader.h"
+#include "ResourceCounter/ResourceCounter.h"
 
 #include <sstream>
 
@@ -16,9 +17,13 @@ int main()
 	//GB::GBMapDriver test;
 	//test.run();
 	//deck::HarvestDriver test1;
+	counter::ResourceCounterDriver testRC;
+	testRC.run();
 
-	GB::GBMapDriver testGb;
-	testGb.run();
+	//GB::GBMapDriver testGb;
+	//testGb.run();
+
+	
 	//VG::VGMapDriver testVg;
 	//testVg.run();
 	//GB::GBMapDriver testGb;

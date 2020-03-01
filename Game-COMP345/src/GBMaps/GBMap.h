@@ -44,7 +44,9 @@ namespace GB
 		void setOwner(std::string _owner) { *owner = _owner; }
 		std::string getOwner() const;
 		void printAdjList();
-	
+		bool isAdj(Node adjNode);
+		EdgeLoc* getEdge(Node adjNode); // get position of adj node
+		std::vector<Vertex>* getAdjList() { return adjList; }
 	};
 
 	//Unnecessary, can implement graph directly inside of GBMap
@@ -102,6 +104,7 @@ namespace GB
 		void blockKeys(std::vector<int> badKeys);
 
 		//Returns most-recent tile. Used for game scoring
+		Node getRecentNode() { return *graph->getNode(*recentTile); }
 		int recentTileById() { return *recentTile; };
 		deck::Tile* getRecentTile() { return peekTile(*recentTile); }
 
