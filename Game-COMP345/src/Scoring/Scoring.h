@@ -3,19 +3,12 @@
 #include <algorithm>
 #include <vector>
 
-namespace scoring
+namespace counter
 {
-	class Scoring
+	class ScoringCounter
 	{
-	private:
-
-
-
-
 	public:
-
-
-
+		int countScore(VG::VGMap* village);
 	};
 
 

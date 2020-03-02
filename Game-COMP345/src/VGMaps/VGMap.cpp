@@ -158,5 +158,10 @@ void VG::VGMapDriver::run()
 
 	test->placeBuilding(1,b1);
 	test->peekBuilding(1)->printInfo();
+	if (test->peekBuilding(2))
+		std::cout << "yes" << std::endl;
+	else
+		std::cout << "is null" << std::endl;
+
 
 }
