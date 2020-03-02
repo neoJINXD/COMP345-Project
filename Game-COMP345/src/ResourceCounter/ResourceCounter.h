@@ -86,8 +86,9 @@ namespace counter
 	{
 	private:
 		typedef std::map<Resource, int> ResourceScores;
-		ResourceScores* const counter;
-
+		ResourceScores* counter;
+		int resourceCounter[4] = {0, 0, 0, 0};
+		//int harvestCount[] = new int[4];
 		//Holds the state of the gameboard
 		SubGraph* harvestGraph;
 		std::vector<int>* placedTiles = new std::vector<int>();

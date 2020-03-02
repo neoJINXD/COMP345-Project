@@ -96,28 +96,31 @@ void counter::ResourceNode::displayLoc()
 	std::cout << std::endl;
 }
 
-void counter::SubGraph::dfs(SubTile root, std::map<SubTile, bool> visited, Resource target, int* count)
+void counter::SubGraph::dfs(SubTile root, std::map<SubTile, bool> visited, Resource target, int *count)
 {
-	
+	//auto visit = visited;
+	//std::cout << "Visited?: " << visited[root] << std::endl;
 	if (visited[root])
 	{
 		return;
 	}
+
 	visited[root] = true;
 
 	
 	ResourceNode currV = graph->find(root)->second;
-	std::cout << "traversing.. Count:" << *count <<"\n";
+	//std::cout << "traversing.. Count:" << *count <<"\n";
 	auto vAdjList = currV.getAdjResources();
 	//std::cout << currV.getNodeId().first << ", " << snToStr(currV.getNodeId().second);
-	for (auto i : vAdjList)
+	for (auto i = vAdjList.begin(); i != vAdjList.end(); i++)
 	{
-		if (i.second.getResource() != target)
-			continue;
-		else if (!visited[i.second.getNodeId()])
+
+		if (!visited[i->second.getNodeId()] && i->second.getResource() == target)
 		{
-			*count += 1;
-			dfs(i.second.getNodeId(), visited, target, count);
+			
+			//(*count)++;
+			dfs(i->second.getNodeId(), visited, target, count);
+			(*count) += 1;
 		}
 	}
 	
@@ -126,6 +129,8 @@ void counter::SubGraph::dfs(SubTile root, std::map<SubTile, bool> visited, Resou
 
 counter::SubGraph::~SubGraph()
 {
+	delete graph;
+	graph = nullptr;
 }
 
 void counter::SubGraph::addVertex(SubTile nodeLoc, Resource resource)
@@ -199,16 +204,17 @@ void counter::ResourceCounterDriver::run()
 	if (testMap->buildABear())
 	{
 		//testMap->blockKeys({1,2,3,4});
-		testMap->placeTile(1, new deck::Tile(Wheat, Wheat, Stone, Timber));
+		testMap->placeTile(1, new deck::Tile(Wheat, Wheat, Wheat, Timber));
 		testCnt.harvestCount(testMap->getRecentNode());
 		//testCnt.display();
-		testMap->placeTile(2, new deck::Tile(Stone, Timber, Timber, Wheat));
-		testCnt.harvestCount(testMap->getRecentNode());
-		testMap->placeTile(4, new deck::Tile(Stone, Timber, Timber, Wheat));
-		testCnt.harvestCount(testMap->getRecentNode());
-		testMap->placeTile(3, new deck::Tile(Stone, Timber, Timber, Wheat));
+		testMap->placeTile(2, new deck::Tile(Stone, Wheat, Wheat, Wheat));
 		testCnt.harvestCount(testMap->getRecentNode());
 		testCnt.displayScores();
+		testMap->placeTile(4, new deck::Tile(Stone, Timber, Timber, Wheat));
+		testCnt.harvestCount(testMap->getRecentNode());
+		//testMap->placeTile(3, new deck::Tile(Stone, Wheat, Wheat, Wheat));
+		//testCnt.harvestCount(testMap->getRecentNode());
+		//testCnt.displayScores();
 	}
 	
 	//testCnt.display();
@@ -216,7 +222,7 @@ void counter::ResourceCounterDriver::run()
 }
 
 counter::ResourceCounter::ResourceCounter() : 
-	counter(new ResourceScores()), harvestGraph(new SubGraph()) 
+	counter(new ResourceScores()), harvestGraph(new SubGraph())
 {
 	const Resource rsrcTypes[] = { Wheat, Stone, Timber, Sheep };
 	for (auto rsrc : rsrcTypes)
@@ -310,23 +316,41 @@ void counter::ResourceCounter::harvestCount(GB::Node recentNode)
 	}
 
 	std::map<std::pair<int, counter::SubNode>, bool> visited;
+	int counter_res[] = {0, 0, 0, 0};
 
 	for (auto key : *harvestGraph->getGraph())
 	{
-		visited.insert({key.first, false});
+		visited.emplace(key.first, false);
 	}
-
+	
 	for (auto subLoc : subLocations)
 	{
 		int count = 0;
 		ResourceNode root = harvestGraph->getResource({ tileId, subLoc });
 		harvestGraph->dfs(root.getNodeId(), visited, root.getResource(), &count);
-		counter->emplace(root.getResource(), count);
+		//std::cout << count << std::endl;
+		//std::cout << score << std::endl;
+		//counter->insert(std::make_pair(root.getResource(), count));
+		//displayScores();
+		//std::cout << counter->at(root.getResource()) << std::endl;
 		//counter[root.getResource()] += count;
+		counter_res[root.getResource()] = count;
+		resourceCounter[root.getResource()] = count;
+		//std::cout << "Res: " << root.getResource() << "\t"<< counter_res[root.getResource()] << std::endl;
+	}
+	
+	int resIndex = 0;
+	for (int i : resourceCounter)
+	{
+		
+		std::cout << "ResourceID: " << resIndex << " Count: " << i << std::endl;
+		//counter->insert(std::pair<Resource, int>((Resource)resIndex, i));
+		resIndex++;
 	}
 
+	
+	displayScores();
 }
-
 
 void counter::ResourceCounter::displayScores()
 {
