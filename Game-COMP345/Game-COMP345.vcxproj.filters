@@ -57,11 +57,11 @@
     <ClCompile Include="src\VGMaps\VGMap.cpp">
       <Filter>Source Files\VBMap</Filter>
     </ClCompile>
-    <ClCompile Include="src\ResourceCounter\ResouceCounter.cpp">
-      <Filter>Source Files\ResourceCounter</Filter>
-    </ClCompile>
     <ClCompile Include="src\Scoring\Scoring.cpp">
       <Filter>Source Files\Scoring</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ResourceCounter\ResourceCounter.cpp">
+      <Filter>Source Files\ResourceCounter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -77,7 +77,7 @@
     <ClInclude Include="src\Scoring\Scoring.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ResourceCounter\ResouceCounter.h">
+    <ClInclude Include="src\ResourceCounter\ResourceCounter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

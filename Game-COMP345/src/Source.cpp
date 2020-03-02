@@ -5,6 +5,7 @@
 #include "Resources/Resources.h"
 #include "Player/Player.h"
 #include "MapLoader/MapLoader.h"
+#include "Scoring/Scoring.h"
 #include "ResourceCounter/ResourceCounter.h"
 
 #include <sstream>
@@ -12,7 +13,8 @@
 int main()
 {
 
-
+	//counter::ScoringDriver testScore;
+	//testScore.run();
 
 	//GB::GBMapDriver test;
 	//test.run();
@@ -23,7 +25,6 @@ int main()
 	//GB::GBMapDriver testGb;
 	//testGb.run();
 
-	
 	//VG::VGMapDriver testVg;
 	//testVg.run();
 	//GB::GBMapDriver testGb;

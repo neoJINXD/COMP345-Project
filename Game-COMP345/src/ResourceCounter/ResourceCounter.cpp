@@ -359,3 +359,37 @@ void counter::ResourceCounter::displayScores()
 		std::cout << "Res: " << k.first << "\tCount: " << k.second << std::endl;
 	}
 }
+
+void counter::ResourceCounterDriver::run()
+{
+	//SubGraph graph;
+	/*graph.addVertex({1,SubNode::TopRight}, Wheat);
+	graph.addVertex({2,SubNode::TopLeft}, Sheep);
+	graph.addVertex({ 4,SubNode::BotRight }, Sheep);
+	graph.addEdge({1,SubNode::TopRight }, { 2,SubNode::TopLeft }, EdgeLoc::Right, EdgeLoc::Left);
+	graph.addEdge({ 1,SubNode::TopRight }, { 4,SubNode::BotRight }, EdgeLoc::Top, EdgeLoc::Bot);
+	graph.getResource({1, SubNode::TopRight}).display();
+
+	graph.printGraph();*/
+
+	ResourceCounter testCnt;
+	GB::GBMap* testMap = new GB::GBMap();
+
+	if (testMap->buildABear())
+	{
+		//testMap->blockKeys({1,2,3,4});
+		testMap->placeTile(1, new deck::Tile(Wheat, Wheat, Stone, Timber));
+		testCnt.harvestCount(testMap->getRecentNode());
+		//testCnt.display();
+		/*testMap->placeTile(2, new deck::Tile(Stone, Timber, Timber, Wheat));
+		testCnt.harvestCount(testMap->getRecentNode());
+		testMap->placeTile(4, new deck::Tile(Stone, Timber, Timber, Wheat));
+		testCnt.harvestCount(testMap->getRecentNode());
+		testMap->placeTile(3, new deck::Tile(Stone, Timber, Timber, Wheat));
+		testCnt.harvestCount(testMap->getRecentNode());
+		testCnt.displayScores();*/
+	}
+	
+	//testCnt.display();
+
+}
