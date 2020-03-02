@@ -118,9 +118,9 @@ void counter::SubGraph::dfs(SubTile root, std::map<SubTile, bool> visited, Resou
 		if (!visited[i->second.getNodeId()] && i->second.getResource() == target)
 		{
 			
-			//(*count)++;
+			(*count)++;
 			dfs(i->second.getNodeId(), visited, target, count);
-			(*count) += 1;
+			//(*count) += 1;
 		}
 	}
 	
@@ -186,40 +186,7 @@ void counter::SubGraph::printGraph()
 	}
 }
 
-void counter::ResourceCounterDriver::run()
-{
-	//SubGraph graph;
-	/*graph.addVertex({1,SubNode::TopRight}, Wheat);
-	graph.addVertex({2,SubNode::TopLeft}, Sheep);
-	graph.addVertex({ 4,SubNode::BotRight }, Sheep);
-	graph.addEdge({1,SubNode::TopRight }, { 2,SubNode::TopLeft }, EdgeLoc::Right, EdgeLoc::Left);
-	graph.addEdge({ 1,SubNode::TopRight }, { 4,SubNode::BotRight }, EdgeLoc::Top, EdgeLoc::Bot);
-	graph.getResource({1, SubNode::TopRight}).display();
 
-	graph.printGraph();*/
-
-	ResourceCounter testCnt;
-	GB::GBMap* testMap = new GB::GBMap();
-
-	if (testMap->buildABear())
-	{
-		//testMap->blockKeys({1,2,3,4});
-		testMap->placeTile(1, new deck::Tile(Wheat, Wheat, Wheat, Timber));
-		testCnt.harvestCount(testMap->getRecentNode());
-		//testCnt.display();
-		testMap->placeTile(2, new deck::Tile(Stone, Wheat, Wheat, Wheat));
-		testCnt.harvestCount(testMap->getRecentNode());
-		testCnt.displayScores();
-		testMap->placeTile(4, new deck::Tile(Stone, Timber, Timber, Wheat));
-		testCnt.harvestCount(testMap->getRecentNode());
-		//testMap->placeTile(3, new deck::Tile(Stone, Wheat, Wheat, Wheat));
-		//testCnt.harvestCount(testMap->getRecentNode());
-		//testCnt.displayScores();
-	}
-	
-	//testCnt.display();
-
-}
 
 counter::ResourceCounter::ResourceCounter() : 
 	counter(new ResourceScores()), harvestGraph(new SubGraph())
@@ -307,12 +274,9 @@ void counter::ResourceCounter::harvestCount(GB::Node recentNode)
 				{
 					//Connect subnodes to existing adj node
 					connectAdjTiles(recentNode.getId(), adjId, *recentNode.getEdge(adjId));
-					
 				}
-
 			}
 		}
-
 	}
 
 	std::map<std::pair<int, counter::SubNode>, bool> visited;
@@ -349,7 +313,7 @@ void counter::ResourceCounter::harvestCount(GB::Node recentNode)
 	}
 
 	
-	displayScores();
+	//displayScores();
 }
 
 void counter::ResourceCounter::displayScores()
@@ -362,15 +326,7 @@ void counter::ResourceCounter::displayScores()
 
 void counter::ResourceCounterDriver::run()
 {
-	//SubGraph graph;
-	/*graph.addVertex({1,SubNode::TopRight}, Wheat);
-	graph.addVertex({2,SubNode::TopLeft}, Sheep);
-	graph.addVertex({ 4,SubNode::BotRight }, Sheep);
-	graph.addEdge({1,SubNode::TopRight }, { 2,SubNode::TopLeft }, EdgeLoc::Right, EdgeLoc::Left);
-	graph.addEdge({ 1,SubNode::TopRight }, { 4,SubNode::BotRight }, EdgeLoc::Top, EdgeLoc::Bot);
-	graph.getResource({1, SubNode::TopRight}).display();
-
-	graph.printGraph();*/
+	
 
 	ResourceCounter testCnt;
 	GB::GBMap* testMap = new GB::GBMap();
@@ -378,18 +334,53 @@ void counter::ResourceCounterDriver::run()
 	if (testMap->buildABear())
 	{
 		//testMap->blockKeys({1,2,3,4});
-		testMap->placeTile(1, new deck::Tile(Wheat, Wheat, Stone, Timber));
+		testMap->placeTile(1, new deck::Tile(Stone, Stone, Stone, Stone));
 		testCnt.harvestCount(testMap->getRecentNode());
 		//testCnt.display();
-		/*testMap->placeTile(2, new deck::Tile(Stone, Timber, Timber, Wheat));
+		testMap->placeTile(2, new deck::Tile(Stone, Wheat, Wheat, Wheat));
 		testCnt.harvestCount(testMap->getRecentNode());
+		//testCnt.displayScores();
 		testMap->placeTile(4, new deck::Tile(Stone, Timber, Timber, Wheat));
 		testCnt.harvestCount(testMap->getRecentNode());
-		testMap->placeTile(3, new deck::Tile(Stone, Timber, Timber, Wheat));
-		testCnt.harvestCount(testMap->getRecentNode());
-		testCnt.displayScores();*/
+		//testMap->placeTile(3, new deck::Tile(Stone, Wheat, Wheat, Wheat));
+		//testCnt.harvestCount(testMap->getRecentNode());
+		//testCnt.displayScores();
 	}
-	
+
 	//testCnt.display();
 
 }
+//
+//void counter::ResourceCounterDriver::run()
+//{
+//	//SubGraph graph;
+//	/*graph.addVertex({1,SubNode::TopRight}, Wheat);
+//	graph.addVertex({2,SubNode::TopLeft}, Sheep);
+//	graph.addVertex({ 4,SubNode::BotRight }, Sheep);
+//	graph.addEdge({1,SubNode::TopRight }, { 2,SubNode::TopLeft }, EdgeLoc::Right, EdgeLoc::Left);
+//	graph.addEdge({ 1,SubNode::TopRight }, { 4,SubNode::BotRight }, EdgeLoc::Top, EdgeLoc::Bot);
+//	graph.getResource({1, SubNode::TopRight}).display();
+//
+//	graph.printGraph();*/
+//
+//	ResourceCounter testCnt;
+//	GB::GBMap* testMap = new GB::GBMap();
+//
+//	if (testMap->buildABear())
+//	{
+//		//testMap->blockKeys({1,2,3,4});
+//		testMap->placeTile(1, new deck::Tile(Wheat, Wheat, Stone, Timber));
+//		testCnt.harvestCount(testMap->getRecentNode());
+//		//testCnt.display();
+//		/*testMap->placeTile(2, new deck::Tile(Stone, Timber, Timber, Wheat));
+//		testCnt.harvestCount(testMap->getRecentNode());
+//		testMap->placeTile(4, new deck::Tile(Stone, Timber, Timber, Wheat));
+//		testCnt.harvestCount(testMap->getRecentNode());
+//		testMap->placeTile(3, new deck::Tile(Stone, Timber, Timber, Wheat));
+//		testCnt.harvestCount(testMap->getRecentNode());
+//		testCnt.displayScores();*/
+//	}
+//	
+//	//testCnt.display();
+//
+//}
