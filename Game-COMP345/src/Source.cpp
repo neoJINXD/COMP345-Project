@@ -13,14 +13,14 @@
 int main()
 {
 
-	counter::ScoringDriver testScore;
-	testScore.run();
+	//counter::ScoringDriver testScore;
+	//testScore.run();
 
 	//GB::GBMapDriver test;
 	//test.run();
 	//deck::HarvestDriver test1;
-	//counter::ResourceCounterDriver testRC;
-	//testRC.run();
+	counter::ResourceCounterDriver testRC;
+	testRC.run();
 
 	//GB::GBMapDriver testGb;
 	//testGb.run();
