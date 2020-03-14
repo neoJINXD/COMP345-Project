@@ -96,7 +96,7 @@ void counter::ResourceNode::displayLoc()
 	std::cout << std::endl;
 }
 
-void counter::SubGraph::dfs(SubTile root, std::map<SubTile, bool> visited, Resource target, int *count)
+void counter::SubGraph::dfs(SubTile root, std::map<SubTile, bool>& visited, Resource target, int *count)
 {
 	//auto visit = visited;
 	//std::cout << "Visited?: " << visited[root] << std::endl;
@@ -106,19 +106,23 @@ void counter::SubGraph::dfs(SubTile root, std::map<SubTile, bool> visited, Resou
 	}
 
 	visited[root] = true;
-
+	(*count)++;
 	
-	ResourceNode currV = graph->find(root)->second;
+
+	ResourceNode *currV = &graph->find(root)->second;
+	std::cout << "Current Vertex:\t" << currV->getNodeId().first << ", " << (int)currV->getNodeId().second << std::endl;
+	std::cout << "Current Count:\t" << *count << std::endl;
 	//std::cout << "traversing.. Count:" << *count <<"\n";
-	auto vAdjList = currV.getAdjResources();
+	//currV.displayLoc();
+	auto vAdjList = currV->getAdjResources();
 	//std::cout << currV.getNodeId().first << ", " << snToStr(currV.getNodeId().second);
 	for (auto i = vAdjList.begin(); i != vAdjList.end(); i++)
 	{
-
-		if (!visited[i->second.getNodeId()] && i->second.getResource() == target)
+		
+		if (visited[i->second.getNodeId()] == false && i->second.getResource() == target)
 		{
-			
-			(*count)++;
+			std::cout << RCEdgeToStr(i->first) << "\t" << i->second.getNodeId().first << ", " << (int)i->second.getNodeId().second << std::endl;
+			//(*count)++;
 			dfs(i->second.getNodeId(), visited, target, count);
 			//(*count) += 1;
 		}
@@ -227,15 +231,6 @@ void counter::ResourceCounter::connectAdjTiles(int recentId, int adjId, EdgeLoc 
 	default:
 		break;
 	}
-	//If adjNode is on top of recent node 
-
-	//If adjNode is on bot of recent node
-
-	//If adjNode is on right of recent node
-
-	//If adjNode is on left of recent node
-
-	// Connect subnodes corresponding to above conditions
 
 }
 
@@ -253,7 +248,7 @@ void counter::ResourceCounter::harvestCount(GB::Node recentNode)
 		harvestGraph->addVertex({tileId, subLoc}, curResources[index]);
 	}
 
-	//Link subNodes
+	//Link subNodes 
 	harvestGraph->addEdge({ tileId, SubNode::TopLeft}, { tileId, SubNode::BotLeft}, EdgeLoc::Bot, EdgeLoc::Top);
 	harvestGraph->addEdge({ tileId, SubNode::TopRight}, { tileId, SubNode::BotRight}, EdgeLoc::Bot, EdgeLoc::Top);
 	harvestGraph->addEdge({ tileId, SubNode::TopLeft }, { tileId, SubNode::TopRight }, EdgeLoc::Right, EdgeLoc::Left);
@@ -286,11 +281,23 @@ void counter::ResourceCounter::harvestCount(GB::Node recentNode)
 	{
 		visited.emplace(key.first, false);
 	}
+
+	/*for (auto p : visited)
+	{
+		std::cout << p.first.first << " " << (int)p.first.second<< "\t" << p.second << std::endl;
+	}
+	*/
 	
+	std::map<Resource, bool> harvested = { {Wheat, false}, {Stone, false}, {Timber, false}, {Sheep, false} };
 	for (auto subLoc : subLocations)
 	{
 		int count = 0;
 		ResourceNode root = harvestGraph->getResource({ tileId, subLoc });
+		if (harvested[root.getResource()]) {
+			continue; // if the current resource was already checked, skip it
+		}
+
+		harvested[root.getResource()] = true;
 		harvestGraph->dfs(root.getNodeId(), visited, root.getResource(), &count);
 		//std::cout << count << std::endl;
 		//std::cout << score << std::endl;
@@ -298,6 +305,7 @@ void counter::ResourceCounter::harvestCount(GB::Node recentNode)
 		//displayScores();
 		//std::cout << counter->at(root.getResource()) << std::endl;
 		//counter[root.getResource()] += count;
+		std::cout << "Count after DFS:\t" << count << std::endl;
 		counter_res[root.getResource()] = count;
 		resourceCounter[root.getResource()] = count;
 		//std::cout << "Res: " << root.getResource() << "\t"<< counter_res[root.getResource()] << std::endl;
@@ -337,11 +345,12 @@ void counter::ResourceCounterDriver::run()
 		testMap->placeTile(1, new deck::Tile(Stone, Stone, Stone, Stone));
 		testCnt.harvestCount(testMap->getRecentNode());
 		//testCnt.display();
-		testMap->placeTile(2, new deck::Tile(Stone, Wheat, Wheat, Wheat));
+		testMap->placeTile(2, new deck::Tile(Stone, Wheat, Wheat, Stone));
 		testCnt.harvestCount(testMap->getRecentNode());
 		//testCnt.displayScores();
-		testMap->placeTile(4, new deck::Tile(Stone, Timber, Timber, Wheat));
+		testMap->placeTile(3, new deck::Tile(Timber, Timber, Timber, Wheat));
 		testCnt.harvestCount(testMap->getRecentNode());
+		
 		//testMap->placeTile(3, new deck::Tile(Stone, Wheat, Wheat, Wheat));
 		//testCnt.harvestCount(testMap->getRecentNode());
 		//testCnt.displayScores();

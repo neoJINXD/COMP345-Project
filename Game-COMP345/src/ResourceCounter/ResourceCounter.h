@@ -68,7 +68,7 @@ namespace counter
 		//Read resource at this vertex
 		ResourceNode getResource(SubTile nodeLoc);
 		ResourceNode* getAdj(SubTile nodeLoc, EdgeLoc edgeDir);
-		void dfs(SubTile root, std::map<SubTile, bool> visited, Resource target, int* count);
+		void dfs(SubTile root, std::map<SubTile, bool>& visited, Resource target, int* count);
 
 		void buildGraph();
 		void printGraph(); //Travese all vertexes and list adjacents

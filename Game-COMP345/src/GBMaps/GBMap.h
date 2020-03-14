@@ -85,7 +85,7 @@ namespace GB
 
 	private:
 		const int* numberOfPlayers = new int(4);
-		int* const recentTile = new int(-1); 
+		int* const recentTile = new int(0); 
 		Graph* graph = new Graph();
 		std::vector<int>* blockedKeys = new std::vector<int>();
 
