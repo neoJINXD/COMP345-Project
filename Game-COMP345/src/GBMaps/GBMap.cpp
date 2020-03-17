@@ -19,6 +19,32 @@ std::string EdgeToStr(EdgeLoc edge) {
 	}
 }
 
+GB::Node::Node(int _nodeId) : nodeId(new int(_nodeId)), owner(new std::string("Free Real Estate")) 
+{
+	//adj_list = new std::vector<Node>();
+	adjList = new std::vector<Vertex>();
+}
+
+GB::Node::~Node()
+{
+	/*delete nodeId;
+	nodeId = nullptr;*/
+
+	//delete owner;
+	////owner = nullptr;
+	//delete tile;
+	//tile = nullptr;
+
+	//adj_list->clear();
+	//delete adj_list;
+	//adj_list = nullptr;
+
+	////adjList->clear();
+	//delete adjList;
+	//adjList = nullptr;
+
+}
+
 //Node Implementaitonss
 void GB::Node::insertAdj(EdgeLoc edge, Node node)
 {
@@ -39,10 +65,10 @@ int GB::Node::getAdj(EdgeLoc edge)
 }
 
 //Node Implementations, might switch to have vector hold pointers to node
-void GB::Node::insertAdj(Node node)
-{
-	this->adj_list->push_back(node);
-}
+//void GB::Node::insertAdj(Node node)
+//{
+//	this->adj_list->push_back(node);
+//}
 
 void GB::Node::setTile(deck::Tile* _tile)
 {
@@ -61,7 +87,7 @@ std::string GB::Node::getOwner() const
 
 void GB::Node::printAdjList()
 {
-	std::size_t sz = adj_list->size();
+	//std::size_t sz = adj_list->size();
 	int i = 0;
 	/*for (auto node : *adj_list)
 	{
@@ -77,6 +103,7 @@ void GB::Node::printAdjList()
 		}
 	}*/
 
+	std::size_t sz = adjList->size();
 	for (auto v : *adjList)
 	{
 		i++;
@@ -125,6 +152,8 @@ EdgeLoc* GB::Node::getEdge(Node adjNode)
 
 GB::Graph::~Graph()
 {
+
+	graph->clear();
 	delete graph;
 	
 	if (graph != nullptr)
@@ -160,17 +189,17 @@ void GB::Graph::addEdge(int src, int dest, EdgeLoc edgeToDest, EdgeLoc edgeToSrc
 	destNode.insertAdj(edgeToSrc, srcNode);
 }
 
-void GB::Graph::addEdge(int src, int dest)
-{
-	Node srcObj = graph->find(src)->second;
-	Node destObj = graph->find(dest)->second;
-
-	//Undirected Graph
-	srcObj.insertAdj(destObj);
-	destObj.insertAdj(srcObj);
-
-
-}
+//void GB::Graph::addEdge(int src, int dest)
+//{
+//	Node srcObj = graph->find(src)->second;
+//	Node destObj = graph->find(dest)->second;
+//
+//	//Undirected Graph
+//	srcObj.insertAdj(destObj);
+//	destObj.insertAdj(srcObj);
+//
+//
+//}
 
 GB::Node* GB::Graph::getNode(int nodeId)
 {
@@ -214,14 +243,14 @@ void GB::GBMap::createGrid(int rows, int cols)
 		//Check if the current vertex is not the last vertex on that row
 		if ((vertex % cols) != 0)
 		{
-			graph->addEdge(vertex, vertex + 1);
+			//graph->addEdge(vertex, vertex + 1);
 			graph->addEdge(vertex, vertex + 1, EdgeLoc::Right, EdgeLoc::Left);
 		}
 
 		//Link path to the node below current node
 		if (vertex + cols <= totalVertexes)
 		{
-			graph->addEdge(vertex, vertex + cols);
+			//graph->addEdge(vertex, vertex + cols);
 			graph->addEdge(vertex, vertex + cols, EdgeLoc::Bot, EdgeLoc::Top);
 		}
 	}
@@ -316,9 +345,18 @@ GB::GBMap::~GBMap()
 {
 	delete graph;
 	graph = nullptr;
+
+	delete numberOfPlayers;
+	numberOfPlayers = nullptr;
+
+	delete recentTile;
+	recentTile = nullptr;
+
+	blockedKeys->clear();
+	delete blockedKeys;
+	blockedKeys = nullptr;
+
 }
-
-
 
 void GB::GBMapDriver::run()
 {
@@ -328,17 +366,19 @@ void GB::GBMapDriver::run()
 	if (testMap->buildABear()) 
 	{
 		//testMap->blockKeys({1,2,3,4});
-		testMap->placeTile(8, new deck::Tile(Wheat, Wheat, Stone, Timber));
+		/*testMap->placeTile(8, new deck::Tile(Wheat, Wheat, Stone, Timber));
 		testMap->placeTile(4, new deck::Tile(Stone, Wheat, Stone, Timber));
 		testMap->placeTile(3, new deck::Tile(Wheat, Sheep, Stone, Timber));
 		testMap->placeTile(2, new deck::Tile(Wheat, Timber, Stone, Timber));
 		testMap->placeTile(1, new deck::Tile(Sheep, Wheat, Stone, Timber));
-		testMap->getAdjTile(1, EdgeLoc::Bot)->printInfo();
+		testMap->getAdjTile(1, EdgeLoc::Bot)->printInfo();*/
 		/*testMap->peekTile(5)->printInfo();
 		testMap->setOwner(1, "C-MS <3");
 		std::cout << "Owner:\t" << testMap->getOwner(1) << std::endl;*/
 		
 	}
+	delete testMap;
+	testMap = nullptr;
 	
 }
 

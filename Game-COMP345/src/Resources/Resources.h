@@ -17,15 +17,20 @@ enum Resource {
 namespace deck 
 {
 	//////////////////////////////// HarvestTile deck
-	struct Tile
+	class Tile
 	{
-
+	private:
+		std::vector<Resource>* resources;
+	public:
 		Tile(Resource _one, Resource _two, Resource _three, Resource _four)
 		{
-			*resources = { _one, _two,_three,_four };
+			resources = new std::vector<Resource>{ _one, _two,_three,_four };
 		}
-		std::vector<Resource>* resources = new std::vector<Resource>();
 
+		~Tile();
+
+		std::vector<Resource>* getResources() { return resources; }
+		
 		void rotateLeft();
 		void rotateRight();
 

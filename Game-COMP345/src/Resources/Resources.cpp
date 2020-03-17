@@ -16,6 +16,13 @@ int IOP(int x)
 //////////////////////////////// HarvestTile deck
 
 
+deck::Tile::~Tile()
+{
+	resources->clear();
+	delete resources;
+	resources = nullptr;
+}
+
 // Shifts vector values to the left
 void deck::Tile::rotateLeft() 
 {
@@ -46,9 +53,10 @@ deck::HarvestDeck::~HarvestDeck()
 {
 	for (auto tile : *deck)
 	{
-		tile.resources->clear();
+		/*tile.resources->clear();
 		delete tile.resources;
-		tile.resources = nullptr;
+		tile.resources = nullptr;*/
+		
 	}
 	deck->clear();
 

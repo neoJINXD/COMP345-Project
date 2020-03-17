@@ -50,6 +50,20 @@ std::string snToStr(counter::SubNode edge)
 	}
 }
 
+counter::ResourceNode::~ResourceNode()
+{
+
+	/*delete nodeId;
+	nodeId = nullptr;
+
+	delete resource;
+	resource = nullptr;
+
+	delete adjResources;
+	adjResources = nullptr;*/
+
+}
+
 std::vector<std::pair<EdgeLoc, counter::ResourceNode>> counter::ResourceNode::getAdjResources()
 {
 	return *adjResources;
@@ -135,6 +149,9 @@ counter::SubGraph::~SubGraph()
 {
 	delete graph;
 	graph = nullptr;
+
+	delete nodeIds;
+	nodeIds = nullptr;
 }
 
 void counter::SubGraph::addVertex(SubTile nodeLoc, Resource resource)
@@ -143,8 +160,6 @@ void counter::SubGraph::addVertex(SubTile nodeLoc, Resource resource)
 	{
 		ResourceNode resNode(nodeLoc, resource);
 		graph->insert({nodeLoc, resNode});
-
-		
 	}
 }
 
@@ -201,6 +216,14 @@ counter::ResourceCounter::ResourceCounter() :
 		counter->emplace(rsrc, 0);
 	}
 }
+counter::ResourceCounter::~ResourceCounter()
+{
+	delete harvestGraph;
+	harvestGraph = nullptr;
+
+	delete placedTiles;
+	placedTiles = nullptr;
+}
 //Return nodeId of the adj tile if it exists
 void counter::ResourceCounter::connectAdjTiles(int recentId, int adjId, EdgeLoc dir)
 {
@@ -237,7 +260,7 @@ void counter::ResourceCounter::connectAdjTiles(int recentId, int adjId, EdgeLoc 
 void counter::ResourceCounter::harvestCount(GB::Node recentNode) 
 {
 	int tileId = recentNode.getId();
-	std::vector<Resource> curResources = *recentNode.getTile()->resources;
+	std::vector<Resource> curResources = *recentNode.getTile()->getResources();
 
 
 	const SubNode subLocations[] = {SubNode::TopLeft, SubNode::TopRight, SubNode::BotRight, SubNode::BotLeft };

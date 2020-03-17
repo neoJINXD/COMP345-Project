@@ -4,6 +4,8 @@
 class VG::Node;
 class VG::Graph;
 class VG::VGMap;
+
+
 deck::Building* VG::Node::getBuilding()
 {
 	return building;
@@ -12,6 +14,25 @@ deck::Building* VG::Node::getBuilding()
 void VG::Node::insertAdj(Node node)
 {
 	this->adj_list->push_back(node);
+}
+
+VG::Node::~Node()
+{
+	if (nodeId)
+		delete nodeId;
+
+	//if (placementCost)
+	//	delete placementCost;
+
+	//if (building)
+	//{
+	//	delete building;
+	//	building = nullptr;
+	//}
+	////Modify later to handle vector of pointers
+	//delete adj_list;
+	//adj_list = nullptr;
+
 }
 
 void VG::Node::printAdjList()
@@ -36,6 +57,7 @@ void VG::Node::printAdjList()
 //Graph Implmentations
 VG::Graph::~Graph()
 {
+	graph->clear();
 	delete graph;
 	graph = nullptr;
 }
@@ -163,5 +185,6 @@ void VG::VGMapDriver::run()
 	else
 		std::cout << "is null" << std::endl;
 
-
+	delete test;
+	test = nullptr;
 }

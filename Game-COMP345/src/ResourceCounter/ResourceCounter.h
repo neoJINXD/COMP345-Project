@@ -1,4 +1,11 @@
 #pragma once
+#ifndef _DEBUG
+	#define _DEBUG
+#endif // !_DEBUG
+#ifdef _DEBUG
+#define new new( _NORMAL_BLOCK, __FILE__, __LINE__ )
+#endif
+
 #include "../GBMaps/GBMap.h"
 #include <vector>
 #include <algorithm>
@@ -29,6 +36,7 @@ namespace counter
 	public:
 
 		ResourceNode(std::pair<int, SubNode> _nodeId, Resource _resource) : resource(new Resource(_resource)), nodeId(new std::pair<int, SubNode>(_nodeId)){}
+		~ResourceNode();
 		int getTileId() { return nodeId->first;  } // Gets the tile this resource resides in. (See GBMap)
 		AdjNodes getAdjResources();
 		void setAdjResource(EdgeLoc edgeDir, ResourceNode adjNode);
@@ -63,8 +71,7 @@ namespace counter
 		std::map<SubTile, ResourceNode>* getGraph() { return graph; }
 		void addVertex(SubTile nodeLoc, Resource resource);
 		void addEdge(SubTile src, SubTile dest, EdgeLoc edgeSrc, EdgeLoc edgeDest);
-		//void addEdge(int src, int dest);
-		//ResourceNode getVertex(SubTile tileLoc);
+
 		//Read resource at this vertex
 		ResourceNode getResource(SubTile nodeLoc);
 		ResourceNode* getAdj(SubTile nodeLoc, EdgeLoc edgeDir);
@@ -101,7 +108,7 @@ namespace counter
 		//A little thicc on space, need to optimize later
 	public:
 		ResourceCounter();
-		
+		~ResourceCounter();
 		void display() { harvestGraph->printGraph(); }
 		void harvestCount(GB::Node recentNode); //Keeps state of graph
 		//void buildSubGraph();

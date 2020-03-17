@@ -1,3 +1,6 @@
+#define _CRTDBG_MAP_ALLOC
+#include <crtdbg.h>
+
 #include <iostream>
 #include <string>
 #include "GBMaps/GBMap.h"
@@ -12,23 +15,24 @@
 
 int main()
 {
-
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	_CrtSetBreakAlloc(235);
 	//counter::ScoringDriver testScore;
 	//testScore.run();
-
+	//
 	//GB::GBMapDriver test;
 	//test.run();
 	//deck::HarvestDriver test1;
-	counter::ResourceCounterDriver testRC;
-	testRC.run();
+	//counter::ResourceCounterDriver testRC;
+	//testRC.run();
 
 	//GB::GBMapDriver testGb;
 	//testGb.run();
 
-	//VG::VGMapDriver testVg;
-	//testVg.run();
-	//GB::GBMapDriver testGb;
-	//testGb.run();
+	/*VG::VGMapDriver testVg;
+	testVg.run();*/
+	GB::GBMapDriver testGb;
+	testGb.run();
 	//VG::VGMapDriver testVg;
 	//testVg.run();
 

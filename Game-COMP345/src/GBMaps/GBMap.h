@@ -1,4 +1,11 @@
 #pragma once
+//#ifndef _DEBUG
+//#define _DEBUG
+//#endif // !_DEBUG
+//#define _DEBUG
+//#ifdef _DEBUG
+//#define new new( _NORMAL_BLOCK, __FILE__, __LINE__ )
+//#endif
 #include <vector>
 #include <map>
 #include <string>
@@ -25,19 +32,20 @@ namespace GB
 		deck::Tile* tile = nullptr;
 
 		//Old implementation, remove when all adjList conversion moved to the new one
-		std::vector<Node>* adj_list = new std::vector<Node>();
+		//std::vector<Node>* adj_list;
 
 		//New implementation, keeps track of where the adjacent node is using edge cost as location
 		typedef std::pair<EdgeLoc, Node> Vertex;
-		std::vector<Vertex>* adjList = new std::vector<Vertex>();
+		std::vector<Vertex>* adjList;
 		
 	public:
-		Node(int _nodeId) : nodeId(new int(_nodeId)), owner(new std::string("Free Real Estate")){}
+		Node(int _nodeId);
+		~Node();
 		//Node(int _nodeId, std::string _owner) : nodeId(new int(_nodeId)), owner() { }
 		int getId() { return *nodeId; }
 		void insertAdj(EdgeLoc edge, Node node);
 		int getAdj(EdgeLoc edge);
-		void insertAdj(Node node);
+		//void insertAdj(Node node);
 		//int getAdjId(EdgeLoc edge);
 		void setTile(deck::Tile* _tile); // func(new Tile()) func(&tile)
 		deck::Tile* getTile() const;
@@ -70,7 +78,7 @@ namespace GB
 		//Add vertex no edge
 		void addVertex(int src);
 		void addEdge(int src, int dest, EdgeLoc edgeSrc, EdgeLoc edgeDest);
-		void addEdge(int src, int dest);
+		//void addEdge(int src, int dest);
 
 		Node* getNode(int nodeId);
 		
@@ -85,7 +93,7 @@ namespace GB
 
 	private:
 		const int* numberOfPlayers = new int(4);
-		int* const recentTile = new int(0); 
+		int* recentTile = new int(0); 
 		Graph* graph = new Graph();
 		std::vector<int>* blockedKeys = new std::vector<int>();
 

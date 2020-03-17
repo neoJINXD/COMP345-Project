@@ -1,4 +1,10 @@
 #pragma once
+#ifndef _DEBUG
+#define _DEBUG
+#endif // !_DEBUG
+#ifdef _DEBUG
+#define new new( _NORMAL_BLOCK, __FILE__, __LINE__ )
+#endif
 #include <vector>
 #include <map>
 #include <string>
@@ -21,6 +27,7 @@ namespace VG {
 		std::vector<Node>* adj_list = new std::vector<Node>();
 	public:
 		Node(int _nodeId) : nodeId(new int(_nodeId)), placementCost(new int(0)), building(nullptr) {}
+		~Node();
 		int getId() { return *nodeId; }
 		void setCost(int value) { *placementCost = value; }
 		int getCost() { return *placementCost; }
