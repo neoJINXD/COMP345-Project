@@ -207,15 +207,25 @@ void counter::SubGraph::printGraph()
 
 
 
-counter::ResourceCounter::ResourceCounter() : 
-	counter(new ResourceScores()), harvestGraph(new SubGraph())
+//counter::ResourceCounter::ResourceCounter() : 
+//	counter(new ResourceScores()), harvestGraph(new SubGraph())
+//{
+//	const Resource rsrcTypes[] = { Wheat, Stone, Timber, Sheep };
+//	for (auto rsrc : rsrcTypes)
+//	{
+//		counter->emplace(rsrc, 0);
+//	}
+//}
+
+counter::ResourceCounter::ResourceCounter() : harvestGraph(new SubGraph())
 {
-	const Resource rsrcTypes[] = { Wheat, Stone, Timber, Sheep };
+	/*const Resource rsrcTypes[] = { Wheat, Stone, Timber, Sheep };
 	for (auto rsrc : rsrcTypes)
 	{
 		counter->emplace(rsrc, 0);
-	}
+	}*/
 }
+
 counter::ResourceCounter::~ResourceCounter()
 {
 	delete harvestGraph;
@@ -283,7 +293,7 @@ void counter::ResourceCounter::harvestCount(GB::Node recentNode)
 	{
 		for (auto adj : *recentNode.getAdjList()) // Search if adj tile exists, iterates through all 
 		{
-			auto adjId = adj.second.getId();
+			auto adjId = adj.second->getId();
 			for (auto v : *harvestGraph->getGraph())
 			{
 				auto tileId = v.first.first; // get tileId
@@ -346,14 +356,14 @@ void counter::ResourceCounter::harvestCount(GB::Node recentNode)
 	
 	//displayScores();
 }
-
-void counter::ResourceCounter::displayScores()
-{
-	for (auto k : *counter)
-	{
-		std::cout << "Res: " << k.first << "\tCount: " << k.second << std::endl;
-	}
-}
+//
+//void counter::ResourceCounter::displayScores()
+//{
+//	for (auto k : *counter)
+//	{
+//		std::cout << "Res: " << k.first << "\tCount: " << k.second << std::endl;
+//	}
+//}
 
 void counter::ResourceCounterDriver::run()
 {
@@ -364,21 +374,23 @@ void counter::ResourceCounterDriver::run()
 
 	if (testMap->buildABear())
 	{
-		//testMap->blockKeys({1,2,3,4});
+		////testMap->blockKeys({1,2,3,4});
 		testMap->placeTile(1, new deck::Tile(Stone, Stone, Stone, Stone));
 		testCnt.harvestCount(testMap->getRecentNode());
 		//testCnt.display();
-		testMap->placeTile(2, new deck::Tile(Stone, Wheat, Wheat, Stone));
-		testCnt.harvestCount(testMap->getRecentNode());
-		//testCnt.displayScores();
-		testMap->placeTile(3, new deck::Tile(Timber, Timber, Timber, Wheat));
-		testCnt.harvestCount(testMap->getRecentNode());
+		//testMap->placeTile(2, new deck::Tile(Stone, Wheat, Wheat, Stone));
+		//testCnt.harvestCount(testMap->getRecentNode());
+		////testCnt.displayScores();
+		//testMap->placeTile(3, new deck::Tile(Timber, Timber, Timber, Wheat));
+		//testCnt.harvestCount(testMap->getRecentNode());
 		
 		//testMap->placeTile(3, new deck::Tile(Stone, Wheat, Wheat, Wheat));
 		//testCnt.harvestCount(testMap->getRecentNode());
 		//testCnt.displayScores();
 	}
 
+	delete testMap;
+	testMap = nullptr;
 	//testCnt.display();
 
 }

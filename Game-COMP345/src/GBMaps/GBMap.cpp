@@ -27,26 +27,27 @@ GB::Node::Node(int _nodeId) : nodeId(new int(_nodeId)), owner(new std::string("F
 
 GB::Node::~Node()
 {
-	/*delete nodeId;
-	nodeId = nullptr;*/
+	delete nodeId;
+	nodeId = nullptr;
 
-	//delete owner;
-	////owner = nullptr;
-	//delete tile;
-	//tile = nullptr;
+	delete owner;
+	//owner = nullptr;
+	delete tile;
+	tile = nullptr;
 
-	//adj_list->clear();
-	//delete adj_list;
-	//adj_list = nullptr;
-
-	////adjList->clear();
-	//delete adjList;
-	//adjList = nullptr;
+	
+	for (auto adj : *adjList) {
+		adj.second = nullptr;
+	}
+	
+	adjList->clear();
+	delete adjList;
+	adjList = nullptr;
 
 }
 
 //Node Implementaitonss
-void GB::Node::insertAdj(EdgeLoc edge, Node node)
+void GB::Node::insertAdj(EdgeLoc edge, Node* node)
 {
 	this->adjList->push_back({ edge, node });
 }
@@ -57,7 +58,7 @@ int GB::Node::getAdj(EdgeLoc edge)
 	{
 		if (pair.first == edge)
 		{
-			return *pair.second.nodeId;
+			return *pair.second->nodeId;
 		}
 	}
 
@@ -107,7 +108,7 @@ void GB::Node::printAdjList()
 	for (auto v : *adjList)
 	{
 		i++;
-		std::cout << "(E:" << EdgeToStr(v.first) << " | V:" << v.second.getId() << ")";
+		std::cout << "(E:" << EdgeToStr(v.first) << " | V:" << v.second->getId() << ")";
 		if (i == sz)
 		{
 			std::cout << "\n";
@@ -123,7 +124,7 @@ bool GB::Node::isAdj(Node adjNode)
 {
 	for (auto pair : *adjList)
 	{
-		if (pair.second.getId() == adjNode.getId())
+		if (pair.second->getId() == adjNode.getId())
 		{ 
 			return true;
 		}
@@ -138,7 +139,7 @@ EdgeLoc* GB::Node::getEdge(Node adjNode)
 	{
 		for (auto i : *adjList)
 		{
-			if (i.second.getId() == adjNode.getId())
+			if (i.second->getId() == adjNode.getId())
 			{
 				return &i.first;
 			}
@@ -152,14 +153,15 @@ EdgeLoc* GB::Node::getEdge(Node adjNode)
 
 GB::Graph::~Graph()
 {
-
+	for (auto k : *graph)
+	{
+		delete k.second;
+		k.second = nullptr;
+	}
 	graph->clear();
 	delete graph;
+	graph = nullptr;
 	
-	if (graph != nullptr)
-	{
-		graph = nullptr;
-	}
 }
 
 void GB::Graph::addVertex(int srcId)
@@ -169,8 +171,8 @@ void GB::Graph::addVertex(int srcId)
 	//If the node with srcId is not found in the map
 	if (graph->find(srcId) == graph->end())
 	{
-		Node node(srcId);
-		graph->insert(std::pair<int, Node>(srcId, node));
+		Node *node = new Node(srcId);
+		graph->emplace(srcId, node);
 
 		return;
 	}
@@ -181,12 +183,12 @@ void GB::Graph::addVertex(int srcId)
 //
 void GB::Graph::addEdge(int src, int dest, EdgeLoc edgeToDest, EdgeLoc edgeToSrc)
 {
-	Node srcNode = graph->find(src)->second;
-	Node destNode = graph->find(dest)->second;
+	Node *srcNode = graph->find(src)->second;
+	Node *destNode = graph->find(dest)->second;
 
 	//Undirected Graph
-	srcNode.insertAdj(edgeToDest, destNode);
-	destNode.insertAdj(edgeToSrc, srcNode);
+	srcNode->insertAdj(edgeToDest, destNode);
+	destNode->insertAdj(edgeToSrc, srcNode);
 }
 
 //void GB::Graph::addEdge(int src, int dest)
@@ -201,16 +203,16 @@ void GB::Graph::addEdge(int src, int dest, EdgeLoc edgeToDest, EdgeLoc edgeToSrc
 //
 //}
 
-GB::Node* GB::Graph::getNode(int nodeId)
+GB::Node GB::Graph::getNode(int nodeId)
 {
-	return &graph->find(nodeId)->second;
+	return *graph->find(nodeId)->second;
 }
 
 void GB::Graph::insertTile(int nodeId, deck::Tile* tile)
 {
 
 
-	graph->find(nodeId)->second.setTile(tile);
+	graph->find(nodeId)->second->setTile(tile);
 }
 
 void GB::Graph::printGraph()
@@ -219,7 +221,7 @@ void GB::Graph::printGraph()
 	for (auto pair : *graph)
 	{
 		std::cout << pair.first << ":\t";
-		pair.second.printAdjList();
+		pair.second->printAdjList();
 		std::cout << std::endl;
 	}
 }
@@ -290,13 +292,13 @@ void GB::GBMap::blockKeys(std::vector<int> badKeys)
 
 void GB::GBMap::setOwner(int loc, std::string player)
 {
-	graph->getNode(loc)->setOwner(player);
+	graph->getNode(loc).setOwner(player);
 }
 
 std::string GB::GBMap::getOwner(int loc) const
 {
 
-	return graph->getNode(loc)->getOwner();
+	return graph->getNode(loc).getOwner();
 }
 
 void GB::GBMap::placeTile(int loc, deck::Tile* tile)
@@ -305,6 +307,7 @@ void GB::GBMap::placeTile(int loc, deck::Tile* tile)
 	if (peekTile(loc) != nullptr || 
 		std::find(blockedKeys->begin(), blockedKeys->end(), loc) != blockedKeys->end())
 	{
+		system("pause");
 		std::cout << "It is not free estate!\n";
 		return;
 	}
@@ -315,12 +318,12 @@ void GB::GBMap::placeTile(int loc, deck::Tile* tile)
 deck::Tile* GB::GBMap::peekTile(int loc)
 {
 
-	return graph->getNode(loc)->getTile();
+	return graph->getNode(loc).getTile();
 }
 
 deck::Tile* GB::GBMap::getAdjTile(int loc, EdgeLoc adjDir)
 {
-	int adjNodeId = graph->getNode(loc)->getAdj(adjDir);
+	int adjNodeId = graph->getNode(loc).getAdj(adjDir);
 	if (adjNodeId == -1)
 	{
 		return nullptr;
@@ -366,12 +369,12 @@ void GB::GBMapDriver::run()
 	if (testMap->buildABear()) 
 	{
 		//testMap->blockKeys({1,2,3,4});
-		/*testMap->placeTile(8, new deck::Tile(Wheat, Wheat, Stone, Timber));
+		testMap->placeTile(8, new deck::Tile(Wheat, Wheat, Stone, Timber));
 		testMap->placeTile(4, new deck::Tile(Stone, Wheat, Stone, Timber));
 		testMap->placeTile(3, new deck::Tile(Wheat, Sheep, Stone, Timber));
 		testMap->placeTile(2, new deck::Tile(Wheat, Timber, Stone, Timber));
 		testMap->placeTile(1, new deck::Tile(Sheep, Wheat, Stone, Timber));
-		testMap->getAdjTile(1, EdgeLoc::Bot)->printInfo();*/
+		testMap->getAdjTile(1, EdgeLoc::Bot)->printInfo();
 		/*testMap->peekTile(5)->printInfo();
 		testMap->setOwner(1, "C-MS <3");
 		std::cout << "Owner:\t" << testMap->getOwner(1) << std::endl;*/

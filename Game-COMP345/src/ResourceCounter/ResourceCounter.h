@@ -93,7 +93,7 @@ namespace counter
 	{
 	private:
 		typedef std::map<Resource, int> ResourceScores;
-		ResourceScores* counter;
+		//ResourceScores* counter;
 		int resourceCounter[4] = {0, 0, 0, 0};
 		//int harvestCount[] = new int[4];
 		//Holds the state of the gameboard
@@ -111,11 +111,7 @@ namespace counter
 		~ResourceCounter();
 		void display() { harvestGraph->printGraph(); }
 		void harvestCount(GB::Node recentNode); //Keeps state of graph
-		//void buildSubGraph();
-		//void calcResourceCount(deck::Tile recentTile);
-		//void countResources(int tileId);
-		//void dfs(std::pair<int, SubNode> root, std::map<std::pair<int, SubNode>, bool> visited);
-		void displayScores();
+		//void displayScores();
 	};
 
 

@@ -16,7 +16,7 @@
 int main()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	_CrtSetBreakAlloc(235);
+	//_CrtSetBreakAlloc(174);
 	//counter::ScoringDriver testScore;
 	//testScore.run();
 	//
@@ -26,13 +26,13 @@ int main()
 	//counter::ResourceCounterDriver testRC;
 	//testRC.run();
 
-	//GB::GBMapDriver testGb;
-	//testGb.run();
+	GB::GBMapDriver testGb;
+	testGb.run();
 
 	/*VG::VGMapDriver testVg;
 	testVg.run();*/
-	GB::GBMapDriver testGb;
-	testGb.run();
+	//GB::GBMapDriver testGb;
+	//testGb.run();
 	//VG::VGMapDriver testVg;
 	//testVg.run();
 

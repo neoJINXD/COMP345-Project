@@ -35,7 +35,7 @@ namespace GB
 		//std::vector<Node>* adj_list;
 
 		//New implementation, keeps track of where the adjacent node is using edge cost as location
-		typedef std::pair<EdgeLoc, Node> Vertex;
+		typedef std::pair<EdgeLoc, Node*> Vertex;
 		std::vector<Vertex>* adjList;
 		
 	public:
@@ -43,7 +43,7 @@ namespace GB
 		~Node();
 		//Node(int _nodeId, std::string _owner) : nodeId(new int(_nodeId)), owner() { }
 		int getId() { return *nodeId; }
-		void insertAdj(EdgeLoc edge, Node node);
+		void insertAdj(EdgeLoc edge, Node* node);
 		int getAdj(EdgeLoc edge);
 		//void insertAdj(Node node);
 		//int getAdjId(EdgeLoc edge);
@@ -64,7 +64,7 @@ namespace GB
 		//typedef Node square;
 		//int* numberOfNodes = new int(0);
 		//const int* maxNodes;
-		std::map<int, Node>  *graph = new std::map<int, Node>();
+		std::map<int, Node*>  *graph = new std::map<int, Node*>();
 
 		
 	public:
@@ -80,7 +80,7 @@ namespace GB
 		void addEdge(int src, int dest, EdgeLoc edgeSrc, EdgeLoc edgeDest);
 		//void addEdge(int src, int dest);
 
-		Node* getNode(int nodeId);
+		Node getNode(int nodeId);
 		
 		
 		void insertTile(int nodeId, deck::Tile* tile);
@@ -112,7 +112,7 @@ namespace GB
 		void blockKeys(std::vector<int> badKeys);
 
 		//Returns most-recent tile. Used for game scoring
-		Node getRecentNode() { return *graph->getNode(*recentTile); }
+		Node getRecentNode() { return graph->getNode(*recentTile); }
 		int recentTileById() { return *recentTile; };
 		deck::Tile* getRecentTile() { return peekTile(*recentTile); }
 
