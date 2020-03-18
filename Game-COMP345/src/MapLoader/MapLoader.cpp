@@ -115,7 +115,7 @@ GB::GBMap* maploader::MapLoader::loadMap(std::string path, int playerCount)
 
 	GB::GBMap* newMap = new GB::GBMap(playerCount);
 
-	if (newMap->buildABear())
+	if (newMap->buildBoard())
 	{
 		if (nullKeys.size() > 0)
 			newMap->blockKeys(nullKeys);

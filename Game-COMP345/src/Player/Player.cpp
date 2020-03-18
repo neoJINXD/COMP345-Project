@@ -81,7 +81,7 @@ void player::Player::BuildVillage()
 void player::PlayerDriver::run()
 {
 	GB::GBMap* map = new GB::GBMap(2);
-	map->buildABear();
+	map->buildBoard();
 
 	deck::HarvestDeck* Hdeck = new deck::HarvestDeck();
 	deck::BuildingDeck* Bdeck = new deck::BuildingDeck();

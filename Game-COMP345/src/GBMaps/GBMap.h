@@ -2,10 +2,10 @@
 //#ifndef _DEBUG
 //#define _DEBUG
 //#endif // !_DEBUG
-//#define _DEBUG
-//#ifdef _DEBUG
-//#define new new( _NORMAL_BLOCK, __FILE__, __LINE__ )
-//#endif
+#define _DEBUG
+#ifdef _DEBUG
+#define new new( _NORMAL_BLOCK, __FILE__, __LINE__ )
+#endif
 #include <vector>
 #include <map>
 #include <string>
@@ -29,7 +29,7 @@ namespace GB
 		//const std::string& name; //Replace with Tile object
 		int* nodeId;
 		std::string* const owner; // Replace with player
-		deck::Tile* tile = nullptr;
+		deck::Tile* tile;
 
 		//Old implementation, remove when all adjList conversion moved to the new one
 		//std::vector<Node>* adj_list;
@@ -46,7 +46,7 @@ namespace GB
 		void insertAdj(EdgeLoc edge, Node* node);
 		int getAdj(EdgeLoc edge);
 		//void insertAdj(Node node);
-		//int getAdjId(EdgeLoc edge);
+		//int getAdjId(EdgeLoc edge); 
 		void setTile(deck::Tile* _tile); // func(new Tile()) func(&tile)
 		deck::Tile* getTile() const;
 		void setOwner(std::string _owner) { *owner = _owner; }
@@ -80,12 +80,12 @@ namespace GB
 		void addEdge(int src, int dest, EdgeLoc edgeSrc, EdgeLoc edgeDest);
 		//void addEdge(int src, int dest);
 
-		Node getNode(int nodeId);
+		Node getNode(int nodeId) const;
 		
 		
 		void insertTile(int nodeId, deck::Tile* tile);
 		void printGraph(); //Traveser all vertexes and list adjacents
-		
+		bool isTileExists(int loc);
 	};
 
 	class GBMap
@@ -108,7 +108,7 @@ namespace GB
 		~GBMap();
 		GBMap(const int _players) : numberOfPlayers(new int(_players)), graph(new Graph()) {}
 		//~GBMap(); // Delete all pointers
-		bool buildABear();
+		bool buildBoard();
 		void blockKeys(std::vector<int> badKeys);
 
 		//Returns most-recent tile. Used for game scoring
@@ -120,7 +120,7 @@ namespace GB
 		std::string getOwner(int loc) const;
 
 		void placeTile(int loc, deck::Tile* tile);
-		deck::Tile* peekTile(int loc);
+		deck::Tile* peekTile(int loc) const;
 		deck::Tile* getAdjTile(int loc, EdgeLoc adjDirection);
 		
 

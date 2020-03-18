@@ -372,7 +372,7 @@ void counter::ResourceCounterDriver::run()
 	ResourceCounter testCnt;
 	GB::GBMap* testMap = new GB::GBMap();
 
-	if (testMap->buildABear())
+	if (testMap->buildBoard())
 	{
 		////testMap->blockKeys({1,2,3,4});
 		testMap->placeTile(1, new deck::Tile(Stone, Stone, Stone, Stone));
