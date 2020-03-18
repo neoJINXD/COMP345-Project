@@ -27,6 +27,24 @@ GB::Node::Node(int _nodeId) : nodeId(new int(_nodeId)), owner(new std::string("F
 	adjList = new std::vector<Vertex>();
 }
 
+//GB::Node::Node(const Node& node)
+//{
+//	nodeId = new int;
+//	owner = new std::string();
+//	tile = new deck::Tile(*node.getTile());
+//	adjList = new std::vector<Vertex>(node.adjList->size());
+//
+//	*nodeId = *node.nodeId;
+//	*owner = *node.owner;
+//
+//	if (!node.adjList->empty()) {
+//		for (auto i = 0; i < adjList->size(); i++) {
+//			//adjList[i] = { node.adjList.at(i)  };
+//		}
+//	}
+//
+//}
+
 GB::Node::~Node()
 {
 	delete nodeId;
@@ -124,11 +142,11 @@ void GB::Node::printAdjList()
 	}
 }
 
-bool GB::Node::isAdj(Node adjNode)
+bool GB::Node::isAdj(Node* adjNode)
 {
 	for (auto pair : *adjList)
 	{
-		if (pair.second->getId() == adjNode.getId())
+		if (pair.second->getId() == adjNode->getId())
 		{ 
 			return true;
 		}
@@ -137,13 +155,13 @@ bool GB::Node::isAdj(Node adjNode)
 	return false;
 }
 
-EdgeLoc* GB::Node::getEdge(Node adjNode)
+EdgeLoc* GB::Node::getEdge(Node* adjNode)
 {
 	if (isAdj(adjNode))
 	{
 		for (auto i : *adjList)
 		{
-			if (i.second->getId() == adjNode.getId())
+			if (i.second->getId() == adjNode->getId())
 			{
 				return &i.first;
 			}

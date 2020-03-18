@@ -30,8 +30,8 @@ namespace counter
 		std::pair<int, SubNode>* nodeId; 
 		Resource* resource;
 		//bool* visited;
-		typedef std::vector<std::pair<EdgeLoc, ResourceNode>> AdjNodes;
-		std::vector<std::pair<EdgeLoc, ResourceNode>>* adjResources = new AdjNodes();
+		typedef std::vector<std::pair<EdgeLoc, ResourceNode*>> AdjNodes;
+		std::vector<std::pair<EdgeLoc, ResourceNode*>>* adjResources = new AdjNodes();
 
 	public:
 
@@ -39,9 +39,9 @@ namespace counter
 		~ResourceNode();
 		int getTileId() { return nodeId->first;  } // Gets the tile this resource resides in. (See GBMap)
 		AdjNodes getAdjResources();
-		void setAdjResource(EdgeLoc edgeDir, ResourceNode adjNode);
+		void setAdjResource(EdgeLoc edgeDir, ResourceNode* adjNode);
 		ResourceNode* getAdj(EdgeLoc dir);
-		Resource getResource() { return *resource; }
+		Resource* getResource() { return resource; }
 		std::pair<int, SubNode> getNodeId() { return *nodeId; };
 		void display();
 		void displayLoc();
@@ -55,7 +55,7 @@ namespace counter
 		//const int* maxNodes;
 		//Key: <NodeId of the whole tile, SubNodeId>
 		typedef std::pair<int, SubNode> SubTile;
-		std::map<SubTile, ResourceNode>* graph = new std::map<SubTile, ResourceNode>();
+		std::map<SubTile, ResourceNode*>* graph = new std::map<SubTile, ResourceNode*>();
 		std::vector<int>* nodeIds = new std::vector<int>();
 		
 
@@ -68,12 +68,12 @@ namespace counter
 		~SubGraph();
 
 		//Add vertex no edge
-		std::map<SubTile, ResourceNode>* getGraph() { return graph; }
+		std::map<SubTile, ResourceNode*>* getGraph() { return graph; }
 		void addVertex(SubTile nodeLoc, Resource resource);
 		void addEdge(SubTile src, SubTile dest, EdgeLoc edgeSrc, EdgeLoc edgeDest);
 
 		//Read resource at this vertex
-		ResourceNode getResource(SubTile nodeLoc);
+		ResourceNode* getResource(SubTile nodeLoc) const;
 		ResourceNode* getAdj(SubTile nodeLoc, EdgeLoc edgeDir);
 		void dfs(SubTile root, std::map<SubTile, bool>& visited, Resource target, int* count);
 
@@ -110,7 +110,7 @@ namespace counter
 		ResourceCounter();
 		~ResourceCounter();
 		void display() { harvestGraph->printGraph(); }
-		void harvestCount(GB::Node recentNode); //Keeps state of graph
+		void harvestCount(GB::Node* recentNode); //Keeps state of graph
 		//void displayScores();
 	};
 

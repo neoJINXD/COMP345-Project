@@ -28,7 +28,7 @@ namespace GB
 	private:
 		//const std::string& name; //Replace with Tile object
 		int* nodeId;
-		std::string* const owner; // Replace with player
+		std::string* owner; // Replace with player
 		deck::Tile* tile;
 
 		//Old implementation, remove when all adjList conversion moved to the new one
@@ -40,6 +40,7 @@ namespace GB
 		
 	public:
 		Node(int _nodeId);
+		//Node(const Node& node);
 		~Node();
 		//Node(int _nodeId, std::string _owner) : nodeId(new int(_nodeId)), owner() { }
 		int getId() { return *nodeId; }
@@ -52,8 +53,8 @@ namespace GB
 		void setOwner(std::string _owner) { *owner = _owner; }
 		std::string getOwner() const;
 		void printAdjList();
-		bool isAdj(Node adjNode);
-		EdgeLoc* getEdge(Node adjNode); // get position of adj node
+		bool isAdj(Node* adjNode);
+		EdgeLoc* getEdge(Node* adjNode); // get position of adj node
 		std::vector<Vertex>* getAdjList() { return adjList; }
 	};
 
@@ -112,7 +113,7 @@ namespace GB
 		void blockKeys(std::vector<int> badKeys);
 
 		//Returns most-recent tile. Used for game scoring
-		Node getRecentNode() { return *graph->getNode(*recentTile); }
+		Node* getRecentNode() const { return graph->getNode(*recentTile); }
 		int recentTileById() { return *recentTile; };
 		deck::Tile* getRecentTile() { return peekTile(*recentTile); }
 

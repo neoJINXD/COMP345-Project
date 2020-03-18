@@ -27,6 +27,14 @@ namespace deck
 			resources = new std::vector<Resource>{ _one, _two,_three,_four };
 		}
 
+		//Tile(const Tile& tile) {
+		//	resources = new std::vector<Resource>();
+
+		//	for (auto r : *tile.resources) {
+		//		resources->push_back(r);
+		//	}
+		//}
+
 		~Tile();
 
 		std::vector<Resource>* getResources() { return resources; }

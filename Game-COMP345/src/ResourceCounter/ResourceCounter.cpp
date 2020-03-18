@@ -53,23 +53,27 @@ std::string snToStr(counter::SubNode edge)
 counter::ResourceNode::~ResourceNode()
 {
 
-	/*delete nodeId;
+	delete nodeId;
 	nodeId = nullptr;
 
 	delete resource;
 	resource = nullptr;
 
+	for (auto adj : *adjResources) {
+		adj.second = nullptr;
+	}
+
 	delete adjResources;
-	adjResources = nullptr;*/
+	adjResources = nullptr;
 
 }
 
-std::vector<std::pair<EdgeLoc, counter::ResourceNode>> counter::ResourceNode::getAdjResources()
+std::vector<std::pair<EdgeLoc, counter::ResourceNode*>> counter::ResourceNode::getAdjResources()
 {
 	return *adjResources;
 }
 
-void counter::ResourceNode::setAdjResource(EdgeLoc edgeDir, ResourceNode adjNode)
+void counter::ResourceNode::setAdjResource(EdgeLoc edgeDir, ResourceNode* adjNode)
 {
 	adjResources->push_back({edgeDir, adjNode});
 }
@@ -79,7 +83,7 @@ counter::ResourceNode* counter::ResourceNode::getAdj(EdgeLoc dir)
 	for (auto p : *adjResources)
 	{
 		if (p.first == dir)
-			return &p.second;
+			return p.second;
 	}
 	return nullptr;
 }
@@ -91,8 +95,8 @@ void counter::ResourceNode::display()
 	for (auto res : *adjResources)
 	{
 		std::cout << "[Loc:" << RCEdgeToStr(res.first) << " (T_ID:" 
-			<< res.second.getNodeId().first << ", S_Loc: " << snToStr(res.second.getNodeId().second) << ")" 
-			<< " Rsrc: " << res.second.getResource() << "], ";
+			<< res.second->getNodeId().first << ", S_Loc: " << snToStr(res.second->getNodeId().second) << ")" 
+			<< " Rsrc: " << res.second->getResource() << "], ";
 	}
 	std::cout << std::endl;
 }
@@ -101,12 +105,12 @@ void counter::ResourceNode::displayLoc()
 {
 	std::cout << "[TID: " << nodeId->first << " | SN: " << snToStr(nodeId->second) << "]\t"
 		<< "Adj Loc: ";
-	for (auto res : *adjResources)
-	{
-		std::cout << "[Loc:" << RCEdgeToStr(res.first) << " (T_ID:"
-			<< res.second.getNodeId().first << ", S_Loc: " << snToStr(res.second.getNodeId().second) << ")"
-			<< "], ";
-	}
+	//for (auto res : *adjResources)
+	//{
+	//	std::cout << "[Loc:" << RCEdgeToStr(res.first) << " (T_ID:"
+	//		<< res.second.getNodeId().first << ", S_Loc: " << snToStr(res.second.getNodeId().second) << ")"
+	//		<< "], ";
+	//}
 	std::cout << std::endl;
 }
 
@@ -123,7 +127,7 @@ void counter::SubGraph::dfs(SubTile root, std::map<SubTile, bool>& visited, Reso
 	(*count)++;
 	
 
-	ResourceNode *currV = &graph->find(root)->second;
+	ResourceNode *currV = graph->find(root)->second;
 	std::cout << "Current Vertex:\t" << currV->getNodeId().first << ", " << (int)currV->getNodeId().second << std::endl;
 	std::cout << "Current Count:\t" << *count << std::endl;
 	//std::cout << "traversing.. Count:" << *count <<"\n";
@@ -133,11 +137,11 @@ void counter::SubGraph::dfs(SubTile root, std::map<SubTile, bool>& visited, Reso
 	for (auto i = vAdjList.begin(); i != vAdjList.end(); i++)
 	{
 		
-		if (visited[i->second.getNodeId()] == false && i->second.getResource() == target)
+		if (visited[i->second->getNodeId()] == false && *i->second->getResource() == target)
 		{
-			std::cout << RCEdgeToStr(i->first) << "\t" << i->second.getNodeId().first << ", " << (int)i->second.getNodeId().second << std::endl;
+			std::cout << RCEdgeToStr(i->first) << "\t" << i->second->getNodeId().first << ", " << (int)i->second->getNodeId().second << std::endl;
 			//(*count)++;
-			dfs(i->second.getNodeId(), visited, target, count);
+			dfs(i->second->getNodeId(), visited, target, count);
 			//(*count) += 1;
 		}
 	}
@@ -147,6 +151,12 @@ void counter::SubGraph::dfs(SubTile root, std::map<SubTile, bool>& visited, Reso
 
 counter::SubGraph::~SubGraph()
 {
+	for (auto v : *graph)
+	{
+		delete v.second;
+		v.second = nullptr;
+	}
+
 	delete graph;
 	graph = nullptr;
 
@@ -158,7 +168,7 @@ void counter::SubGraph::addVertex(SubTile nodeLoc, Resource resource)
 {
 	if (graph->find(nodeLoc) == graph->end())
 	{
-		ResourceNode resNode(nodeLoc, resource);
+		ResourceNode* resNode = new ResourceNode(nodeLoc, resource);
 		graph->insert({nodeLoc, resNode});
 	}
 }
@@ -171,16 +181,16 @@ void counter::SubGraph::addEdge(SubTile src, SubTile dest, EdgeLoc edgeSrc, Edge
 		return;
 	}
 
-	ResourceNode srcNode = graph->find(src)->second;
-	ResourceNode destNode = graph->find(dest)->second;
+	ResourceNode* srcNode = graph->find(src)->second;
+	ResourceNode* destNode = graph->find(dest)->second;
 
 	//Undirected Graph
-	srcNode.setAdjResource(edgeSrc, destNode);
-	destNode.setAdjResource(edgeDest, srcNode);
+	srcNode->setAdjResource(edgeSrc, destNode);
+	destNode->setAdjResource(edgeDest, srcNode);
 }
 
 
-counter::ResourceNode counter::SubGraph::getResource(SubTile nodeLoc)
+counter::ResourceNode* counter::SubGraph::getResource(SubTile nodeLoc) const
 {
 	return graph->find(nodeLoc)->second;
 }
@@ -189,7 +199,7 @@ counter::ResourceNode* counter::SubGraph::getAdj(SubTile nodeLoc, EdgeLoc edgeDi
 {
 	if (graph->count(nodeLoc) > 0)
 	{
-		return graph->find(nodeLoc)->second.getAdj(edgeDir);
+		return graph->find(nodeLoc)->second->getAdj(edgeDir);
 
 	}
 	return nullptr;
@@ -201,7 +211,7 @@ void counter::SubGraph::printGraph()
 	{
 		auto key = v.first;
 		//std::cout << "(" << key.first << ", " << (int)key.second << ")\t" << v.second.getResource() << "\n";
-		v.second.displayLoc();
+		v.second->displayLoc();
 	}
 }
 
@@ -267,10 +277,10 @@ void counter::ResourceCounter::connectAdjTiles(int recentId, int adjId, EdgeLoc 
 
 }
 
-void counter::ResourceCounter::harvestCount(GB::Node recentNode) 
+void counter::ResourceCounter::harvestCount(GB::Node* recentNode) 
 {
-	int tileId = recentNode.getId();
-	std::vector<Resource> curResources = *recentNode.getTile()->getResources();
+	int tileId = recentNode->getId();
+	std::vector<Resource> curResources = *recentNode->getTile()->getResources();
 
 
 	const SubNode subLocations[] = {SubNode::TopLeft, SubNode::TopRight, SubNode::BotRight, SubNode::BotLeft };
@@ -291,7 +301,7 @@ void counter::ResourceCounter::harvestCount(GB::Node recentNode)
 	//Comment: Might figure a more elegant way, since this is convuluted
 	if (harvestGraph->size() > 4)
 	{
-		for (auto adj : *recentNode.getAdjList()) // Search if adj tile exists, iterates through all 
+		for (auto adj : *recentNode->getAdjList()) // Search if adj tile exists, iterates through all 
 		{
 			auto adjId = adj.second->getId();
 			for (auto v : *harvestGraph->getGraph())
@@ -301,7 +311,7 @@ void counter::ResourceCounter::harvestCount(GB::Node recentNode)
 				if (tileId == adjId)
 				{
 					//Connect subnodes to existing adj node
-					connectAdjTiles(recentNode.getId(), adjId, *recentNode.getEdge(adjId));
+					connectAdjTiles(tileId, adjId, *recentNode->getEdge(adj.second));
 				}
 			}
 		}
@@ -314,34 +324,21 @@ void counter::ResourceCounter::harvestCount(GB::Node recentNode)
 	{
 		visited.emplace(key.first, false);
 	}
-
-	/*for (auto p : visited)
-	{
-		std::cout << p.first.first << " " << (int)p.first.second<< "\t" << p.second << std::endl;
-	}
-	*/
 	
 	std::map<Resource, bool> harvested = { {Wheat, false}, {Stone, false}, {Timber, false}, {Sheep, false} };
 	for (auto subLoc : subLocations)
 	{
 		int count = 0;
-		ResourceNode root = harvestGraph->getResource({ tileId, subLoc });
-		if (harvested[root.getResource()]) {
+		ResourceNode* root = harvestGraph->getResource({ tileId, subLoc });
+		if (harvested[*root->getResource()]) {
 			continue; // if the current resource was already checked, skip it
 		}
 
-		harvested[root.getResource()] = true;
-		harvestGraph->dfs(root.getNodeId(), visited, root.getResource(), &count);
-		//std::cout << count << std::endl;
-		//std::cout << score << std::endl;
-		//counter->insert(std::make_pair(root.getResource(), count));
-		//displayScores();
-		//std::cout << counter->at(root.getResource()) << std::endl;
-		//counter[root.getResource()] += count;
+		harvested[*root->getResource()] = true;
+		harvestGraph->dfs(root->getNodeId(), visited, *root->getResource(), &count);
 		std::cout << "Count after DFS:\t" << count << std::endl;
-		counter_res[root.getResource()] = count;
-		resourceCounter[root.getResource()] = count;
-		//std::cout << "Res: " << root.getResource() << "\t"<< counter_res[root.getResource()] << std::endl;
+		counter_res[*root->getResource()] = count;
+		resourceCounter[*root->getResource()] = count;
 	}
 	
 	int resIndex = 0;
@@ -378,8 +375,8 @@ void counter::ResourceCounterDriver::run()
 		testMap->placeTile(1, new deck::Tile(Stone, Stone, Stone, Stone));
 		testCnt.harvestCount(testMap->getRecentNode());
 		//testCnt.display();
-		//testMap->placeTile(2, new deck::Tile(Stone, Wheat, Wheat, Stone));
-		//testCnt.harvestCount(testMap->getRecentNode());
+		testMap->placeTile(2, new deck::Tile(Stone, Wheat, Wheat, Stone));
+		testCnt.harvestCount(testMap->getRecentNode());
 		////testCnt.displayScores();
 		//testMap->placeTile(3, new deck::Tile(Timber, Timber, Timber, Wheat));
 		//testCnt.harvestCount(testMap->getRecentNode());
