@@ -80,7 +80,7 @@ namespace GB
 		void addEdge(int src, int dest, EdgeLoc edgeSrc, EdgeLoc edgeDest);
 		//void addEdge(int src, int dest);
 
-		Node getNode(int nodeId) const;
+		Node* getNode(int nodeId) const;
 		
 		
 		void insertTile(int nodeId, deck::Tile* tile);
@@ -112,7 +112,7 @@ namespace GB
 		void blockKeys(std::vector<int> badKeys);
 
 		//Returns most-recent tile. Used for game scoring
-		Node getRecentNode() { return graph->getNode(*recentTile); }
+		Node getRecentNode() { return *graph->getNode(*recentTile); }
 		int recentTileById() { return *recentTile; };
 		deck::Tile* getRecentTile() { return peekTile(*recentTile); }
 

@@ -207,9 +207,9 @@ void GB::Graph::addEdge(int src, int dest, EdgeLoc edgeToDest, EdgeLoc edgeToSrc
 //
 //}
 
-GB::Node GB::Graph::getNode(int nodeId) const
+GB::Node* GB::Graph::getNode(int nodeId) const
 {
-	return *graph->find(nodeId)->second;
+	return graph->find(nodeId)->second;
 }
 
 void GB::Graph::insertTile(int nodeId, deck::Tile* tile)
@@ -296,25 +296,26 @@ void GB::GBMap::blockKeys(std::vector<int> badKeys)
 
 void GB::GBMap::setOwner(int loc, std::string player)
 {
-	graph->getNode(loc).setOwner(player);
+	graph->getNode(loc)->setOwner(player);
 }
 
 std::string GB::GBMap::getOwner(int loc) const
 {
 
-	return graph->getNode(loc).getOwner();
+	return graph->getNode(loc)->getOwner();
 }
 
+//Very error prone, find a better way
 void GB::GBMap::placeTile(int loc, deck::Tile* tile)
 {
 	//
-	//if (peekTile(loc) != nullptr || 
-	//	std::find(blockedKeys->begin(), blockedKeys->end(), loc) != blockedKeys->end())
-	//{
-	//	
-	//	std::cout << "It is not free estate!\n";
-	//	return;
-	//}
+	if (peekTile(loc) != nullptr || 
+		std::find(blockedKeys->begin(), blockedKeys->end(), loc) != blockedKeys->end())
+	{
+		delete tile;
+		std::cout << "It is not free estate!\n";
+		return;
+	}
 	graph->insertTile(loc, tile);
 	*recentTile = loc; 
 }
@@ -322,12 +323,12 @@ void GB::GBMap::placeTile(int loc, deck::Tile* tile)
 deck::Tile* GB::GBMap::peekTile(int loc) const
 {
 	//Something is deleting the node around here
-	return graph->getNode(loc).getTile();
+	return graph->getNode(loc)->getTile();
 }
 
 deck::Tile* GB::GBMap::getAdjTile(int loc, EdgeLoc adjDir)
 {
-	int adjNodeId = graph->getNode(loc).getAdj(adjDir);
+	int adjNodeId = graph->getNode(loc)->getAdj(adjDir);
 	if (adjNodeId == -1)
 	{
 		return nullptr;
@@ -373,13 +374,13 @@ void GB::GBMapDriver::run()
 	if (testMap->buildBoard()) 
 	{
 		//testMap->blockKeys({1,2,3,4});
-		deck::Tile* tile = new deck::Tile(Wheat, Wheat, Stone, Timber);
-		testMap->placeTile(1, tile);
-		/*testMap->placeTile(4, new deck::Tile(Stone, Wheat, Stone, Timber));
+
+		testMap->placeTile(1, new deck::Tile(Wheat, Wheat, Stone, Timber));
+		testMap->placeTile(4, new deck::Tile(Stone, Wheat, Stone, Timber));
 		testMap->placeTile(3, new deck::Tile(Wheat, Sheep, Stone, Timber));
 		testMap->placeTile(2, new deck::Tile(Wheat, Timber, Stone, Timber));
 		testMap->placeTile(1, new deck::Tile(Sheep, Wheat, Stone, Timber));
-		testMap->getAdjTile(1, EdgeLoc::Bot)->printInfo();*/
+		testMap->getAdjTile(1, EdgeLoc::Right)->printInfo();
 		/*testMap->peekTile(5)->printInfo();
 		testMap->setOwner(1, "C-MS <3");
 		std::cout << "Owner:\t" << testMap->getOwner(1) << std::endl;*/
