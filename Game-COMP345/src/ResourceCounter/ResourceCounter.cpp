@@ -374,12 +374,16 @@ void counter::ResourceCounterDriver::run()
 		////testMap->blockKeys({1,2,3,4});
 		testMap->placeTile(1, new deck::Tile(Stone, Stone, Stone, Stone));
 		testCnt.harvestCount(testMap->getRecentNode());
-		//testCnt.display();
-		testMap->placeTile(2, new deck::Tile(Stone, Wheat, Wheat, Stone));
+		////testCnt.display();
+		testMap->placeTile(2, new deck::Tile(Stone, Stone, Wheat, Stone));
 		testCnt.harvestCount(testMap->getRecentNode());
-		////testCnt.displayScores();
-		//testMap->placeTile(3, new deck::Tile(Timber, Timber, Timber, Wheat));
-		//testCnt.harvestCount(testMap->getRecentNode());
+		//////testCnt.displayScores();
+		testMap->placeTile(3, new deck::Tile(Timber, Timber, Timber, Wheat));
+		testCnt.harvestCount(testMap->getRecentNode());
+		testMap->placeTile(8, new deck::Tile(Timber, Timber, Timber, Wheat));
+		testCnt.harvestCount(testMap->getRecentNode());
+		testMap->placeTile(30, new deck::Tile(Timber, Timber, Timber, Wheat));
+		testCnt.harvestCount(testMap->getRecentNode());
 		
 		//testMap->placeTile(3, new deck::Tile(Stone, Wheat, Wheat, Wheat));
 		//testCnt.harvestCount(testMap->getRecentNode());

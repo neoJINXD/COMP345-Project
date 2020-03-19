@@ -11,7 +11,7 @@ deck::Building* VG::Node::getBuilding()
 	return building;
 }
 //Node Implementations
-void VG::Node::insertAdj(Node node)
+void VG::Node::insertAdj(Node* node)
 {
 	this->adj_list->push_back(node);
 }
@@ -21,17 +21,23 @@ VG::Node::~Node()
 	if (nodeId)
 		delete nodeId;
 
-	//if (placementCost)
-	//	delete placementCost;
+	if (placementCost)
+		delete placementCost;
 
-	//if (building)
-	//{
-	//	delete building;
-	//	building = nullptr;
-	//}
-	////Modify later to handle vector of pointers
-	//delete adj_list;
-	//adj_list = nullptr;
+	if (building)
+	{
+		delete building;
+		building = nullptr;
+	}
+	//Modify later to handle vector of pointers
+
+	for (auto adj : *adj_list) {
+		adj = nullptr;
+	}
+	adj_list->clear();
+
+	delete adj_list;
+	adj_list = nullptr;
 
 }
 
@@ -42,7 +48,7 @@ void VG::Node::printAdjList()
 	for (auto node : *adj_list)
 	{
 		i++;
-		std::cout << node.getId();
+		std::cout << node->getId();
 		if (i == sz)
 		{
 			std::cout << "\n";
@@ -57,6 +63,12 @@ void VG::Node::printAdjList()
 //Graph Implmentations
 VG::Graph::~Graph()
 {
+	for (auto v : *graph)
+	{
+		delete v.second;
+		v.second = nullptr;
+	}
+
 	graph->clear();
 	delete graph;
 	graph = nullptr;
@@ -69,8 +81,8 @@ void VG::Graph::addVertex(int srcId)
 	//If the node with srcId is not found in the map
 	if (graph->find(srcId) == graph->end())
 	{
-		Node node(srcId);
-		graph->insert(std::pair<int, Node>(srcId, node));
+		Node* node = new Node(srcId);
+		graph->insert({ srcId, node });
 
 		return;
 	}
@@ -80,12 +92,12 @@ void VG::Graph::addVertex(int srcId)
 void VG::Graph::addEdge(int src, int dest)
 {
 
-	Node srcObj = graph->find(src)->second;
-	Node destObj = graph->find(dest)->second;
+	Node* srcObj = graph->find(src)->second;
+	Node* destObj = graph->find(dest)->second;
 
 	//Undirected Graph
-	srcObj.insertAdj(destObj);
-	destObj.insertAdj(srcObj);
+	srcObj->insertAdj(destObj);
+	destObj->insertAdj(srcObj);
 
 
 }
@@ -95,8 +107,8 @@ void VG::Graph::printGraph()
 	std::cout << "Node|\tCost\t|AdjacentNodes\n";
 	for (auto pair : *graph)
 	{
-		std::cout << "" << pair.first << ":\t" << pair.second.getCost() << "\t";
-		pair.second.printAdjList();
+		std::cout << "" << pair.first << ":\t" << pair.second->getCost() << "\t";
+		pair.second->printAdjList();
 		std::cout << std::endl;
 	}
 }
@@ -107,12 +119,12 @@ void VG::Graph::printGraph()
 
 void VG::VGMap::placeBuilding(int loc, deck::Building *building)
 {
-	graph->getGraph()->find(loc)->second.setBuilding(building);
+	graph->getGraph()->find(loc)->second->setBuilding(building);
 }
 
 deck::Building* VG::VGMap::peekBuilding(int loc)
 {
-	return graph->getGraph()->find(loc)->second.getBuilding();
+	return graph->getGraph()->find(loc)->second->getBuilding();
 }
 
 void VG::VGMap::buildBoard(int rows, int cols)
@@ -148,7 +160,7 @@ void VG::VGMap::buildBoard(int rows, int cols)
 	for (auto pair : *graph->getGraph())
 	{
 
-		pair.second.setCost(cost);
+		pair.second->setCost(cost);
 		if (pair.first % cols == 0) {
 			cost++;
 		}
@@ -174,9 +186,8 @@ void VG::VGMapDriver::run()
 {
 	VGMap* test = new VGMap();
 	
-	deck::Building* b1 = new deck::Building();
-	b1->cost = new int(6);
-	b1->resource = new Resource(Wheat);
+	deck::Building* b1 = new deck::Building(6, Wheat);
+
 
 	test->placeBuilding(1,b1);
 	test->peekBuilding(1)->printInfo();

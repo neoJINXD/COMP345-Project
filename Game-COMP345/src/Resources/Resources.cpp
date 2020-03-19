@@ -177,6 +177,15 @@ void deck::HarvestDriver::run()
 
 //////////////////////////////// Building deck
 
+deck::Building::~Building()
+{
+	delete cost;
+	cost = nullptr;
+
+	delete resource;
+	resource = nullptr;
+}
+
 // Prints the Building
 void deck::Building::printInfo()
 {
@@ -185,7 +194,7 @@ void deck::Building::printInfo()
 
 deck::BuildingDeck::~BuildingDeck()
 {
-	for (auto tile : *deck)
+	/*for (auto tile : *deck)
 	{
 		delete tile.cost;
 		tile.cost = nullptr;
@@ -193,7 +202,7 @@ deck::BuildingDeck::~BuildingDeck()
 		delete tile.resource;
 		tile.resource = nullptr;
 
-	}
+	}*/
 	deck->clear();
 
 	delete deck;
@@ -212,7 +221,7 @@ void deck::BuildingDeck::buildDeck()
 		{
 			for (int i = 0; i < 6; i++)
 			{
-				Building building{ new int(cost), new Resource(resource) };
+				Building building( cost, resource );
 				deck->push_back(building);
 			}
 		}

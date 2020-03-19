@@ -58,9 +58,8 @@ void counter::ScoringDriver::run()
 {
 	VG::VGMap* village = new VG::VGMap();
 
-	deck::Building* b1 = new deck::Building();
-	b1->cost = new int(6);
-	b1->resource = new Resource(Wheat);
+	deck::Building* b1 = new deck::Building(6, Wheat);
+
 
 	village->placeBuilding(1, b1);
 	village->placeBuilding(12, b1);

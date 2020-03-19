@@ -71,12 +71,23 @@ namespace deck
 
 
 	//////////////////////////////// Building deck
-	struct Building 
+	class Building 
 	{
+		//std::unique_pointer<bool> isFaceDown;
 		int* cost;
 		Resource* resource;
 	public:
+		Building() : cost(new int()), resource(new Resource()) {}
+		Building(int _cost, Resource _res) : cost(new int(_cost)), resource(new Resource(_res)) {}
+		~Building();
 		void printInfo();
+
+		int getCost() const { return *cost; }
+		void setCost(int _cost) { *cost = _cost; }
+		Resource getResource() const { return *resource; }
+		void setResource(Resource _resource) { *resource = _resource; }
+
+
 	};
 
 	class BuildingDeck

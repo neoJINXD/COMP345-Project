@@ -24,7 +24,7 @@ namespace VG {
 
 		//std::unique_ptr<int> nodeId;
 
-		std::vector<Node>* adj_list = new std::vector<Node>();
+		std::vector<Node*>* adj_list = new std::vector<Node*>();
 	public:
 		Node(int _nodeId) : nodeId(new int(_nodeId)), placementCost(new int(0)), building(nullptr) {}
 		~Node();
@@ -33,7 +33,7 @@ namespace VG {
 		int getCost() { return *placementCost; }
 		void setBuilding(deck::Building* _building) { building = _building; }
 		deck::Building* getBuilding();
-		void insertAdj(Node node);
+		void insertAdj(Node* node);
 
 		void printAdjList();
 
@@ -47,7 +47,7 @@ namespace VG {
 		//const int* maxNodes;
 
 
-		std::map<int, Node>  *graph = new std::map<int, Node>();
+		std::map<int, Node*>  *graph = new std::map<int, Node*>();
 
 
 	public:
@@ -64,13 +64,7 @@ namespace VG {
 		//Create edge between two nodes
 		void addEdge(int src, int dest);
 
-		std::map<int, Node>* getGraph() { return graph; }
-
-		//void getNode();
-
-		//void getEdges();
-
-
+		std::map<int, Node*>* getGraph() { return graph; }
 
 		void printGraph(); //Traveser all vertexes and list adjacents
 
