@@ -106,8 +106,9 @@ namespace GB
 	public:
 
 		GBMap() = default;
-		~GBMap();
 		GBMap(const int _players) : numberOfPlayers(new int(_players)), graph(new Graph()) {}
+		~GBMap();
+		
 		//~GBMap(); // Delete all pointers
 		bool buildBoard();
 		void blockKeys(std::vector<int> badKeys);

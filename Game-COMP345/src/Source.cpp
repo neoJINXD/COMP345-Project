@@ -1,5 +1,6 @@
 #define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>
+#include <stdlib.h>
 
 #include <iostream>
 #include <string>
@@ -16,7 +17,7 @@
 int main()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	//_CrtSetBreakAlloc(170);
+	//_CrtSetBreakAlloc(952);
 	//counter::ScoringDriver testScore;
 	//testScore.run();
 	//
@@ -29,8 +30,8 @@ int main()
 	//GB::GBMapDriver testGb;
 	//testGb.run();
 
-	VG::VGMapDriver testVg;
-	testVg.run();
+	//VG::VGMapDriver testVg;
+	//testVg.run();
 	//GB::GBMapDriver testGb;
 	//testGb.run();
 	//VG::VGMapDriver testVg;
@@ -39,8 +40,8 @@ int main()
 	//deck::HarvestDriver test1;
 
 	//test1.run();
-	//deck::BuildingDriver test2;
-	//test2.run();
+	deck::BuildingDriver test2;
+	test2.run();
 
 
 	//deck::HandDriver zahando;
@@ -66,25 +67,12 @@ int main()
 	//std::cout << "Begin Reading file" << std::endl;
 	//std::cout << std::endl;
 
-
+	//Memory leaks here Uwu
 	//maploader::MapLoaderDriver mapTest;
 	//mapTest.run();
 
 
-	/*std::string line = "1 3 1 2 2";
-	const int size = 5;
-	std::string arr[size];
-	int i = 0;
-	std::stringstream ssin(line);
-	while (ssin.good() && i < size) {
-		ssin >> arr[i];
-		++i;
-	}
-	for (i = 0; i < 4; i++) {
-		std::cout << arr[i] << std::endl;
-	}*/
-
-	//std::cout << "Ending Reading file" << std::endl;
+	
 
 
 	system("pause");

@@ -58,33 +58,24 @@ void counter::ScoringDriver::run()
 {
 	VG::VGMap* village = new VG::VGMap();
 
-	deck::Building* b1 = new deck::Building(6, Wheat);
 
-
-	village->placeBuilding(1, b1);
-	village->placeBuilding(12, b1);
-	village->placeBuilding(13, b1);
-	village->placeBuilding(15, b1);
-	village->placeBuilding(14, b1);
-	village->placeBuilding(6, b1);
-	village->placeBuilding(11, b1);
-	village->placeBuilding(16, b1);
-	village->placeBuilding(21, b1);
-	village->placeBuilding(26, b1);
+	village->placeBuilding(1, new deck::Building(6, Wheat));
+	village->placeBuilding(12, new deck::Building(6, Wheat));
+	village->placeBuilding(13, new deck::Building(6, Wheat));
+	village->placeBuilding(15, new deck::Building(6, Wheat));
+	village->placeBuilding(14, new deck::Building(6, Wheat));
+	village->placeBuilding(6, new deck::Building(6, Wheat));
+	village->placeBuilding(11, new deck::Building(6, Wheat));
+	village->placeBuilding(16, new deck::Building(6, Wheat));
+	village->placeBuilding(21, new deck::Building(6, Wheat));
+	village->placeBuilding(26, new deck::Building(6, Wheat));
 
 	counter::ScoringCounter counter;
 	int result = counter.countScore(village);
 
 	std::cout << "Score is: " << result<< std::endl;
-	
 
-	/*std::cout << "Rows: " << std::endl;
-	for (int i = 0; i < 6; i++)
-		std::cout << result.first[i];
-	std::cout << std::endl;
 
-	std::cout << "Columns: " << std::endl;
-	for (int i = 0; i < 5; i++)
-		std::cout << result.second[i];
-	std::cout << std::endl;*/
+	delete village;
+	village = nullptr;
 }

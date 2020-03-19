@@ -1,9 +1,16 @@
 #pragma once
+#ifndef _DEBUG
+#define _DEBUG
+#endif // !_DEBUG
+#ifdef _DEBUG
+#define new new( _NORMAL_BLOCK, __FILE__, __LINE__ )
+#endif
 #include <vector>
 #include <algorithm>
 #include <cstdlib>
 #include <vector>
 #include <iostream>
+#include <memory>
 
 //TODO maybe have both decks extend from a base deck class
 
@@ -73,18 +80,19 @@ namespace deck
 	//////////////////////////////// Building deck
 	class Building 
 	{
-		//std::unique_pointer<bool> isFaceDown;
-		int* cost;
-		Resource* resource;
+	
+		std::unique_ptr<int> cost;
+		std::unique_ptr<Resource> resource;
 	public:
-		Building() : cost(new int()), resource(new Resource()) {}
-		Building(int _cost, Resource _res) : cost(new int(_cost)), resource(new Resource(_res)) {}
+		Building() : cost(std::make_unique<int>()), resource(std::make_unique<Resource>()) {}
+		Building(int _cost, Resource _res) : cost(std::make_unique<int>(_cost)), resource(std::make_unique<Resource>(_res)) {}
+		Building(const Building& building);
 		~Building();
-		void printInfo();
+		void printInfo() const;
 
-		int getCost() const { return *cost; }
+		int getCost() const { return *cost.get(); }
 		void setCost(int _cost) { *cost = _cost; }
-		Resource getResource() const { return *resource; }
+		Resource getResource() const { return *resource.get(); }
 		void setResource(Resource _resource) { *resource = _resource; }
 
 
@@ -93,12 +101,12 @@ namespace deck
 	class BuildingDeck
 	{
 	private:
-		std::vector<Building>* deck;
+		std::vector<std::unique_ptr<Building>>* deck;
 		void buildDeck();
 		void shuffle();
 
 	public:
-		BuildingDeck() : deck(new std::vector<Building>()) { buildDeck(); }
+		BuildingDeck() : deck(new std::vector<std::unique_ptr<Building>>()) { buildDeck(); }
 		~BuildingDeck();
 
 		Building draw();
@@ -130,7 +138,7 @@ namespace deck
 		void displayTiles();
 		void displayBuildings();
 
-		Building getBuilding(int location);
+		//Building getBuilding(int location);
 	};
 
 	class HandDriver

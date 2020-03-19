@@ -3,7 +3,7 @@
 
 #include <ctime>
 #include <random>
-
+#include <chrono>
 
 
 //Random Generator with random seeding
@@ -140,8 +140,10 @@ void deck::HarvestDeck::buildDeck()
 // Shuffles the deck
 void deck::HarvestDeck::shuffle()
 {
+
 	// using built-in random generator to shuffle the harvestDeck
 	std::random_shuffle(deck->begin(), deck->end(), IOP);
+
 }
 
 // Draws a card
@@ -177,19 +179,27 @@ void deck::HarvestDriver::run()
 
 //////////////////////////////// Building deck
 
+deck::Building::Building(const Building& building)
+{
+	//std::cout << cost << std::endl;
+	cost = std::make_unique<int>(*building.cost.get());
+	resource = std::make_unique<Resource>(*building.resource.get());
+
+}
+
 deck::Building::~Building()
 {
-	delete cost;
-	cost = nullptr;
+	//delete cost;
+	//cost = nullptr;
 
-	delete resource;
-	resource = nullptr;
+	//delete resource;
+	//resource = nullptr;
 }
 
 // Prints the Building
-void deck::Building::printInfo()
+void deck::Building::printInfo() const
 {
-	std::cout << "Cost: " << *cost << "\tResource: " << *resource << std::endl;
+	std::cout << "Cost: " << *cost.get() << "\tResource: " << *resource.get() << std::endl;
 }
 
 deck::BuildingDeck::~BuildingDeck()
@@ -203,8 +213,8 @@ deck::BuildingDeck::~BuildingDeck()
 		tile.resource = nullptr;
 
 	}*/
+	//deck->clear();
 	deck->clear();
-
 	delete deck;
 	deck = nullptr;
 }
@@ -221,8 +231,8 @@ void deck::BuildingDeck::buildDeck()
 		{
 			for (int i = 0; i < 6; i++)
 			{
-				Building building( cost, resource );
-				deck->push_back(building);
+				
+				deck->push_back(std::make_unique<Building>(cost, resource));
 			}
 		}
 	}
@@ -233,15 +243,22 @@ void deck::BuildingDeck::buildDeck()
 // Shuffles the deck
 void deck::BuildingDeck::shuffle()
 {
-
-	std::random_shuffle(deck->begin(), deck->end(), IOP);
+	//get current time and use it as a seed
+	typedef std::chrono::high_resolution_clock gold_experience_requiem;
+	auto ekko = gold_experience_requiem::now();
+	
+	auto seed = ekko.time_since_epoch().count();
+	auto IOP = std::default_random_engine(seed);
+	
+	std::shuffle(deck->begin(), deck->end(), IOP);
 }
 
 // Draws a card
 deck::Building deck::BuildingDeck::draw()
 {
-	Building top = deck->back();
+	Building top = *deck->back().get();
 	deck->pop_back();
+	//deck->shrink_to_fit();
 	this->shuffle();
 	return top;
 }
@@ -250,18 +267,21 @@ deck::Building deck::BuildingDeck::draw()
 // Prints the whole deck
 void deck::BuildingDeck::printDeck()
 {
-	int* count = new int(0);
-	for (auto b : *deck)
+	int count = 0;
+	for (const auto& b : *deck)
 	{
-		b.printInfo();
-		(*count)++;
+		b.get()->printInfo();
+		(count)++;
 	}
 
-	std::cout << "Building counter: " << *count << std::endl;
+	std::cout << "Building counter: " << count << std::endl;
 
 	draw().printInfo();
 	draw().printInfo();
-
+	draw().printInfo();
+	draw().printInfo();
+	draw().printInfo();
+	draw().printInfo();
 }
 
 // Runs test
@@ -376,9 +396,9 @@ std::pair<int, deck::Tile> deck::Hand::exchange() {
 	return result;	
 }
 
-deck::Building deck::Hand::getBuilding(int location) 
-{
-	deck::Building selected = BuildingHand->at(location);
-	BuildingHand->erase(BuildingHand->begin() + location);
-	return selected;
-}
+//deck::Building deck::Hand::getBuilding(int location) 
+//{
+//	deck::Building selected = BuildingHand->at(location);
+//	BuildingHand->erase(BuildingHand->begin() + location);
+//	return selected;
+//}

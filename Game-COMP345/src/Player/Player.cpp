@@ -62,7 +62,7 @@ void player::Player::PlaceHarvestTile()
 
 void player::Player::BuildVillage()
 {
-	hands->displayBuildings();
+	/*hands->displayBuildings();
 
 	int location;
 	std::cout << "Select a location" << std::endl;
@@ -75,7 +75,7 @@ void player::Player::BuildVillage()
 	deck::Building selected = hands->getBuilding(selection);
 	village->placeBuilding(location, &selected);
 	std::cout << "Placing at " << location << std::endl;
-	village->peekBuilding(location)->printInfo();
+	village->peekBuilding(location)->printInfo();*/
 }
 
 void player::PlayerDriver::run()

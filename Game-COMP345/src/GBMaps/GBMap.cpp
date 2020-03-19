@@ -309,6 +309,7 @@ bool GB::GBMap::buildBoard()
 
 void GB::GBMap::blockKeys(std::vector<int> badKeys)
 {
+
 	blockedKeys = new std::vector<int>(badKeys); // UmU
 }
 
@@ -378,7 +379,7 @@ GB::GBMap::~GBMap()
 	delete recentTile;
 	recentTile = nullptr;
 
-	blockedKeys->clear();
+	//blockedKeys->clear();
 	delete blockedKeys;
 	blockedKeys = nullptr;
 
