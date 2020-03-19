@@ -37,11 +37,11 @@ int main()
 	//VG::VGMapDriver testVg;
 	//testVg.run();
 
-	//deck::HarvestDriver test1;
+	deck::HarvestDriver test1;
+	test1.run();
 
-	//test1.run();
-	deck::BuildingDriver test2;
-	test2.run();
+	//deck::BuildingDriver test2;
+	//test2.run();
 
 
 	//deck::HandDriver zahando;

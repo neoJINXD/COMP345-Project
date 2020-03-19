@@ -34,6 +34,15 @@ namespace deck
 			resources = new std::vector<Resource>{ _one, _two,_three,_four };
 		}
 
+		Tile(const Tile& tile) 
+		{
+			resources = new std::vector<Resource>();
+			for (auto res : *tile.resources)
+			{
+				resources->push_back(res);
+			}
+		}
+
 		//Tile(const Tile& tile) {
 		//	resources = new std::vector<Resource>();
 
@@ -56,12 +65,12 @@ namespace deck
 	class HarvestDeck
 	{
 	private:
-		std::vector<Tile>* deck;
+		std::vector<std::unique_ptr<Tile>>* deck;
 		void buildDeck();
 		void shuffle();
 
 	public:
-		HarvestDeck() : deck(new std::vector<Tile>()) { buildDeck(); }
+		HarvestDeck() : deck(new std::vector<std::unique_ptr<Tile>>()) { buildDeck(); }
 		~HarvestDeck();
 
 		Tile draw();
