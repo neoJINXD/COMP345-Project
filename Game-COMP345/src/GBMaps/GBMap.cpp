@@ -309,7 +309,10 @@ bool GB::GBMap::buildBoard()
 
 void GB::GBMap::blockKeys(const std::vector<int>& badKeys)
 {
-
+	if (blockedKeys) {
+		delete blockedKeys;
+		blockedKeys = nullptr;
+	}
 	blockedKeys = new std::vector<int>(badKeys); // UmU
 }
 
@@ -327,8 +330,9 @@ std::string GB::GBMap::getOwner(int loc) const
 //Very error prone, find a better way
 void GB::GBMap::placeTile(int loc, deck::Tile* tile)
 {
-	//
-	if (peekTile(loc) != nullptr || 
+	//Check at this vertex if a tile already exists
+	deck::Tile* existTile = peekTile(loc);
+	if (existTile != nullptr || 
 		std::find(blockedKeys->begin(), blockedKeys->end(), loc) != blockedKeys->end())
 	{
 		delete tile;

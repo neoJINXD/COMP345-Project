@@ -37,10 +37,7 @@ namespace deck
 		Tile(const Tile& tile) 
 		{
 			resources = new std::vector<Resource>();
-			for (auto res : *tile.resources)
-			{
-				resources->push_back(res);
-			}
+			*resources = *tile.resources;
 		}
 
 		//Tile(const Tile& tile) {

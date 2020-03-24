@@ -24,8 +24,8 @@ int main()
 	//GB::GBMapDriver test;
 	//test.run();
 	//deck::HarvestDriver test1;
-	/*counter::ResourceCounterDriver testRC;
-	testRC.run();*/
+	counter::ResourceCounterDriver testRC;
+	testRC.run();
 
 	//GB::GBMapDriver testGb;
 	//testGb.run();
@@ -34,8 +34,8 @@ int main()
 	//testVg.run();
 	//GB::GBMapDriver testGb;
 	//testGb.run();
-	VG::VGMapDriver testVg;
-	testVg.run();
+	//VG::VGMapDriver testVg;
+	//testVg.run();
 
 	//deck::HarvestDriver test1;
 	//test1.run();
@@ -68,8 +68,8 @@ int main()
 	//std::cout << std::endl;
 
 	//Memory leaks here Uwu
-	maploader::MapLoaderDriver mapTest;
-	mapTest.run();
+	//maploader::MapLoaderDriver mapTest;
+	//mapTest.run();
 
 
 	
