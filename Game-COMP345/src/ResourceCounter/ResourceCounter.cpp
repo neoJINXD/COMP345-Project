@@ -5,18 +5,6 @@
 2: Insert all sub-nodes from Placed tile into SubGraph
 3: Link the SubNodes together
 
-	if (adjNode exists at top)
-		addEdge(<topleft>, <botleft>)
-		addEdge(topRight, botRight)
-
-	if (adjNode exists at bottom)
-		addEdge()
-	
-	if (adjNode exists at left)
-	
-	if (adjNode existts at right)
-
-
 
 */
 std::string RCEdgeToStr(EdgeLoc edge) {
@@ -62,7 +50,7 @@ counter::ResourceNode::~ResourceNode()
 	for (auto adj : *adjResources) {
 		adj.second = nullptr;
 	}
-
+	adjResources->clear();
 	delete adjResources;
 	adjResources = nullptr;
 
@@ -91,7 +79,7 @@ counter::ResourceNode* counter::ResourceNode::getAdj(EdgeLoc dir)
 void counter::ResourceNode::display()
 {
 	std::cout << "[TID: " << nodeId->first << ", SN: " << (int)nodeId->second << "]\t";
-	std::cout << "Resource: " << *resource << "\tAdj Resources: ";
+	std::cout << "Resource: " << (int)*resource << "\tAdj Resources: ";
 	for (auto res : *adjResources)
 	{
 		std::cout << "[Loc:" << RCEdgeToStr(res.first) << " (T_ID:" 
@@ -103,14 +91,14 @@ void counter::ResourceNode::display()
 
 void counter::ResourceNode::displayLoc()
 {
-	std::cout << "[TID: " << nodeId->first << " | SN: " << snToStr(nodeId->second) << "]\t"
-		<< "Adj Loc: ";
-	//for (auto res : *adjResources)
-	//{
-	//	std::cout << "[Loc:" << RCEdgeToStr(res.first) << " (T_ID:"
-	//		<< res.second.getNodeId().first << ", S_Loc: " << snToStr(res.second.getNodeId().second) << ")"
-	//		<< "], ";
-	//}
+	std::cout << "[TID: " << nodeId->first << " | SN: " << snToStr(nodeId->second) << "] | Resources:"
+		<< resource << "\tAdj Loc: ";
+	for (auto res : *adjResources)
+	{
+		std::cout << "[Loc:" << RCEdgeToStr(res.first) << " (T_ID:"
+			<< res.second->getNodeId().first << ", S_Loc: " << snToStr(res.second->getNodeId().second) << ")"
+			<< "], ";
+	}
 	std::cout << std::endl;
 }
 
@@ -277,7 +265,7 @@ void counter::ResourceCounter::connectAdjTiles(int recentId, int adjId, EdgeLoc 
 
 }
 
-void counter::ResourceCounter::harvestCount(GB::Node* recentNode) 
+std::map<Resource, int> counter::ResourceCounter::harvestCount(GB::Node* recentNode) 
 {
 	int tileId = recentNode->getId();
 	std::vector<Resource> curResources = *recentNode->getTile()->getResources();
@@ -318,7 +306,8 @@ void counter::ResourceCounter::harvestCount(GB::Node* recentNode)
 	}
 
 	std::map<std::pair<int, counter::SubNode>, bool> visited;
-	int counter_res[] = {0, 0, 0, 0};
+	//int counter_res[] = {0, 0, 0, 0};
+	std::map<Resource, int> counter_res{ {Wheat, 0}, {Stone, 0}, {Sheep, 0}, {Timber, 0} };
 
 	for (auto key : *harvestGraph->getGraph())
 	{
@@ -336,20 +325,27 @@ void counter::ResourceCounter::harvestCount(GB::Node* recentNode)
 
 		harvested[*root->getResource()] = true;
 		harvestGraph->dfs(root->getNodeId(), visited, *root->getResource(), &count);
-		std::cout << "Count after DFS:\t" << count << std::endl;
+		//std::cout << "Count after DFS:\t" << count << std::endl;
 		counter_res[*root->getResource()] = count;
-		resourceCounter[*root->getResource()] = count;
+		//resourceCounter[*root->getResource()] = count;
 	}
 	
 	int resIndex = 0;
-	for (int i : resourceCounter)
+	//for (int i : resourceCounter)
+	//{
+	//	
+	//	std::cout << "ResourceID: " << resIndex << " Count: " << i << std::endl;
+	//	//counter->insert(std::pair<Resource, int>((Resource)resIndex, i));
+	//	resIndex++;
+	//}
+
+	for (auto k : counter_res)
 	{
-		
-		std::cout << "ResourceID: " << resIndex << " Count: " << i << std::endl;
-		//counter->insert(std::pair<Resource, int>((Resource)resIndex, i));
-		resIndex++;
+		std::cout << "ResourceID: " << k.first << " Count: " << k.second << std::endl;
 	}
 
+	display();
+	return counter_res;
 	
 	//displayScores();
 }
@@ -370,21 +366,22 @@ void counter::ResourceCounterDriver::run()
 	GB::GBMap* testMap = new GB::GBMap();
 
 	if (testMap->buildBoard())
-	{
+	{	
+		int counts[4];
 		////testMap->blockKeys({1,2,3,4});
 		testMap->placeTile(1, new deck::Tile(Stone, Stone, Stone, Stone));
 		testCnt.harvestCount(testMap->getRecentNode());
 		////testCnt.display();
-		testMap->placeTile(2, new deck::Tile(Stone, Stone, Wheat, Stone));
+		testMap->placeTile(2, new deck::Tile(Stone, Stone, Stone, Stone));
 		testCnt.harvestCount(testMap->getRecentNode());
 		//////testCnt.displayScores();
-		testMap->placeTile(3, new deck::Tile(Timber, Timber, Timber, Wheat));
+		/*testMap->placeTile(3, new deck::Tile(Timber, Timber, Timber, Wheat));
 		testCnt.harvestCount(testMap->getRecentNode());
 		testMap->placeTile(8, new deck::Tile(Timber, Timber, Timber, Wheat));
 		testCnt.harvestCount(testMap->getRecentNode());
 		testMap->placeTile(30, new deck::Tile(Timber, Timber, Timber, Wheat));
 		testCnt.harvestCount(testMap->getRecentNode());
-		
+		*/
 		//testMap->placeTile(3, new deck::Tile(Stone, Wheat, Wheat, Wheat));
 		//testCnt.harvestCount(testMap->getRecentNode());
 		//testCnt.displayScores();

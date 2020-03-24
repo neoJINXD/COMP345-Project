@@ -11,6 +11,7 @@
 #include <memory>
 #include "../Resources/Resources.h" 
 
+
 namespace VG {
 
 	class Node {
@@ -18,8 +19,8 @@ namespace VG {
 		//const std::string& name; //Replace with Tile object
 		
 		//Member that is used to identify / locate the node only. Can convert it into a different type later, example string
-		int* const nodeId;
-		int* const placementCost;
+		int* nodeId;
+		int* placementCost;
 		deck::Building* building;
 
 		//std::unique_ptr<int> nodeId;
@@ -27,6 +28,7 @@ namespace VG {
 		std::vector<Node*>* adj_list = new std::vector<Node*>();
 	public:
 		Node(int _nodeId) : nodeId(new int(_nodeId)), placementCost(new int(0)), building(nullptr) {}
+		//Node(const Node& node);
 		~Node();
 		int getId() { return *nodeId; }
 		void setCost(int value) { *placementCost = value; }
@@ -76,10 +78,12 @@ namespace VG {
 
 	private:
 		Graph* graph;
-		//std::string owner;
+		std::string* villageName;
+		
 		void buildBoard(int rows, int cols);
 	public:
 		VGMap();
+		VGMap(std::string name);
 		//VGMap(std::string _owner) : owner(_owner), graph(new Graph()) { buildBoard(6, 5); }
 		~VGMap();
 		//void printVillage();

@@ -110,7 +110,7 @@ namespace counter
 		ResourceCounter();
 		~ResourceCounter();
 		void display() { harvestGraph->printGraph(); }
-		void harvestCount(GB::Node* recentNode); //Keeps state of graph
+		std::map<Resource, int> harvestCount(GB::Node* recentNode); //Keeps state of graph
 		//void displayScores();
 	};
 

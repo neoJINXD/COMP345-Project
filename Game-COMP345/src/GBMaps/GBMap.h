@@ -96,7 +96,7 @@ namespace GB
 		const int* numberOfPlayers = new int(4);
 		int* recentTile = new int(0); 
 		Graph* graph = new Graph();
-		std::vector<int>* blockedKeys = new std::vector<int>();
+		std::vector<int>* blockedKeys = nullptr;
 
 		void createFullBoard();
 		void create5By7();
@@ -111,7 +111,7 @@ namespace GB
 		
 		//~GBMap(); // Delete all pointers
 		bool buildBoard();
-		void blockKeys(std::vector<int> badKeys);
+		void blockKeys(const std::vector<int>& badKeys);
 
 		//Returns most-recent tile. Used for game scoring
 		Node* getRecentNode() const { return graph->getNode(*recentTile); }

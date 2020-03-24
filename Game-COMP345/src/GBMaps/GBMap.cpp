@@ -307,7 +307,7 @@ bool GB::GBMap::buildBoard()
 	return true; // uhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
 }
 
-void GB::GBMap::blockKeys(std::vector<int> badKeys)
+void GB::GBMap::blockKeys(const std::vector<int>& badKeys)
 {
 
 	blockedKeys = new std::vector<int>(badKeys); // UmU

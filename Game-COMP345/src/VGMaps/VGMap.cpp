@@ -169,14 +169,20 @@ void VG::VGMap::buildBoard(int rows, int cols)
 
 	graph->printGraph();
 }
-
-VG::VGMap::VGMap()
+VG::VGMap::VGMap() {
+	graph = new Graph();
+	buildBoard(6, 5);
+}
+VG::VGMap::VGMap(std::string name)
 {
 	graph = new Graph();
+	villageName = new std::string(name);
 	buildBoard(6, 5);
 }
 
 VG::VGMap::~VGMap() {
+	delete villageName;
+	
 	delete graph;
 	graph = nullptr;
 	
@@ -184,10 +190,9 @@ VG::VGMap::~VGMap() {
 
 void VG::VGMapDriver::run()
 {
-	VGMap* test = new VGMap();
+	VGMap* test = new VGMap("Wtf");
 	
 	deck::Building* b1 = new deck::Building(6, Wheat);
-
 
 	test->placeBuilding(1,b1);
 	test->peekBuilding(1)->printInfo();
