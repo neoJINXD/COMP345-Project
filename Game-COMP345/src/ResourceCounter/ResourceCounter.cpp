@@ -56,9 +56,9 @@ counter::ResourceNode::~ResourceNode()
 
 }
 
-std::vector<std::pair<EdgeLoc, counter::ResourceNode*>> counter::ResourceNode::getAdjResources()
+std::vector<std::pair<EdgeLoc, counter::ResourceNode*>>* counter::ResourceNode::getAdjResources()
 {
-	return *adjResources;
+	return adjResources;
 }
 
 void counter::ResourceNode::setAdjResource(EdgeLoc edgeDir, ResourceNode* adjNode)
@@ -115,14 +115,14 @@ void counter::SubGraph::dfs(SubTile root, std::map<SubTile, bool>& visited, Reso
 	(*count)++;
 	
 
-	ResourceNode *currV = graph->find(root)->second;
+	ResourceNode* currV = graph->find(root)->second;
 	std::cout << "Current Vertex:\t" << currV->getNodeId().first << ", " << (int)currV->getNodeId().second << std::endl;
-	std::cout << "Current Count:\t" << *count << std::endl;
+	//std::cout << "Current Count:\t" << *count << std::endl;
 	//std::cout << "traversing.. Count:" << *count <<"\n";
 	//currV.displayLoc();
 	auto vAdjList = currV->getAdjResources();
 	//std::cout << currV.getNodeId().first << ", " << snToStr(currV.getNodeId().second);
-	for (auto i = vAdjList.begin(); i != vAdjList.end(); i++)
+	for (auto i = vAdjList->begin(); i != vAdjList->end(); i++)
 	{
 		
 		if (visited[i->second->getNodeId()] == false && *i->second->getResource() == target)
@@ -276,6 +276,7 @@ std::map<Resource, int> counter::ResourceCounter::harvestCount(GB::Node* recentN
 	for (auto subLoc : subLocations)
 	{
 		int index = (int)subLoc;
+		std::cout << "Adding resource:\t" << curResources[index] << std::endl;
 		harvestGraph->addVertex({tileId, subLoc}, curResources[index]);
 	}
 
@@ -298,8 +299,9 @@ std::map<Resource, int> counter::ResourceCounter::harvestCount(GB::Node* recentN
 
 				if (tileId == adjId)
 				{
+					std::cout << "Existing adjacent:\t" << tileId << std::endl;
 					//Connect subnodes to existing adj node
-					connectAdjTiles(tileId, adjId, *recentNode->getEdge(adj.second));
+					connectAdjTiles(recentNode->getId(), adjId, *recentNode->getEdge(adj.second));
 				}
 			}
 		}
@@ -344,30 +346,23 @@ std::map<Resource, int> counter::ResourceCounter::harvestCount(GB::Node* recentN
 		std::cout << "ResourceID: " << k.first << " Count: " << k.second << std::endl;
 	}
 
+	std::cout << "Current Subgraph:";
 	display();
 	return counter_res;
 	
-	//displayScores();
 }
-//
-//void counter::ResourceCounter::displayScores()
-//{
-//	for (auto k : *counter)
-//	{
-//		std::cout << "Res: " << k.first << "\tCount: " << k.second << std::endl;
-//	}
-//}
+
 
 void counter::ResourceCounterDriver::run()
 {
 	
 
-	ResourceCounter testCnt;
+	ResourceCounter testCnt;;
 	GB::GBMap* testMap = new GB::GBMap();
 
 	if (testMap->buildBoard())
 	{	
-		int counts[4];
+		
 		////testMap->blockKeys({1,2,3,4});
 		testMap->placeTile(1, new deck::Tile(Stone, Stone, Stone, Stone));
 		testCnt.harvestCount(testMap->getRecentNode());

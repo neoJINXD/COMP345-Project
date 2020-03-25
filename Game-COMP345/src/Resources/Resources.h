@@ -86,12 +86,12 @@ namespace deck
 	//////////////////////////////// Building deck
 	class Building 
 	{
-	
+		std::unique_ptr<bool> isFaceDown;
 		std::unique_ptr<int> cost;
 		std::unique_ptr<Resource> resource;
 	public:
-		Building() : cost(std::make_unique<int>()), resource(std::make_unique<Resource>()) {}
-		Building(int _cost, Resource _res) : cost(std::make_unique<int>(_cost)), resource(std::make_unique<Resource>(_res)) {}
+		Building() : cost(std::make_unique<int>()), resource(std::make_unique<Resource>()), isFaceDown(std::make_unique<bool>(false)) {}
+		Building(int _cost, Resource _res) : cost(std::make_unique<int>(_cost)), resource(std::make_unique<Resource>(_res)), isFaceDown(std::make_unique<bool>(false)) {}
 		Building(const Building& building);
 		~Building();
 		void printInfo() const;

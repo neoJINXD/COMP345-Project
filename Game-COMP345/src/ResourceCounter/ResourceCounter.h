@@ -38,7 +38,7 @@ namespace counter
 		ResourceNode(std::pair<int, SubNode> _nodeId, Resource _resource) : resource(new Resource(_resource)), nodeId(new std::pair<int, SubNode>(_nodeId)){}
 		~ResourceNode();
 		int getTileId() { return nodeId->first;  } // Gets the tile this resource resides in. (See GBMap)
-		AdjNodes getAdjResources();
+		AdjNodes* getAdjResources();
 		void setAdjResource(EdgeLoc edgeDir, ResourceNode* adjNode);
 		ResourceNode* getAdj(EdgeLoc dir);
 		Resource* getResource() { return resource; }
@@ -77,7 +77,7 @@ namespace counter
 		ResourceNode* getAdj(SubTile nodeLoc, EdgeLoc edgeDir);
 		void dfs(SubTile root, std::map<SubTile, bool>& visited, Resource target, int* count);
 
-		void buildGraph();
+		//void buildGraph();
 		void printGraph(); //Travese all vertexes and list adjacents
 		int size() { return graph->size(); };
 	};
