@@ -184,29 +184,38 @@ void deck::HarvestDriver::run()
 deck::Building::Building(const Building& building)
 {
 	//std::cout << cost << std::endl;
-	cost = std::make_unique<int>(*building.cost.get());
-	resource = std::make_unique<Resource>(*building.resource.get());
+	cost = new int(*building.cost);
+	resource = new Resource(*building.resource);
+	isFaceDown = new bool(*building.isFaceDown);
 
 }
 
 deck::Building::~Building()
 {
-	//delete cost;
-	//cost = nullptr;
+	//REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+	
+	delete cost;
+	cost = nullptr;
 
-	//delete resource;
-	//resource = nullptr;
+	delete resource;
+	resource = nullptr;
+
+	delete isFaceDown;
+	isFaceDown = NULL;
 }
 
 // Prints the Building
 void deck::Building::printInfo() const
 {
-	std::cout << "Cost: " << *cost.get() << "\tResource: " << *resource.get() << std::endl;
+	std::cout << "Cost: " << *cost << "\tResource: " << *resource << "\tFacedown: " << *isFaceDown << std::endl;
 }
 
 deck::BuildingDeck::~BuildingDeck()
 {
-
+	for (auto i : *deck)
+	{
+		delete i;
+	}
 	deck->clear();
 	delete deck;
 	deck = nullptr;
@@ -225,7 +234,7 @@ void deck::BuildingDeck::buildDeck()
 			for (int i = 0; i < 6; i++)
 			{
 				
-				deck->push_back(std::make_unique<Building>(cost, resource));
+				deck->push_back(new Building(cost, resource));
 			}
 		}
 	}
@@ -247,9 +256,9 @@ void deck::BuildingDeck::shuffle()
 }
 
 // Draws a card
-deck::Building deck::BuildingDeck::draw()
+deck::Building* deck::BuildingDeck::draw()
 {
-	Building top = *deck->back().get();
+	Building* top = deck->back();
 	deck->pop_back();
 	this->shuffle();
 	return top;
@@ -262,18 +271,18 @@ void deck::BuildingDeck::printDeck()
 	int count = 0;
 	for (const auto& b : *deck)
 	{
-		b.get()->printInfo();
+		b->printInfo();
 		(count)++;
 	}
 
 	std::cout << "Building counter: " << count << std::endl;
 
-	draw().printInfo();
-	draw().printInfo();
-	draw().printInfo();
-	draw().printInfo();
-	draw().printInfo();
-	draw().printInfo();
+	draw()->printInfo();
+	draw()->printInfo();
+	draw()->printInfo();
+	draw()->printInfo();
+	draw()->printInfo();
+	draw()->printInfo();
 }
 
 // Runs test
@@ -347,7 +356,7 @@ void deck::Hand::displayBuildings()
 		std::cout << "Your Buildings are: " << std::endl;
 		for (auto i : *BuildingHand)
 		{
-			i.printInfo();
+			i->printInfo();
 		}
 	}
 	else
@@ -411,9 +420,9 @@ std::pair<int, deck::Tile*> deck::Hand::exchange() {
 	return result;	
 }
 
-//deck::Building deck::Hand::getBuilding(int location) 
-//{
-//	deck::Building selected = BuildingHand->at(location);
-//	BuildingHand->erase(BuildingHand->begin() + location);
-//	return selected;
-//}
+deck::Building* deck::Hand::getBuilding(int location) 
+{
+	deck::Building* selected = BuildingHand->at(location);
+	BuildingHand->erase(BuildingHand->begin() + location);
+	return selected;
+}

@@ -44,14 +44,14 @@ int main()
 	//test2.run();
 
 
-	deck::HandDriver zahando;
-	zahando.run();
+	//deck::HandDriver zahando;
+	//zahando.run();
 
 	//deck::HarvestDeck HDeck;
 	//deck::BuildingDeck BDeck;
 
-	//player::PlayerDriver playerTest;
-	//playerTest.run();
+	player::PlayerDriver playerTest;
+	playerTest.run();
 
 	//std::string p1 = "jojo";
 	//player::Player jojo(&p1);

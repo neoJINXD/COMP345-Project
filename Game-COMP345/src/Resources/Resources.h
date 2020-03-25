@@ -97,20 +97,22 @@ namespace deck
 	//////////////////////////////// Building deck
 	class Building 
 	{
-		std::unique_ptr<bool> isFaceDown;
-		std::unique_ptr<int> cost;
-		std::unique_ptr<Resource> resource;
+		bool* isFaceDown;
+		int* cost;
+		Resource* resource;
 	public:
-		Building() : cost(std::make_unique<int>()), resource(std::make_unique<Resource>()), isFaceDown(std::make_unique<bool>(false)) {}
-		Building(int _cost, Resource _res) : cost(std::make_unique<int>(_cost)), resource(std::make_unique<Resource>(_res)), isFaceDown(std::make_unique<bool>(false)) {}
+		Building() : cost(new int()), resource(new Resource()), isFaceDown(new bool(false)) {}
+		Building(int _cost, Resource _res) : cost(new int(_cost)), resource(new Resource(_res)), isFaceDown(new bool(false)) {}
 		Building(const Building& building);
 		~Building();
 		void printInfo() const;
 
-		int getCost() const { return *cost.get(); }
+		int getCost() const { return *cost; }
 		void setCost(int _cost) { *cost = _cost; }
-		Resource getResource() const { return *resource.get(); }
+		Resource getResource() const { return *resource; }
 		void setResource(Resource _resource) { *resource = _resource; }
+
+		
 
 
 	};
@@ -118,15 +120,15 @@ namespace deck
 	class BuildingDeck
 	{
 	private:
-		std::vector<std::unique_ptr<Building>>* deck;
+		std::vector<Building*>* deck;
 		void buildDeck();
 		void shuffle();
 
 	public:
-		BuildingDeck() : deck(new std::vector<std::unique_ptr<Building>>()) { buildDeck(); }
+		BuildingDeck() : deck(new std::vector<Building*>()) { buildDeck(); }
 		~BuildingDeck();
 
-		Building draw();
+		Building* draw();
 		void printDeck();
 	};
 
@@ -140,7 +142,7 @@ namespace deck
 	{
 	private:
 		std::vector<Tile*>* HarvestHand = new std::vector<Tile*>();
-		std::vector<Building>* BuildingHand = new std::vector<Building>();
+		std::vector<Building*>* BuildingHand = new std::vector<Building*>();
 
 		HarvestDeck* _HarvestDeck;
 		BuildingDeck* _BuildingDeck;
@@ -155,7 +157,9 @@ namespace deck
 		void displayTiles();
 		void displayBuildings();
 
-		//Building getBuilding(int location);
+		Building* getBuilding(int location);
+
+		
 	};
 
 	class HandDriver
