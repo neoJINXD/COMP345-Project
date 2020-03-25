@@ -81,6 +81,10 @@ namespace VG {
 		std::string* villageName;
 		
 		void buildBoard(int rows, int cols);
+
+		int rowScore[6] = { 6,5,4,3,2,1 };
+		int colScore[5] = { 5,4,3,4,5 };
+
 	public:
 		VGMap();
 		VGMap(std::string name);
@@ -89,6 +93,10 @@ namespace VG {
 		//void printVillage();
 		void placeBuilding(int loc, deck::Building* building);
 		deck::Building* peekBuilding(int loc);
+
+		void setCustomScores(int* rows, int* cols);
+		int* getRowScore() { return rowScore; }
+		int* getColScore() { return colScore; }
 	};
 
 	class VGMapDriver 

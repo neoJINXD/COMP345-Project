@@ -7,6 +7,12 @@ void player::Player::init()
 	//TODO await josh
 	std::cout << "Creating Village" << std::endl;
 	village = new VG::VGMap("Boiomer");
+	counters = new std::map<Resource, int>();
+	/*counters->emplace(Wheat, 0);
+	counters->emplace(Sheep, 0);
+	counters->emplace(Timber, 0);
+	counters->emplace(Stone, 0);*/
+
 }
 
 
@@ -22,6 +28,9 @@ player::Player::~Player()
 	//delete hands
 	delete hands;
 	hands = nullptr;
+
+	delete counters;
+	counters = nullptr;
 
 }
 
@@ -47,6 +56,22 @@ void player::Player::DrawHarvestTile()
 {
 	hands->drawTile();
 }
+
+void player::Player::ResourceTracker(int yes, int no, int maybe, int so)
+{
+	counters->emplace(Wheat, yes);
+	counters->emplace(Sheep, no);
+	counters->emplace(Timber, maybe);
+	counters->emplace(Stone, so);
+}
+
+void player::Player::CalculateResources()
+{
+	counter::ResourceCounter count;
+	std::map<Resource, int> counted = count.harvestCount(board->getRecentNode());
+	ResourceTracker(counted.at(Wheat), counted.at(Sheep), counted.at(Timber), counted.at(Stone));
+}
+
 
 void player::Player::PlaceHarvestTile()
 {
@@ -78,6 +103,8 @@ void player::Player::BuildVillage()
 	village->peekBuilding(location)->printInfo();
 }
 
+
+
 void player::PlayerDriver::run()
 {
 	GB::GBMap* map = new GB::GBMap(2);
@@ -98,6 +125,7 @@ void player::PlayerDriver::run()
 
 	std::cout << "Attempting to place Harvest Tile on Game Board" << std::endl;
 	jojo.PlaceHarvestTile();
+	jojo.CalculateResources();
 	jojo.PlaceHarvestTile();
 	
 	std::cout << "Attempting to place Building on Village Board" << std::endl;

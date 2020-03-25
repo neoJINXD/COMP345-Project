@@ -18,8 +18,8 @@ int main()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	//_CrtSetBreakAlloc(952);
-	//counter::ScoringDriver testScore;
-	//testScore.run();
+	counter::ScoringDriver testScore;
+	testScore.run();
 	//
 	//GB::GBMapDriver test;
 	//test.run();
@@ -50,8 +50,8 @@ int main()
 	//deck::HarvestDeck HDeck;
 	//deck::BuildingDeck BDeck;
 
-	player::PlayerDriver playerTest;
-	playerTest.run();
+	//player::PlayerDriver playerTest;
+	//playerTest.run();
 
 	//std::string p1 = "jojo";
 	//player::Player jojo(&p1);

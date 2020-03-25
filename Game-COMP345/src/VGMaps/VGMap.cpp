@@ -127,6 +127,14 @@ deck::Building* VG::VGMap::peekBuilding(int loc)
 	return graph->getGraph()->find(loc)->second->getBuilding();
 }
 
+void VG::VGMap::setCustomScores(int* rows, int* cols)
+{
+	for (int i = 0; i < 6; i++)
+		rowScore[i] = rows[i];
+	for (int i = 0; i < 6; i++)
+		colScore[i] = cols[i];
+}
+
 void VG::VGMap::buildBoard(int rows, int cols)
 {
 	int totalVertexes = rows * cols;

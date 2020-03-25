@@ -5,8 +5,11 @@ int counter::ScoringCounter::countScore(VG::VGMap* village)
 	int rows[6] = { 1,1,1,1,1,1 };
 	int cols[5] = { 1,1,1,1,1 };
 
-	int ROWSSCORE[6] = {6,5,4,3,2,1};
-	int COLSSCORE[5] = {5,4,3,4,5};
+	//int ROWSSCORE[6] = {6,5,4,3,2,1};
+	//int COLSSCORE[5] = {5,4,3,4,5};
+
+	int* ROWSSCORE = village->getRowScore();
+	int* COLSSCORE = village->getColScore();
 
 	for (int row = 0; row < 6; row++)
 	{
@@ -22,11 +25,6 @@ int counter::ScoringCounter::countScore(VG::VGMap* village)
 		}
 	}
 
-	/*std::pair<int[6], int[5]> output;
-	for (int i = 0; i < 6; i++)
-		output.first[i] = rows[i];
-	for (int i = 0; i < 5; i++)
-		output.second[i] = cols[i];*/
 
 	int score = 0;
 
@@ -40,23 +38,14 @@ int counter::ScoringCounter::countScore(VG::VGMap* village)
 		score += COLSSCORE[i] * cols[i];
 	}
 
-	/*score += cols[0] * 5;
-	score += cols[1] * 4;
-	score += cols[2] * 3;
-	score += cols[3] * 4;
-	score += cols[4] * 5;*/
-
-
 
 	return score;
-
-
 
 }
 
 void counter::ScoringDriver::run()
 {
-	VG::VGMap* village = new VG::VGMap();
+	VG::VGMap* village = new VG::VGMap("ScoreTest");
 
 
 	village->placeBuilding(1, new deck::Building(6, Wheat));

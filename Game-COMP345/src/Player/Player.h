@@ -2,6 +2,7 @@
 #include "../GBMaps/GBMap.h"
 #include "../VGMaps/VGMap.h"
 #include "../Resources/Resources.h"
+#include "../ResourceCounter/ResourceCounter.h"
 #include <string>
 
 namespace player {
@@ -32,6 +33,7 @@ namespace player {
 		//counts resources gained(part 6) by placing tile(part 5)
 
 		//Scoring from village board state(part 6)
+		std::map<Resource, int>* counters;
 
 		void init();
 
@@ -48,7 +50,7 @@ namespace player {
 		void PlaceHarvestTile();
 		void DrawBuilding();
 		void DrawHarvestTile();
-		void ResourceTracker();
+		void ResourceTracker(int yes, int no, int maybe, int so);
 
 		//part6
 		void BuildVillage();
