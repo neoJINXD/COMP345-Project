@@ -52,8 +52,8 @@ void player::Player::PlaceHarvestTile()
 {
 
 	//board->peekTile(2)->printInfo();
-	std::pair<int, deck::Tile> placement = hands->exchange();
-	board->placeTile(placement.first, &placement.second);
+	std::pair<int, deck::Tile*> placement = hands->exchange();
+	board->placeTile(placement.first, placement.second);
 	std::cout << "Placing at " << placement.first << std::endl;
 	board->peekTile(placement.first)->printInfo();
 

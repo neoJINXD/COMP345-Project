@@ -18,9 +18,9 @@ int IOP(int x)
 
 deck::Tile::~Tile()
 {
-	//resources->clear();
-	//delete resources;
-	//resources = nullptr;
+	resources->clear();
+	delete resources;
+	resources = nullptr;
 }
 
 // Shifts vector values to the left
@@ -52,7 +52,11 @@ void deck::Tile::printInfo()
 deck::HarvestDeck::~HarvestDeck() 
 {
 	
-	//deck->clear();
+	for (auto i : *deck)
+	{
+		delete i;
+	}
+	deck->clear();
 
 	delete deck;
 	deck = nullptr;
@@ -64,12 +68,12 @@ deck::HarvestDeck::~HarvestDeck()
 void deck::HarvestDeck::buildDeck()
 {
 	//push each elements in the array
-	deck->push_back(std::make_unique<Tile>(deck::Tile(Wheat, Stone, Stone, Wheat)));  // Tile 1 
-	deck->push_back(std::make_unique<Tile>(deck::Tile(Timber, Timber, Stone, Timber))); // Tile 2
-	deck->push_back(std::make_unique<Tile>(deck::Tile(Sheep, Sheep, Stone, Sheep))); // Tile 3
-	deck->push_back(std::make_unique<Tile>(deck::Tile(Wheat, Timber, Stone, Wheat))); // Tile 4
-	deck->push_back(std::make_unique<Tile>(deck::Tile(Timber, Wheat, Wheat, Timber))); //Tile 5
-	deck->push_back(std::make_unique<Tile>(deck::Tile(Sheep, Sheep, Wheat, Sheep))); //Tile 6
+	deck->push_back(new deck::Tile(Wheat, Stone, Stone, Wheat));  // Tile 1 
+	deck->push_back(new deck::Tile(Timber, Timber, Stone, Timber)); // Tile 2
+	deck->push_back(new deck::Tile(Sheep, Sheep, Stone, Sheep)); // Tile 3
+	deck->push_back(new deck::Tile(Wheat, Timber, Stone, Wheat)); // Tile 4
+	deck->push_back(new deck::Tile(Timber, Wheat, Wheat, Timber)); //Tile 5
+	deck->push_back(new deck::Tile(Sheep, Sheep, Wheat, Sheep)); //Tile 6
 	//deck->push_back(deck::Tile(Timber, Stone, Stone, Timber)); // Tile 7
 	//deck->push_back(deck::Tile(Stone, Wheat, Sheep, Stone)); // Tile 8
 	//deck->push_back(deck::Tile(Wheat, Stone, Sheep, Wheat)); // Tile 9
@@ -145,10 +149,10 @@ void deck::HarvestDeck::shuffle()
 }
 
 // Draws a card
-deck::Tile deck::HarvestDeck::draw()
+deck::Tile* deck::HarvestDeck::draw()
 {
 	// using the back of the vector as the "top" of the "pile"
-	Tile top = *deck->back().get();
+	Tile* top = deck->back();
 	deck->pop_back();
 	this->shuffle();
 	return top;
@@ -159,7 +163,7 @@ void deck::HarvestDeck::printDeck()
 {
 	for (const auto& i : *deck) 
 	{
-		i.get()->printInfo();
+		i->printInfo();
 	}
 }
 
@@ -168,10 +172,10 @@ void deck::HarvestDriver::run()
 {
 	HarvestDeck test;
 	//test.printDeck();
-	Tile card = test.draw();
-	card.printInfo();
-	card.rotateLeft();
-	card.printInfo();
+	Tile* card = test.draw();
+	card->printInfo();
+	card->rotateLeft();
+	card->printInfo();
 }
 
 
@@ -294,6 +298,17 @@ deck::Hand::~Hand()
 {
 	//TODO delete the hands
 
+	for (auto i : *HarvestHand)
+	{
+		delete i;
+	}
+	
+
+	delete HarvestHand;
+	HarvestHand = nullptr;
+	delete BuildingHand;
+	BuildingHand = nullptr;
+
 	delete _HarvestDeck;
 	_HarvestDeck = nullptr;
 	delete _BuildingDeck;
@@ -318,7 +333,7 @@ void deck::Hand::displayTiles()
 		std::cout << "Your Tiles are: " << std::endl;
 		for (auto i : *HarvestHand)
 		{
-			i.printInfo();
+			i->printInfo();
 		}
 	}
 	else
@@ -357,13 +372,15 @@ void deck::HandDriver::run()
 	test.drawBuilding();
 	test.displayBuildings();
 
-	std::pair<int, deck::Tile> picked = test.exchange();
+	std::pair<int, deck::Tile*> picked = test.exchange();
 	std::cout << "You picked location "<< picked.first << " and Tile : " << std::endl;
-	picked.second.printInfo();
+	picked.second->printInfo();
 
+	delete picked.second;
+	picked.second = nullptr;
 }
 
-std::pair<int, deck::Tile> deck::Hand::exchange() {
+std::pair<int, deck::Tile*> deck::Hand::exchange() {
 	//have player select a Tile from list
 	displayTiles();
 
@@ -375,8 +392,8 @@ std::pair<int, deck::Tile> deck::Hand::exchange() {
 	std::cout << "Select a tile" << std::endl;
 	std::cin >> selection;
 
-	Tile selected = HarvestHand->at(selection);
-	Tile temp = HarvestHand->at(selection); // <- make sure this doesnt get deleted since contains pointer also used in HarvestHand
+	Tile* selected = HarvestHand->at(selection);
+	Tile* temp = HarvestHand->at(selection); // <- make sure this doesnt get deleted since contains pointer also used in HarvestHand
 	//Last 2 getting deleted at end of current scope, since not pointers
 	//might need assignment to make deep copy
 
@@ -388,7 +405,7 @@ std::pair<int, deck::Tile> deck::Hand::exchange() {
 	HarvestHand->pop_back();
 	displayTiles();
 	
-	std::pair<int, deck::Tile> result = {location, selected};
+	std::pair<int, deck::Tile*> result = {location, selected};
 
 
 	return result;	

@@ -34,10 +34,21 @@ namespace deck
 			resources = new std::vector<Resource>{ _one, _two,_three,_four };
 		}
 
-		Tile(const Tile& tile) 
+		//Tile(const Tile& tile) 
+		//{
+		//	resources = new std::vector<Resource>();
+		//	for (int i = 0; i < tile.resources->size(); i++)
+		//		resources->push_back(tile.resources->at(i));
+		//	//*resources = *tile.resources;
+		//}
+
+		Tile& operator=(const Tile& other)
 		{
 			resources = new std::vector<Resource>();
-			*resources = *tile.resources;
+			for (int i = 0; i < other.resources->size(); i++)
+				resources->push_back(other.resources->at(i));
+
+			return *this;
 		}
 
 		//Tile(const Tile& tile) {
@@ -62,15 +73,15 @@ namespace deck
 	class HarvestDeck
 	{
 	private:
-		std::vector<std::unique_ptr<Tile>>* deck;
+		std::vector<Tile*>* deck;
 		void buildDeck();
 		void shuffle();
 
 	public:
-		HarvestDeck() : deck(new std::vector<std::unique_ptr<Tile>>()) { buildDeck(); }
+		HarvestDeck() : deck(new std::vector<Tile*>()) { buildDeck(); }
 		~HarvestDeck();
 
-		Tile draw();
+		Tile* draw();
 		void printDeck();
 
 	};
@@ -128,7 +139,7 @@ namespace deck
 	class Hand
 	{
 	private:
-		std::vector<Tile>* HarvestHand = new std::vector<Tile>();
+		std::vector<Tile*>* HarvestHand = new std::vector<Tile*>();
 		std::vector<Building>* BuildingHand = new std::vector<Building>();
 
 		HarvestDeck* _HarvestDeck;
@@ -140,7 +151,7 @@ namespace deck
 		void drawTile();
 		void drawBuilding();
 
-		std::pair<int, deck::Tile> exchange();
+		std::pair<int, deck::Tile*> exchange();
 		void displayTiles();
 		void displayBuildings();
 
