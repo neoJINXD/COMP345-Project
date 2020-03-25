@@ -131,7 +131,7 @@ void VG::VGMap::setCustomScores(int* rows, int* cols)
 {
 	for (int i = 0; i < 6; i++)
 		rowScore[i] = rows[i];
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < 5; i++)
 		colScore[i] = cols[i];
 }
 

@@ -64,6 +64,13 @@ void counter::ScoringDriver::run()
 
 	std::cout << "Score is: " << result<< std::endl;
 
+	int rows[6] = {1, 1, 1, 1, 1, 1};
+	int cols[5] = {1, 1, 1, 1, 1};
+
+	village->setCustomScores(rows, cols);
+	result = counter.countScore(village);
+
+	std::cout << "Score now is: " << result << std::endl;
 
 	delete village;
 	village = nullptr;
