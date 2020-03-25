@@ -24,8 +24,8 @@ int main()
 	//GB::GBMapDriver test;
 	//test.run();
 	//deck::HarvestDriver test1;
-	counter::ResourceCounterDriver testRC;
-	testRC.run();
+	//counter::ResourceCounterDriver testRC;
+	//testRC.run();
 
 	//GB::GBMapDriver testGb;
 	//testGb.run();
@@ -44,8 +44,8 @@ int main()
 	//test2.run();
 
 
-	//deck::HandDriver zahando;
-	//zahando.run();
+	deck::HandDriver zahando;
+	zahando.run();
 
 	//deck::HarvestDeck HDeck;
 	//deck::BuildingDeck BDeck;

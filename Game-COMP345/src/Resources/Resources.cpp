@@ -18,9 +18,9 @@ int IOP(int x)
 
 deck::Tile::~Tile()
 {
-	resources->clear();
-	delete resources;
-	resources = nullptr;
+	//resources->clear();
+	//delete resources;
+	//resources = nullptr;
 }
 
 // Shifts vector values to the left
@@ -349,6 +349,7 @@ void deck::HandDriver::run()
 
 	test.drawTile();
 	test.drawTile();
+	test.drawTile();
 	test.displayTiles();
 
 	test.drawBuilding();
@@ -375,7 +376,16 @@ std::pair<int, deck::Tile> deck::Hand::exchange() {
 	std::cin >> selection;
 
 	Tile selected = HarvestHand->at(selection);
-	HarvestHand->erase(HarvestHand->begin() + selection);
+	Tile temp = HarvestHand->at(selection); // <- make sure this doesnt get deleted since contains pointer also used in HarvestHand
+	//Last 2 getting deleted at end of current scope, since not pointers
+	//might need assignment to make deep copy
+
+	//is functional if remove the destructor for Tile, but leaves us with memory leaks
+
+	HarvestHand->at(selection) = HarvestHand->back();
+	HarvestHand->back() = temp;
+	//HarvestHand->erase(HarvestHand->begin() + selection);
+	HarvestHand->pop_back();
 	displayTiles();
 	
 	std::pair<int, deck::Tile> result = {location, selected};
