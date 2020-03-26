@@ -40,7 +40,7 @@ int main()
 	//deck::HarvestDriver hDeckTest;
 	//hDeckTest.run();
 
-	// - HOLY FUCK LEAKS EVERYWHERE
+	// - LEAK FREE
 	//deck::BuildingDriver bDeckTest;
 	//bDeckTest.run();
 

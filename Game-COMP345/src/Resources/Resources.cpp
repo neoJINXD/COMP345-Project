@@ -202,7 +202,7 @@ deck::Building::~Building()
 	resource = nullptr;
 
 	delete isFaceDown;
-	isFaceDown = NULL;
+	isFaceDown = nullptr;
 }
 
 // Prints the Building
@@ -278,12 +278,7 @@ void deck::BuildingDeck::printDeck()
 
 	std::cout << "Building counter: " << count << std::endl;
 
-	draw()->printInfo();
-	draw()->printInfo();
-	draw()->printInfo();
-	draw()->printInfo();
-	draw()->printInfo();
-	draw()->printInfo();
+
 }
 
 // Runs test
@@ -292,6 +287,25 @@ void deck::BuildingDriver::run()
 	BuildingDeck deck;
 
 	deck.printDeck();
+
+	std::vector<Building*> tempHand;
+
+	tempHand.push_back(deck.draw());
+	tempHand.push_back(deck.draw());
+	tempHand.push_back(deck.draw());
+	tempHand.push_back(deck.draw());
+	tempHand.push_back(deck.draw());
+	tempHand.push_back(deck.draw());
+
+	for (auto i : tempHand)
+	{
+		i->printInfo();
+	}
+	for (auto i : tempHand)
+	{
+		delete i;
+	}
+	tempHand.clear();
 
 }
 
