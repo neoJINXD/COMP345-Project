@@ -18,8 +18,9 @@ namespace statesystem
 	private:
 
 	protected:
-		sf::Font font;
+		//sf::Font font;
 
+		std::map<std::string, sf::Font*> fonts;
 		std::map<std::string, ui::Button*> buttons;
 		std::map<std::string, ui::Text*> texts;
 

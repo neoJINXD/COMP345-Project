@@ -10,10 +10,10 @@ void statesystem::EndState::init()
 	float middle = win->getSize().x / 2.f;
 
 	//button initializations
-	buttons["EXIT"] = new ui::Button(middle, 650, 150, 50, &font, "EXIT", ui::CENTER);
+	buttons["EXIT"] = new ui::Button(middle, 650, 150, 50, fonts["BUTTON"], "EXIT", ui::CENTER);
 
 	//text initializations
-	texts["TITLE"] = new ui::Text(middle, 300, "This is the End Screen", &font, ui::CENTER);
+	texts["TITLE"] = new ui::Text(middle, 300, "This is the End Screen", fonts["GENERIC"], ui::CENTER);
 	texts["TITLE"]->setColor(sf::Color::White);
 }
 
@@ -26,17 +26,7 @@ statesystem::EndState::EndState(sf::RenderWindow* _win, std::map<std::string, in
 	init();
 }
 
-statesystem::EndState::~EndState()
-{
-	for (auto& i : buttons)
-	{
-		delete i.second;
-	}
-	for (auto& i : texts)
-	{
-		delete i.second;
-	}
-}
+statesystem::EndState::~EndState() {}
 
 void statesystem::EndState::updateInputs(const float& dt)
 {

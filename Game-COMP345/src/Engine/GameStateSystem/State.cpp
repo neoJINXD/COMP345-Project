@@ -7,16 +7,40 @@ statesystem::State::State(sf::RenderWindow* _win, std::map<std::string, int>* _v
 	validKeys = _validKeys;
 	states = _states;
 
-	if (!font.loadFromFile("./src/Files/fonts/Blacklisted.ttf"))
+	//Setting fonts
+	sf::Font* buttonFont = new sf::Font();
+	if (!buttonFont->loadFromFile("./src/Files/fonts/Blacklisted.ttf"))
 	{
 		printf("ERROR::Stat - FAILED TO LOAD FONT");
 		exit(-1);
 	}
+	fonts["BUTTON"] = buttonFont;
+	
+	sf::Font* genericFont = new sf::Font();
+	if (!genericFont->loadFromFile("./src/Files/fonts/Rightland.otf"))
+	{
+		printf("ERROR::Stat - FAILED TO LOAD FONT");
+		exit(-1);
+	}
+	fonts["GENERIC"] = genericFont;
+
 
 }
 
 statesystem::State::~State()
 {
+	for (auto& i : fonts)
+	{
+		delete i.second;
+	}
+	for (auto& i : buttons)
+	{
+		delete i.second;
+	}
+	for (auto& i : texts)
+	{
+		delete i.second;
+	}
 }
 
 const bool& statesystem::State::getEnd() const

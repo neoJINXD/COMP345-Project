@@ -18,9 +18,7 @@ statesystem::GameState::GameState(sf::RenderWindow* _win, std::map<std::string, 
 	initKeybinds();
 }
 
-statesystem::GameState::~GameState()
-{
-}
+statesystem::GameState::~GameState() {}
 
 void statesystem::GameState::updateInputs(const float& dt)
 {
