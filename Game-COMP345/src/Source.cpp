@@ -11,6 +11,7 @@
 #include "MapLoader/MapLoader.h"
 #include "Scoring/Scoring.h"
 #include "ResourceCounter/ResourceCounter.h"
+#include "Engine/Game.h"
 
 #include <sstream>
 
@@ -18,8 +19,8 @@ int main()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	//_CrtSetBreakAlloc(952);
-	counter::ScoringDriver testScore;
-	testScore.run();
+	//counter::ScoringDriver testScore;
+	//testScore.run();
 	//
 	//GB::GBMapDriver test;
 	//test.run();
@@ -67,12 +68,12 @@ int main()
 	//std::cout << "Begin Reading file" << std::endl;
 	//std::cout << std::endl;
 
-	//Memory leaks here Uwu
 	//maploader::MapLoaderDriver mapTest;
 	//mapTest.run();
 
 
-	
+	engine::Game gam;
+	gam.loop();
 
 
 	system("pause");

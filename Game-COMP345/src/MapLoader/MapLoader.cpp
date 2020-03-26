@@ -134,24 +134,27 @@ GB::GBMap* maploader::MapLoader::loadMap(std::string path, int playerCount)
 void maploader::MapLoaderDriver::run()
 {
 	maploader::MapLoader loader;
-	//std::cout << "Loading 2 player default map" << std::endl;
-	//GB::GBMap* two = loader.loadMap("./src/Maps/2player.txt", 2);
-	//std::cout << "Default tile at 1 is: " << std::endl;
-	//two->peekTile(1)->printInfo();
-	//std::cout << std::endl;
-	//std::cout << "Loading 3 player default map" << std::endl;
-	//loader.loadMap("./src/Maps/3player.txt", 3);
-	//std::cout << std::endl;
+	std::cout << "Loading 2 player default map" << std::endl;
+	GB::GBMap* two = loader.loadMap("./src/Files/maps/2player.txt", 2);
+	std::cout << "Default tile at 1 is: " << std::endl;
+	two->peekTile(1)->printInfo();
+	std::cout << std::endl;
+	std::cout << "Loading 3 player default map" << std::endl;
+	GB::GBMap* three = loader.loadMap("./src/Files/maps/3player.txt", 3);
+	std::cout << std::endl;
 	std::cout << "Loading 4 player default map" << std::endl;
-	GB::GBMap* four = loader.loadMap("./src/Maps/4player.txt", 4);
+	GB::GBMap* four = loader.loadMap("./src/Files/maps/4player.txt", 4);
 	std::cout << "Default tile at 9 is: " << std::endl;
-	//four->peekTile(9)->printInfo();
-	//std::cout << "Loading" << std::endl;
-	//loader.loadMap("./src/Maps/InvalidTileFormat.txt");
+	four->peekTile(9)->printInfo();
+	std::cout << "Loading" << std::endl;
+	loader.loadMap("./src/Files/maps/InvalidTileFormat.txt", 2);
 	std::cout << std::endl;
 
-	//delete two;
-	//two = nullptr;
+	delete two;
+	two = nullptr;
+
+	delete three;
+	three = nullptr;
 
 	delete four;
 	four = nullptr;
