@@ -175,6 +175,8 @@ void deck::HarvestDriver::run()
 	card->printInfo();
 	card->rotateLeft();
 	card->printInfo();
+	delete card;
+	card = nullptr;
 }
 
 
