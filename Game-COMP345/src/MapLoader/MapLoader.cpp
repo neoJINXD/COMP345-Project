@@ -26,9 +26,6 @@ GB::GBMap* maploader::MapLoader::loadMap(std::string path, int playerCount)
 
 	while (std::getline(inFile, str))
 	{
-		//Read the line
-		//std::getline(inFile, str);
-		//inFile.getline(str, 255);
 		
 		//if reached the flag for tiles
 		if (str == "[TILES]")
@@ -44,10 +41,7 @@ GB::GBMap* maploader::MapLoader::loadMap(std::string path, int playerCount)
 			//std::cout << "starting Nulls" << std::endl;
 			continue;
 		}
-		//key++;
 
-
-		//std::cout << str << std::endl;
 
 
 		//if reached the flag for end
@@ -80,6 +74,10 @@ GB::GBMap* maploader::MapLoader::loadMap(std::string path, int playerCount)
 			if (i < TILESIZE)
 			{
 				std::cout << "Error: Invalid Tile format in file" << std::endl;
+				for (auto i : starterTiles)
+				{
+					delete i.second;
+				}
 				return nullptr;
 			}
 			
@@ -99,12 +97,20 @@ GB::GBMap* maploader::MapLoader::loadMap(std::string path, int playerCount)
 	if (tiles || nulls)
 	{
 		std::cout << "Error: Invalid Ending Flags in text file" << std::endl;
+		for (auto i : starterTiles)
+		{
+			delete i.second;
+		}
 		return nullptr;
 	}
 
 	if (starterTiles.size() == 0)
 	{
 		std::cout << "Error: No Starting Tiles specified" << std::endl;
+		for (auto i : starterTiles)
+		{
+			delete i.second;
+		}
 		return nullptr;
 	}
 
@@ -128,34 +134,38 @@ GB::GBMap* maploader::MapLoader::loadMap(std::string path, int playerCount)
 
 	}
 
+	
+
 	return newMap;
 }
 
 void maploader::MapLoaderDriver::run()
 {
 	maploader::MapLoader loader;
+	
 	std::cout << "Loading 2 player default map" << std::endl;
 	GB::GBMap* two = loader.loadMap("./src/Files/maps/2player.txt", 2);
 	std::cout << "Default tile at 1 is: " << std::endl;
 	two->peekTile(1)->printInfo();
 	std::cout << std::endl;
+	delete two;
+	two = nullptr;
+	
 	std::cout << "Loading 3 player default map" << std::endl;
 	GB::GBMap* three = loader.loadMap("./src/Files/maps/3player.txt", 3);
 	std::cout << std::endl;
+	delete three;
+	three = nullptr;
+	
 	std::cout << "Loading 4 player default map" << std::endl;
 	GB::GBMap* four = loader.loadMap("./src/Files/maps/4player.txt", 4);
 	std::cout << "Default tile at 9 is: " << std::endl;
 	four->peekTile(9)->printInfo();
-	std::cout << "Loading" << std::endl;
-	loader.loadMap("./src/Files/maps/InvalidTileFormat.txt", 2);
-	std::cout << std::endl;
-
-	delete two;
-	two = nullptr;
-
-	delete three;
-	three = nullptr;
-
 	delete four;
 	four = nullptr;
+	
+	std::cout << "Loading Failing map" << std::endl;
+	GB::GBMap* fail = loader.loadMap("./src/Files/maps/InvalidTileFormat.txt", 2);
+	std::cout << std::endl;
+
 }

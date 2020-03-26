@@ -18,62 +18,43 @@
 int main()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	//_CrtSetBreakAlloc(952);
-	//counter::ScoringDriver testScore;
-	//testScore.run();
-	//
-	//GB::GBMapDriver test;
-	//test.run();
-	//deck::HarvestDriver test1;
-	//counter::ResourceCounterDriver testRC;
-	//testRC.run();
 
+	//Part 1 - LEAK FREE
 	//GB::GBMapDriver testGb;
 	//testGb.run();
 
-	//VG::VGMapDriver testVg;
-	//testVg.run();
-	//GB::GBMapDriver testGb;
-	//testGb.run();
+	//Part 2 - LEAK FREE
 	//VG::VGMapDriver testVg;
 	//testVg.run();
 
-	//deck::HarvestDriver test1;
-	//test1.run();
+	//Part 3 - HAS LEAK, failure scenario when loading invalid files
+	maploader::MapLoaderDriver mapTest;
+	mapTest.run();
 
-	//deck::BuildingDriver test2;
-	//test2.run();
-
-
-	//deck::HandDriver zahando;
-	//zahando.run();
-
-	//deck::HarvestDeck HDeck;
-	//deck::BuildingDeck BDeck;
-
+	//Part 4 - LEAK FREE
 	//player::PlayerDriver playerTest;
 	//playerTest.run();
 
-	//std::string p1 = "jojo";
-	//player::Player jojo(&p1);
-	//jojo.createHand(&HDeck, &BDeck);
-	
-	//jojo.DrawBuilding();
-	//jojo.DrawHarvestTile();
-	//jojo.DrawHarvestTile();
+	//Part 5
+	// - HAS LEAK, RESOURCES.CPP LINE 73 (DRAWN CARD NOT GETTING DELETED?)
+	//deck::HarvestDriver hDeckTest;
+	//hDeckTest.run();
+	// - HOLY FUCK LEAKS EVERYWHERE
+	//deck::BuildingDriver bDeckTest;
+	//bDeckTest.run();
+	// - HOLY FUCK LEAKS EVERYWHERE
+	//deck::HandDriver zahando;
+	//zahando.run();
 
-	//jojo.printHand();
+	//Part 6 - LEAK FREE
+	//counter::ScoringDriver testScore;
+	//testScore.run();
+	//counter::ResourceCounterDriver testRC;
+	//testRC.run();
 
-
-	//std::cout << "Begin Reading file" << std::endl;
-	//std::cout << std::endl;
-
-	//maploader::MapLoaderDriver mapTest;
-	//mapTest.run();
-
-
-	engine::Game gam;
-	gam.loop();
+	//Game
+	//engine::Game gam;
+	//gam.loop();
 
 
 	system("pause");
