@@ -191,6 +191,9 @@
   <ItemGroup>
     <Font Include="src\Other Files\fonts\Blacklisted.ttf" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="src\Files\textures\newhaven.jpg" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

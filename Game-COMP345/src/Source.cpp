@@ -19,44 +19,44 @@ int main()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-	//Part 1 - LEAK FREE
+	//Part 1
 	//GB::GBMapDriver testGb;
 	//testGb.run();
 
-	//Part 2 - LEAK FREE
+
+	//Part 2
 	//VG::VGMapDriver testVg;
 	//testVg.run();
 
-	//Part 3 - LEAK FREE
+
+	//Part 3
 	//maploader::MapLoaderDriver mapTest;
 	//mapTest.run();
 
-	//Part 4 - LEAK FREE
+
+	//Part 4
 	//player::PlayerDriver playerTest;
 	//playerTest.run();
 
+
 	//Part 5
-	// - LEAK FREE
 	//deck::HarvestDriver hDeckTest;
 	//hDeckTest.run();
-
-	// - LEAK FREE
 	//deck::BuildingDriver bDeckTest;
 	//bDeckTest.run();
-
-	// - LEAK FREE
 	//deck::HandDriver zahando;
 	//zahando.run();
 
-	//Part 6 - LEAK FREE
+
+	//Part 6
 	//counter::ScoringDriver testScore;
 	//testScore.run();
 	//counter::ResourceCounterDriver testRC;
 	//testRC.run();
 
 	//Game
-	//engine::Game gam;
-	//gam.loop();
+	engine::Game gam;
+	gam.loop();
 
 
 	system("pause");

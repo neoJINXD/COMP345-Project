@@ -13,6 +13,7 @@ namespace statesystem
 	{
 	private:
 		sf::RectangleShape bgd;
+		sf::Texture background;
 
 		void initKeybinds();
 		void init();

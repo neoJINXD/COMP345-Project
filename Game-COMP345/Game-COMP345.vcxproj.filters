@@ -54,6 +54,9 @@
     <Filter Include="Resource Files\Engine Resources\Fonts">
       <UniqueIdentifier>{6a424f1d-e8f3-4891-adaf-aa6e3249b12d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Textures">
+      <UniqueIdentifier>{8ce4dfa0-ba2b-4f7e-81f9-7ada3080af76}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Source.cpp">
@@ -185,5 +188,10 @@
     <Font Include="src\Other Files\fonts\Blacklisted.ttf">
       <Filter>Resource Files\Engine Resources\Fonts</Filter>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="src\Files\textures\newhaven.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>
