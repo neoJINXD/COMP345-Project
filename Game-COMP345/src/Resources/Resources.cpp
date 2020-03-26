@@ -327,6 +327,10 @@ deck::Hand::~Hand()
 		delete i;
 	}
 	
+	for (auto i : *BuildingHand)
+	{
+		delete i;
+	}
 
 	delete HarvestHand;
 	HarvestHand = nullptr;

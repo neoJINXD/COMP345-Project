@@ -44,7 +44,7 @@ int main()
 	//deck::BuildingDriver bDeckTest;
 	//bDeckTest.run();
 
-	// - HOLY FUCK LEAKS EVERYWHERE
+	// - LEAK FREE
 	//deck::HandDriver zahando;
 	//zahando.run();
 
