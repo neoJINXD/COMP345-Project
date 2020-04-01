@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{411d7e14-6ed9-44fe-9900-d2988efd1551}</ProjectGuid>
     <RootNamespace>Game_COMP345</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>Game-COMP345</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -150,6 +150,7 @@
     <ClCompile Include="src\Engine\UI\Button.cpp" />
     <ClCompile Include="src\Engine\UI\Text.cpp" />
     <ClCompile Include="src\Engine\Utilities\Helpers.cpp" />
+    <ClCompile Include="src\MainLoop\MainLoop.cpp" />
     <ClCompile Include="src\ResourceCounter\ResourceCounter.cpp" />
     <ClCompile Include="src\Scoring\Scoring.cpp" />
     <ClCompile Include="src\MapLoader\MapLoader.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="src\Engine\UI\Text.h" />
     <ClInclude Include="src\Engine\UI\UI.h" />
     <ClInclude Include="src\Engine\Utilities\Helpers.h" />
+    <ClInclude Include="src\MainLoop\MainLoop.h" />
     <ClInclude Include="src\ResourceCounter\ResourceCounter.h" />
     <ClInclude Include="src\Scoring\Scoring.h" />
     <ClInclude Include="src\MapLoader\MapLoader.h" />
