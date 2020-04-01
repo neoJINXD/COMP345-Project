@@ -4,20 +4,16 @@
 void player::Player::init()
 {
 	hands = new deck::Hand(Hdeck, Bdeck);
-	//TODO await josh
 	std::cout << "Creating Village" << std::endl;
 	village = new VG::VGMap("Boiomer");
 	counters = new std::map<Resource, int>();
-	/*counters->emplace(Wheat, 0);
-	counters->emplace(Sheep, 0);
-	counters->emplace(Timber, 0);
-	counters->emplace(Stone, 0);*/
 
 }
 
 
 player::Player::~Player()
 {
+	//delete board
 	delete board;
 	board = nullptr;
 

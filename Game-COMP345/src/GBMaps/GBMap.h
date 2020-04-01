@@ -1,18 +1,16 @@
 #pragma once
-//#ifndef _DEBUG
-//#define _DEBUG
-//#endif // !_DEBUG
-#define _DEBUG
+
 #ifdef _DEBUG
-#define new new( _NORMAL_BLOCK, __FILE__, __LINE__ )
+#define new new( _NORMAL_BLOCK , __FILE__ , __LINE__ )
 #endif
+
 #include <vector>
 #include <map>
 #include <string>
-//#include <iostream>
+
 #include "../Resources/Resources.h"
 #include <utility>
-//#include <memory>
+
 
 enum class EdgeLoc {
 	Top,
