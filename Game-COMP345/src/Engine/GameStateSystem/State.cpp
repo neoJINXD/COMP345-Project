@@ -17,7 +17,7 @@ statesystem::State::State(sf::RenderWindow* _win, std::map<std::string, int>* _v
 	fonts["BUTTON"] = buttonFont;
 	
 	sf::Font* genericFont = new sf::Font();
-	if (!genericFont->loadFromFile("./src/Files/fonts/Rightland.otf"))
+	if (!genericFont->loadFromFile("./src/Files/fonts/aAntaraDistance.otf"))
 	{
 		printf("ERROR::Stat - FAILED TO LOAD FONT");
 		exit(-1);
