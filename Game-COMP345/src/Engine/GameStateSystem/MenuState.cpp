@@ -17,12 +17,15 @@ void statesystem::MenuState::init()
 	}
 	bgd.setTexture(&background);
 
-	float middle = win->getSize().x / 2.f;
+	float middleX = win->getSize().x / 2.f;
+	float middleY = win->getSize().y / 2.f;
 
 	//button initializations
-	buttons["EXIT"] = new ui::Button(middle, 650, 150, 50, fonts["BUTTON"], "EXIT", ui::CENTER);
-	buttons["PLAY"] = new ui::Button(middle, 590, 250, 50, fonts["BUTTON"], "Enter the Game", ui::CENTER);
-	
+	buttons["EXIT"] = new ui::Button(middleX, 650, 150, 50, fonts["BUTTON"], "EXIT", ui::CENTER);
+	buttons["PLAY2"] = new ui::Button(middleX + 400, middleY - 100, 250, 50, fonts["BUTTON"], "2 Player", ui::CENTER);
+	buttons["PLAY3"] = new ui::Button(middleX + 400, middleY, 250, 50, fonts["BUTTON"], "3 Player", ui::CENTER);
+	buttons["PLAY4"] = new ui::Button(middleX + 400, middleY + 100, 250, 50, fonts["BUTTON"], "4 Player", ui::CENTER);
+
 	//text initializations
 	texts["TITLE"] = new ui::Text(200, 300, "New Haven", fonts["GENERIC"], ui::CENTER);
 	texts["TITLE"]->setColor(sf::Color::White);
@@ -67,8 +70,18 @@ void statesystem::MenuState::update(const float& dt)
 	if (buttons["EXIT"]->isPressed())
 		ended = true;
 		
-	if (buttons["PLAY"]->isPressed())
-		states->push(new statesystem::GameState(win, validKeys, states));
+	//if (buttons["PLAY"]->isPressed())
+	//	states->push(new statesystem::GameState(win, validKeys, states));
+	if (buttons["PLAY2"]->isPressed()) {
+		printf("I pushed it kyaaaa~\n\n\n\n");
+	}
+	if (buttons["PLAY3"]->isPressed()) {
+		printf("I pushed it again kyaa~~\n");
+	}
+	if (buttons["PLAY4"]->isPressed()) {
+		printf("Stop you're going to get me pregnant\n");
+	}
+
 
 	printf("We In the menu\n");
 	printf("We have ScreenPos (%i, %i)\nWe have WindowPos (%i, %i)\nWe have ViewPos (%i, %i)\n",

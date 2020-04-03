@@ -155,16 +155,16 @@ void maingame::MainLoopDriver::run()
 	deck::BuildingDeck* bDeck = new deck::BuildingDeck();
 	deck::HarvestDeck* hDeck = new deck::HarvestDeck();
 
-	std::string p1 = "p1";
-	std::string p2 = "p2";
-	std::string p3 = "p3";
-	std::string p4 = "p4";
+	std::string* p1 = new std::string("p1");
+	std::string* p2 = new std::string("p2");
+	std::string* p3 = new std::string("p3");
+	std::string* p4 = new std::string("p4");
 
 	loop.setupPlayerOrder(
-		new player::Player(&p1, board, hDeck, bDeck),
-		new player::Player(&p2, board, hDeck, bDeck),
-		new player::Player(&p3, board, hDeck, bDeck),
-		new player::Player(&p4, board, hDeck, bDeck)
+		new player::Player(p1, board, hDeck, bDeck),
+		new player::Player(p2, board, hDeck, bDeck),
+		new player::Player(p3, board, hDeck, bDeck),
+		new player::Player(p4, board, hDeck, bDeck)
 		);
 	
 

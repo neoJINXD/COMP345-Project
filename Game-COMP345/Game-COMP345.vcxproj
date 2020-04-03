@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameStart\GameStart.cpp" />
     <ClCompile Include="src\Engine\Entities\Entity.cpp" />
     <ClCompile Include="src\Engine\Game.cpp" />
     <ClCompile Include="src\Engine\GameStateSystem\EndState.cpp" />
@@ -161,6 +162,7 @@
     <ClCompile Include="src\VGMaps\VGMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameStart\GameStart.h" />
     <ClInclude Include="src\Engine\Entities\Entity.h" />
     <ClInclude Include="src\Engine\Game.h" />
     <ClInclude Include="src\Engine\GameStateSystem\EndState.h" />

@@ -169,9 +169,13 @@
     <ClInclude Include="src\VGMaps\VGMap.h">
       <Filter>Game\VBMap</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="src\MainLoop\MainLoop.h">
       <Filter>Game\MainGame</Filter>
     </ClInclude>
+=======
+    <ClInclude Include="src\GameStart\GameStart.h" />
+>>>>>>> master
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\Other Files\2player.txt">

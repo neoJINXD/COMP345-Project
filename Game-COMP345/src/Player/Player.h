@@ -16,7 +16,7 @@ namespace player {
 	private:
 		 GB::GBMap* board;
 
-		const std::string* name;
+		
 
 		//Village Board
 		VG::VGMap* village;
@@ -45,7 +45,7 @@ namespace player {
 	public:
 		Player(std::string* _name, GB::GBMap* _board, deck::HarvestDeck* _Hdeck, deck::BuildingDeck* _Bdeck) : name(_name) { board = _board; Hdeck = _Hdeck; Bdeck = _Bdeck;  init(); }
 		~Player();
-
+		const std::string* name;
 		//std::string getName() { return name; }
 		void createHand(deck::HarvestDeck* HDeck, deck::BuildingDeck* BDeck);
 
