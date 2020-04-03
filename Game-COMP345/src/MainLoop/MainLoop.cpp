@@ -15,7 +15,7 @@ void maingame::MainLoop::init(int numberOfPlayer)
 		freeTiles = 7 * 7 - 4;
 		break;
 	default:
-		std::cout << "no" << "bad boomer" << std::endl;
+		std::cout << "ERROR: INVALID NUMBER OF PLAYERS - MAINLOOP.CPP" << std::endl;
 		exit(-404);
 	}
 }
