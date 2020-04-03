@@ -56,6 +56,10 @@ namespace player {
 		void DrawBuilding();
 		void DrawHarvestTile();
 		void DrawFromField();
+
+		void DrawShipment();
+		bool hasShipment() { return hands->getShipment() == nullptr; }
+
 		void ResourceTracker(int yes, int no, int maybe, int so);
 
 		//part6

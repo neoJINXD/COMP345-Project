@@ -27,8 +27,9 @@ namespace deck
 	{
 	private:
 		std::vector<Resource>* resources;
+		bool* isFaceDown;
 	public:
-		Tile(Resource _one, Resource _two, Resource _three, Resource _four)
+		Tile(Resource _one, Resource _two, Resource _three, Resource _four) : isFaceDown(new bool(false))
 		{
 			resources = new std::vector<Resource>{ _one, _two,_three,_four };
 		}
@@ -66,6 +67,8 @@ namespace deck
 		void rotateRight();
 
 		void printInfo();
+		void setFaceDown() { *isFaceDown = true; }
+		bool getFaceDown() { return *isFaceDown; }
 	};
 
 
@@ -76,12 +79,15 @@ namespace deck
 		void buildDeck();
 		void shuffle();
 
+
 	public:
 		HarvestDeck() : deck(new std::vector<Tile*>()) { buildDeck(); }
 		~HarvestDeck();
 
 		Tile* draw();
 		void printDeck();
+
+		Tile* drawShipment();
 
 	};
 
@@ -110,8 +116,7 @@ namespace deck
 		void setCost(int _cost) { *cost = _cost; }
 		Resource getResource() const { return *resource; }
 		void setResource(Resource _resource) { *resource = _resource; }
-
-		
+		void setFaceDown(bool _FaceDown) { *isFaceDown = _FaceDown; }
 
 
 	};
@@ -154,6 +159,8 @@ namespace deck
 
 		HarvestDeck* _HarvestDeck;
 		BuildingDeck* _BuildingDeck;
+
+		Tile* shipmentTile;
 	public:
 		Hand(HarvestDeck* HDeck, BuildingDeck* BDeck);
 		~Hand();
@@ -172,7 +179,8 @@ namespace deck
 
 		Building* getBuilding(int location);
 
-		
+		Tile* getShipment() { return shipmentTile; }
+		void drawShipment();
 	};
 
 	class HandDriver

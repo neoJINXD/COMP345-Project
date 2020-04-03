@@ -128,6 +128,7 @@ void maingame::MainLoop::resetResources()
 
 void maingame::MainLoop::drawHarvestTiles()
 {
+	
 	//NEED TO TAKE INTO ACCOUNT THE SHIPMENT TILE
 	int amountToDraw = activePlayer->countDrawAmountTiles();
 

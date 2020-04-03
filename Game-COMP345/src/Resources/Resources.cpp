@@ -21,6 +21,9 @@ deck::Tile::~Tile()
 	resources->clear();
 	delete resources;
 	resources = nullptr;
+
+	delete isFaceDown;
+	isFaceDown = nullptr;
 }
 
 // Shifts vector values to the left
@@ -164,6 +167,13 @@ void deck::HarvestDeck::printDeck()
 	{
 		i->printInfo();
 	}
+}
+
+deck::Tile* deck::HarvestDeck::drawShipment()
+{
+	deck::Tile* drawn = draw();
+	drawn->setFaceDown();
+	return drawn;
 }
 
 // Runs test
@@ -363,6 +373,10 @@ deck::Hand::~Hand()
 {
 	//TODO delete the hands
 
+	// (shipmentTile)
+	delete shipmentTile;
+	shipmentTile = nullptr;
+
 	for (auto i : *HarvestHand)
 	{
 		delete i;
@@ -506,4 +520,10 @@ deck::Building* deck::Hand::getBuilding(int location)
 	deck::Building* selected = BuildingHand->at(location);
 	BuildingHand->erase(BuildingHand->begin() + location);
 	return selected;
+}
+
+void deck::Hand::drawShipment()
+{
+	shipmentTile = _HarvestDeck->drawShipment();
+
 }

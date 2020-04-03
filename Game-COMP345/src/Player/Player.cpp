@@ -4,6 +4,7 @@
 void player::Player::init()
 {
 	hands = new deck::Hand(Hdeck, Bdeck);
+	DrawShipment();
 	std::cout << "Creating Village" << std::endl;
 	village = new VG::VGMap("Boiomer");
 	counters = new std::map<Resource, int>();
@@ -61,6 +62,11 @@ void player::Player::DrawFromField()
 	int selection;
 	std::cin >> selection;
 	hands->drawFromField(selection);
+}
+
+void player::Player::DrawShipment()
+{
+	hands->drawShipment();
 }
 
 void player::Player::ResourceTracker(int yes, int no, int maybe, int so)
