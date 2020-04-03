@@ -55,12 +55,12 @@ int main()
 	//testRC.run();
 
 	//A2 Part 1
-	gi::MakarovsWeddingDress O_O;
-	O_O.run();
+	//gi::MakarovsWeddingDress O_O;
+	//O_O.run();
 
 	//Game
-	/*engine::Game gam;
-	gam.loop();*/
+	engine::Game gam;
+	gam.loop();
 
 
 	system("pause");
