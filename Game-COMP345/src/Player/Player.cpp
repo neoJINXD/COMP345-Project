@@ -96,6 +96,16 @@ void player::Player::refreshField()
 	hands->refreshField();
 }
 
+int player::Player::countDrawAmountTiles()
+{
+	int result = 2;
+	//hand always need to have 2 harvest tiles
+	result -= hands->countHarvestHand();
+	std::cout << "need to draw:  " << result << std::endl;
+
+	return result;
+}
+
 
 void player::Player::PlaceHarvestTile()
 {

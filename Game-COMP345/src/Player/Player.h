@@ -65,6 +65,8 @@ namespace player {
 		int countDrawAmount();
 		void refreshField();
 
+		int countDrawAmountTiles();
+
 	};
 
 	class PlayerDriver

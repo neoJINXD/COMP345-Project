@@ -405,6 +405,11 @@ void deck::Hand::refreshField()
 	_BuildingDeck->refreshBoardField();
 }
 
+int deck::Hand::countHarvestHand()
+{
+	return HarvestHand->size();
+}
+
 
 void deck::Hand::displayTiles()
 {

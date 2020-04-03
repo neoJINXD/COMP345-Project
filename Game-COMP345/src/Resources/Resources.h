@@ -163,6 +163,8 @@ namespace deck
 		void drawFromField(int pos);
 		void refreshField();
 
+		int countHarvestHand();
+
 		std::pair<int, deck::Tile*> exchange();
 		void displayTiles();
 		void displayBuildings();

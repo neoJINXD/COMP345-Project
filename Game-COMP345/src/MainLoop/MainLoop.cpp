@@ -129,6 +129,17 @@ void maingame::MainLoop::resetResources()
 void maingame::MainLoop::drawHarvestTiles()
 {
 	//NEED TO TAKE INTO ACCOUNT THE SHIPMENT TILE
+	int amountToDraw = activePlayer->countDrawAmountTiles();
+
+	while (amountToDraw > 0)
+	{
+		activePlayer->DrawHarvestTile();
+		amountToDraw--;
+	}
+
+	std::cout << "Current hand is: " << std::endl;
+
+	activePlayer->printHand();
 }
 
 
@@ -168,7 +179,7 @@ void maingame::MainLoopDriver::run()
 
 
 	//Draw Harvest Tiles
-
+	loop.drawHarvestTiles();
 
 	//Turn's end
 	loop.turnEnd();
