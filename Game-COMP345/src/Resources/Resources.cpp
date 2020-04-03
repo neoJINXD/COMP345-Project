@@ -326,7 +326,7 @@ deck::Hand::~Hand()
 	{
 		delete i;
 	}
-	
+
 	for (auto i : *BuildingHand)
 	{
 		delete i;
@@ -337,9 +337,14 @@ deck::Hand::~Hand()
 	delete BuildingHand;
 	BuildingHand = nullptr;
 
-	delete _HarvestDeck;
+#if 0 
+	delete _HarvestDeck; 
+#endif
+
 	_HarvestDeck = nullptr;
-	delete _BuildingDeck;
+#if 0 
+	delete _BuildingDeck; 
+#endif
 	_BuildingDeck = nullptr;
 }
 

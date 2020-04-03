@@ -18,8 +18,11 @@ void player::Player::init()
 
 player::Player::~Player()
 {
-	delete board;
-	board = nullptr;
+	delete name;
+	name = nullptr;
+
+	//delete board;
+	//board = nullptr;
 
 	//delete village
 	delete village;

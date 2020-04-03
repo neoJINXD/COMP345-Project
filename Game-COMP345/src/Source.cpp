@@ -12,7 +12,7 @@
 #include "Scoring/Scoring.h"
 #include "ResourceCounter/ResourceCounter.h"
 #include "Engine/Game.h"
-
+#include "GameStart/GameStart.h"
 #include <sstream>
 
 int main()
@@ -54,9 +54,13 @@ int main()
 	//counter::ResourceCounterDriver testRC;
 	//testRC.run();
 
+	//A2 Part 1
+	gi::MakarovsWeddingDress O_O;
+	O_O.run();
+
 	//Game
-	engine::Game gam;
-	gam.loop();
+	/*engine::Game gam;
+	gam.loop();*/
 
 
 	system("pause");

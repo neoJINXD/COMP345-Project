@@ -110,6 +110,9 @@
     <ClCompile Include="src\Engine\Entities\Entity.cpp">
       <Filter>Engine\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameStart\GameStart.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Game.h">
@@ -163,6 +166,7 @@
     <ClInclude Include="src\VGMaps\VGMap.h">
       <Filter>Game\VBMap</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameStart\GameStart.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\Other Files\2player.txt">
