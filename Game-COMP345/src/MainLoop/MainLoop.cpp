@@ -97,7 +97,15 @@ void maingame::MainLoopDriver::run()
 
 	loop.turnStart();
 
+	//Turn Sequence
 
+	//Active player draws Buildings based on empty resource counters
+
+	//Reset resource counters
+
+	//Draw Harvest Tiles
+
+	//call bDeck's refreshBoardField
 
 	loop.turnEnd();
 

@@ -277,7 +277,7 @@ deck::Building* deck::BuildingDeck::draw()
 
 deck::Building* deck::BuildingDeck::drawFromField(int pos)
 {
-	//swap
+	//swap TODO check if works
 	Building* temp = boardField->back();
 	boardField->back() = boardField->at(pos);
 	boardField->at(pos) = temp;
