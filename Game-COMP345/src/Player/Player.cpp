@@ -53,6 +53,16 @@ void player::Player::DrawHarvestTile()
 	hands->drawTile();
 }
 
+void player::Player::DrawFromField()
+{
+	std::cout << "Pick which building to draw from the selection" << std::endl;
+	hands->displayField();
+
+	int selection;
+	std::cin >> selection;
+	hands->drawFromField(selection);
+}
+
 void player::Player::ResourceTracker(int yes, int no, int maybe, int so)
 {
 	counters->emplace(Wheat, yes);
@@ -66,6 +76,24 @@ void player::Player::CalculateResources()
 	counter::ResourceCounter count;
 	std::map<Resource, int> counted = count.harvestCount(board->getRecentNode());
 	ResourceTracker(counted.at(Wheat), counted.at(Sheep), counted.at(Timber), counted.at(Stone));
+}
+
+int player::Player::countDrawAmount()
+{
+	int result = 0;
+
+	for (auto i : *counters)
+	{
+		if (i.second == 0)
+			result++;
+	}
+
+	return result;
+}
+
+void player::Player::refreshField()
+{
+	hands->refreshField();
 }
 
 

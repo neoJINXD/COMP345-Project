@@ -31,6 +31,12 @@ namespace maingame
 		void turnStart();
 		void turnEnd();
 		bool checkEndState();
+		void drawBuildings();
+
+		void setResources();
+		void resetResources();
+
+		void drawHarvestTiles();
 	};
 
 

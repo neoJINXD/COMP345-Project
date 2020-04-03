@@ -62,6 +62,12 @@ void maingame::MainLoop::turnStart()
 
 void maingame::MainLoop::turnEnd()
 {
+	//resetting resources back to 0
+	resetResources();
+
+	//call bDeck's refreshBoardField
+	activePlayer->refreshField();
+
 	currentPlayer = (currentPlayer + 1) % nbPlayers;
 }
 
@@ -69,6 +75,63 @@ bool maingame::MainLoop::checkEndState()
 {
 	return freeTiles == 1;
 }
+
+void maingame::MainLoop::drawBuildings()
+{
+	int amountToDraw = activePlayer->countDrawAmount();
+	if (amountToDraw != 0)
+	{
+		std::cout << "You can draw" << std::endl;
+		activePlayer->DrawFromField();
+		amountToDraw--;
+	}
+	else
+	{
+		std::cout << "You cannot draw" << std::endl;
+		return;
+	}
+
+	while (amountToDraw > 0)
+	{
+		std::cout << "You can keep drawing" << std::endl;
+		std::cout << "Draw from selection (1) or from deck(2)?" << std::endl;
+		int choice;
+		std::cin >> choice;
+		if (choice == 1)
+		{
+			activePlayer->DrawFromField();
+		}
+		else if (choice == 2)
+		{
+			activePlayer->DrawBuilding();
+		}
+		amountToDraw--;
+	}
+
+	std::cout << "No more drawing" << std::endl;
+	std::cout << "Current hand is: " << std::endl;
+
+	activePlayer->printHand();
+
+}
+
+void maingame::MainLoop::setResources()
+{
+	activePlayer->ResourceTracker(1, 0, 2, 0);
+}
+
+void maingame::MainLoop::resetResources()
+{
+	std::cout << "Resetting resource counters" << std::endl;
+	activePlayer->ResourceTracker(0, 0, 0, 0);
+}
+
+void maingame::MainLoop::drawHarvestTiles()
+{
+	//NEED TO TAKE INTO ACCOUNT THE SHIPMENT TILE
+}
+
+
 
 
 
@@ -98,20 +161,20 @@ void maingame::MainLoopDriver::run()
 	loop.turnStart();
 
 	//Turn Sequence
+	loop.setResources();
 
 	//Active player draws Buildings based on empty resource counters
+	loop.drawBuildings();
 
-	//Reset resource counters
 
 	//Draw Harvest Tiles
 
-	//call bDeck's refreshBoardField
 
+	//Turn's end
 	loop.turnEnd();
 
 
-
-	std::cout << loop.checkEndState() << std::endl;
+	//std::cout << loop.checkEndState() << std::endl;
 
 	delete board;
 	board = nullptr;

@@ -137,6 +137,7 @@ namespace deck
 		void refreshBoardField();
 
 		void printDeck();
+		void printField();
 	};
 
 	class BuildingDriver
@@ -159,10 +160,13 @@ namespace deck
 
 		void drawTile();
 		void drawBuilding();
+		void drawFromField(int pos);
+		void refreshField();
 
 		std::pair<int, deck::Tile*> exchange();
 		void displayTiles();
 		void displayBuildings();
+		void displayField();
 
 		Building* getBuilding(int location);
 

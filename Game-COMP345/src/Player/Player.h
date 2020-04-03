@@ -55,13 +55,15 @@ namespace player {
 		void PlaceHarvestTile();
 		void DrawBuilding();
 		void DrawHarvestTile();
+		void DrawFromField();
 		void ResourceTracker(int yes, int no, int maybe, int so);
 
 		//part6
 		void BuildVillage();
 		void CalculateResources();
 
-
+		int countDrawAmount();
+		void refreshField();
 
 	};
 

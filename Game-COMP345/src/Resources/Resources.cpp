@@ -251,6 +251,8 @@ void deck::BuildingDeck::buildDeck()
 	}
 
 	this->shuffle();
+
+	refreshBoardField();
 }
 
 // Shuffles the deck
@@ -277,21 +279,20 @@ deck::Building* deck::BuildingDeck::draw()
 
 deck::Building* deck::BuildingDeck::drawFromField(int pos)
 {
-	//swap TODO check if works
-	Building* temp = boardField->back();
-	boardField->back() = boardField->at(pos);
-	boardField->at(pos) = temp;
-
-
-	Building* chosen = boardField->back();
-	deck->pop_back();
 	
-	return chosen;
+	Building* selected = boardField->at(pos);
+	Building* temp = boardField->at(pos);
+
+	boardField->at(pos) = boardField->back();
+	boardField->back() = temp;
+	boardField->pop_back();
+
+	return selected;
 }
 
 void deck::BuildingDeck::refreshBoardField()
 {
-	while (boardField->size() <= 5)
+	while (boardField->size() < 5)
 	{
 		boardField->push_back(draw());
 	}
@@ -311,6 +312,14 @@ void deck::BuildingDeck::printDeck()
 	std::cout << "Building counter: " << count << std::endl;
 
 
+}
+
+void deck::BuildingDeck::printField()
+{
+	for (const auto& b : *boardField)
+	{
+		b->printInfo();
+	}
 }
 
 // Runs test
@@ -385,6 +394,17 @@ void deck::Hand::drawBuilding()
 	BuildingHand->push_back(_BuildingDeck->draw());
 }
 
+void deck::Hand::drawFromField(int pos)
+{
+	//std::cout << "Here are the building available" << std::endl;
+	BuildingHand->push_back(_BuildingDeck->drawFromField(pos));
+}
+
+void deck::Hand::refreshField()
+{
+	_BuildingDeck->refreshBoardField();
+}
+
 
 void deck::Hand::displayTiles()
 {
@@ -412,6 +432,11 @@ void deck::Hand::displayBuildings()
 	}
 	else
 		std::cout << "Empty Building Hand" << std::endl;
+}
+
+void deck::Hand::displayField()
+{
+	_BuildingDeck->printField();
 }
 
 void deck::HandDriver::run()
