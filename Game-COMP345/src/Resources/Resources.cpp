@@ -217,6 +217,16 @@ deck::BuildingDeck::~BuildingDeck()
 	{
 		delete i;
 	}
+
+	for (auto i : *boardField)
+	{
+		delete i;
+	}
+
+	boardField->clear();
+	delete boardField;
+	boardField = nullptr;
+
 	deck->clear();
 	delete deck;
 	deck = nullptr;
@@ -263,6 +273,28 @@ deck::Building* deck::BuildingDeck::draw()
 	deck->pop_back();
 	this->shuffle();
 	return top;
+}
+
+deck::Building* deck::BuildingDeck::drawFromField(int pos)
+{
+	//swap
+	Building* temp = boardField->back();
+	boardField->back() = boardField->at(pos);
+	boardField->at(pos) = temp;
+
+
+	Building* chosen = boardField->back();
+	deck->pop_back();
+	
+	return chosen;
+}
+
+void deck::BuildingDeck::refreshBoardField()
+{
+	while (boardField->size() <= 5)
+	{
+		boardField->push_back(draw());
+	}
 }
 
 

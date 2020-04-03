@@ -120,14 +120,22 @@ namespace deck
 	{
 	private:
 		std::vector<Building*>* deck;
+		std::vector<Building*>* boardField;
 		void buildDeck();
 		void shuffle();
 
 	public:
-		BuildingDeck() : deck(new std::vector<Building*>()) { buildDeck(); }
+		BuildingDeck() : 
+			deck(new std::vector<Building*>()), 
+			boardField(new std::vector<Building*>()) 
+		{ buildDeck(); }
+
 		~BuildingDeck();
 
 		Building* draw();
+		Building* drawFromField(int pos);
+		void refreshBoardField();
+
 		void printDeck();
 	};
 
