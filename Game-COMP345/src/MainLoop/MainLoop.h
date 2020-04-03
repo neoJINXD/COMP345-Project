@@ -18,6 +18,7 @@ namespace maingame
 		std::map<int, player::Player*>* queue;
 		player::Player* activePlayer;
 		int currentPlayer;
+		int nbPlayers;
 
 		int freeTiles;
 		void init(int numberOfPlayer);
@@ -27,8 +28,9 @@ namespace maingame
 		~MainLoop();
 
 		void setupPlayerOrder(player::Player* p1, player::Player* p2, player::Player* p3, player::Player* p4);
-		void start();
-		void end();
+		void turnStart();
+		void turnEnd();
+		bool checkEndState();
 	};
 
 

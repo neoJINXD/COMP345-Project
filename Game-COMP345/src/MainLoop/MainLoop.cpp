@@ -2,6 +2,7 @@
 
 #include "../GBMaps/GBMap.h"
 #include "../Resources/Resources.h"
+#include "../Engine/Utilities/Helpers.h"
 
 void maingame::MainLoop::init(int numberOfPlayer)
 {
@@ -22,7 +23,8 @@ void maingame::MainLoop::init(int numberOfPlayer)
 		exit(-404);
 	}
 
-	currentPlayer = 1;
+	currentPlayer = 0;
+	nbPlayers = numberOfPlayer;
 }
 
 maingame::MainLoop::MainLoop(int numberOfPlayer)
@@ -34,15 +36,10 @@ maingame::MainLoop::MainLoop(int numberOfPlayer)
 
 maingame::MainLoop::~MainLoop()
 {
-	//for (int i = 0; i < 4; i++)
-	//{
-		//
-		//delete queue->at(i);
-	//}
-	delete queue->at(1);
-	delete queue->at(2);
-	delete queue->at(3);
-	delete queue->at(4);
+	for (auto i : *queue)
+	{
+		delete i.second;
+	}
 
 	queue->clear();
 	delete queue;
@@ -51,21 +48,26 @@ maingame::MainLoop::~MainLoop()
 
 void maingame::MainLoop::setupPlayerOrder(player::Player* p1, player::Player* p2, player::Player* p3, player::Player* p4)
 {
-	queue->emplace(1, p1);
-	queue->emplace(2, p2);
-	queue->emplace(3, p3);
-	queue->emplace(4, p4);
+	queue->emplace(0, p1);
+	queue->emplace(1, p2);
+	queue->emplace(2, p3);
+	queue->emplace(3, p4);
 	
 }
 
-void maingame::MainLoop::start()
+void maingame::MainLoop::turnStart()
 {
 	activePlayer = queue->at(currentPlayer);
 }
 
-void maingame::MainLoop::end()
+void maingame::MainLoop::turnEnd()
 {
-	currentPlayer++;
+	currentPlayer = (currentPlayer + 1) % nbPlayers;
+}
+
+bool maingame::MainLoop::checkEndState()
+{
+	return freeTiles == 1;
 }
 
 
@@ -90,11 +92,18 @@ void maingame::MainLoopDriver::run()
 		new player::Player(&p4, board, hDeck, bDeck)
 		);
 	
-	loop.start();
 
 
 
-	loop.end();
+	loop.turnStart();
+
+
+
+	loop.turnEnd();
+
+
+
+	std::cout << loop.checkEndState() << std::endl;
 
 	delete board;
 	board = nullptr;

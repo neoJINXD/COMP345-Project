@@ -14,7 +14,7 @@ void player::Player::init()
 player::Player::~Player()
 {
 	//delete board
-	delete board;
+	//delete board;
 	board = nullptr;
 
 	//delete village

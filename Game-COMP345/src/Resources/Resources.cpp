@@ -337,9 +337,9 @@ deck::Hand::~Hand()
 	delete BuildingHand;
 	BuildingHand = nullptr;
 
-	delete _HarvestDeck;
+	//delete _HarvestDeck;
 	_HarvestDeck = nullptr;
-	delete _BuildingDeck;
+	//delete _BuildingDeck;
 	_BuildingDeck = nullptr;
 }
 
