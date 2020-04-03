@@ -69,27 +69,12 @@ std::vector<player::Player*>* gi::GameStart::initPlayers(unsigned totalPlayers)
 	}
 
 	for (auto i = 0; i < totalPlayers; i++) {
-		std::string* name = new std::string("P" + 1);
+		std::string* name = new std::string("P" + std::to_string(i + 1));
 		player::Player* player = new player::Player(name, gameboard, harvestDeck, buildingDeck);
 
 		drawStart(player);
 		players->push_back(player);
 	}
-
-	//switch (totalPlayers) {
-	//case 2:
-	//	//players.push_back(new player::Player());
-	//	break;
-	//case 3:
-	//	break;
-
-	//case 4:
-	//	break;
-
-	//default:
-	//	std::cout << "Invalid number of players" << std::endl;
-	//	break;
-	//}
 
 	return players;
 }
@@ -102,7 +87,7 @@ void gi::MakarovsWeddingDress::run()
 
 	for (auto p : *players) {
 		
-		std::cout << p->name << std::endl;
+		std::cout << *p->name << std::endl;
 		p->printHand();
 	}
 
