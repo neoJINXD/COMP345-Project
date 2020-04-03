@@ -4,7 +4,7 @@
 #define new new( _NORMAL_BLOCK , __FILE__ , __LINE__ )
 #endif
 
-#include <list>
+#include <map>
 #include <iostream>
 #include "../Player/Player.h"
 
@@ -15,8 +15,9 @@ namespace maingame
 	private: 
 		//MainLoop() {}
 
-		std::list<player::Player*>* queue;
+		std::map<int, player::Player*>* queue;
 		player::Player* activePlayer;
+		int currentPlayer;
 
 		int freeTiles;
 		void init(int numberOfPlayer);
@@ -24,8 +25,10 @@ namespace maingame
 	public:
 		MainLoop(int numberOfPlayer);
 		~MainLoop();
-		
 
+		void setupPlayerOrder(player::Player* p1, player::Player* p2, player::Player* p3, player::Player* p4);
+		void start();
+		void end();
 	};
 
 

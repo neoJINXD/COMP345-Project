@@ -15,6 +15,7 @@
 #include "Scoring/Scoring.h"
 #include "ResourceCounter/ResourceCounter.h"
 #include "Engine/Game.h"
+#include "MainLoop/MainLoop.h"
 
 #include <sstream>
 
@@ -58,9 +59,12 @@ int main()
 	//testRC.run();
 
 	//Game
-	engine::Game gam;
-	gam.loop();
+	//engine::Game gam;
+	//gam.loop();
 
+	//Part 2
+	maingame::MainLoopDriver mainLoop;
+	mainLoop.run();
 
 	system("pause");
 	return 0;
