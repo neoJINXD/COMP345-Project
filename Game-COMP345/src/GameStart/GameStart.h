@@ -33,6 +33,7 @@ namespace gi {
 		deck::HarvestDeck* initHarvestDeck();
 		deck::BuildingDeck* initBuildingDeck();
 
+		void drawStart(player::Player* player);
 
 		//Call new on players
 		std::vector<player::Player*>* initPlayers(unsigned totalPlayers);

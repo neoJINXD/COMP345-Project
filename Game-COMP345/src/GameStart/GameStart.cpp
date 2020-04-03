@@ -40,6 +40,20 @@ deck::BuildingDeck* gi::GameStart::initBuildingDeck()
 	return new deck::BuildingDeck();
 }
 
+void gi::GameStart::drawStart(player::Player* player)
+{
+	for (int cnt = 0; cnt < 6; cnt++) {
+		player->DrawBuilding();
+	}
+	for (int cnt = 0; cnt < 2; cnt++) {
+		player->DrawHarvestTile();
+	}
+
+	//Player draw shipment Desuu~~~~~~~~
+}
+
+
+
 
 std::vector<player::Player*>* gi::GameStart::initPlayers(unsigned totalPlayers)
 {
@@ -57,8 +71,8 @@ std::vector<player::Player*>* gi::GameStart::initPlayers(unsigned totalPlayers)
 	for (auto i = 0; i < totalPlayers; i++) {
 		std::string* name = new std::string("P" + 1);
 		player::Player* player = new player::Player(name, gameboard, harvestDeck, buildingDeck);
-		player->DrawBuilding();
-		player->DrawHarvestTile();
+
+		drawStart(player);
 		players->push_back(player);
 	}
 
@@ -93,7 +107,7 @@ void gi::MakarovsWeddingDress::run()
 	}
 
 	delete gs;
-
+	gs = nullptr;
 
 	for (auto p : *players) {
 		delete p;
