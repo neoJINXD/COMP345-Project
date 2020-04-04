@@ -117,6 +117,7 @@ namespace deck
 		Resource getResource() const { return *resource; }
 		void setResource(Resource _resource) { *resource = _resource; }
 		void setFaceDown(bool _FaceDown) { *isFaceDown = _FaceDown; }
+		bool getFaceDown() { return *isFaceDown; }
 
 
 	};

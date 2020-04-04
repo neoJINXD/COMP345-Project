@@ -48,8 +48,8 @@ int main() {
   // zahando.run();
 
   // Part 6
-  // counter::ScoringDriver testScore;
-  // testScore.run();
+  counter::ScoringDriver testScore;
+  testScore.run();
   // counter::ResourceCounterDriver testRC;
   // testRC.run();
 
@@ -62,8 +62,8 @@ int main() {
   // gam.loop();
 
   // Part 2
-  maingame::MainLoopDriver mainLoop;
-  mainLoop.run();
+  //maingame::MainLoopDriver mainLoop;
+  //mainLoop.run();
 
   system("pause");
   return 0;
