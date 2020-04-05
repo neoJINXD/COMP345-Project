@@ -73,13 +73,13 @@ void statesystem::MenuState::update(const float& dt)
 	//if (buttons["PLAY"]->isPressed())
 	//	states->push(new statesystem::GameState(win, validKeys, states));
 	if (buttons["PLAY2"]->isPressed()) {
-		printf("I pushed it kyaaaa~\n\n\n\n");
+		printf("We Playing with 2 peeps\n");
 	}
 	if (buttons["PLAY3"]->isPressed()) {
-		printf("I pushed it again kyaa~~\n");
+		printf("We Playing with 3 peeps\n");
 	}
 	if (buttons["PLAY4"]->isPressed()) {
-		printf("Stop you're going to get me pregnant\n");
+		printf("We Playing with 4 peeps\n");
 	}
 
 

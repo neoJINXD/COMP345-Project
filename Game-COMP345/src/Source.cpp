@@ -62,8 +62,8 @@ int main()
 
   //A2----------------------------------------------------------------------------------
   // Part 1
-  gi::GameStartDriver O_O;
-  O_O.run();
+  //gi::GameStartDriver O_O;
+  //O_O.run();
 
   // Part 2
   //maingame::MainLoopDriver mainLoop;
