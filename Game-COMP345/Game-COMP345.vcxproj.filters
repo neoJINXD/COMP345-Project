@@ -1,210 +1,61 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Resource Files\Maps">
-      <UniqueIdentifier>{557e61ee-f79b-4d87-afa9-b8e8894cc6ef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine">
-      <UniqueIdentifier>{1e63c48c-35c2-4169-b919-dc84fffdcbb5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\UI">
-      <UniqueIdentifier>{661b1707-cbe3-4d8e-a0f9-cb18da59d6ad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GameStateSystem">
-      <UniqueIdentifier>{5a49e48a-31c8-4e15-8603-bb1e7e4df015}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Utilities">
-      <UniqueIdentifier>{f591cdd7-a845-4bd1-ba22-171d33fcbd8f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Entities">
-      <UniqueIdentifier>{6b4f4aa8-dba8-4204-ac8a-d67118bbe714}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Game\Resources">
-      <UniqueIdentifier>{3b663dbd-8491-4cd4-9a09-7875e04f76a5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\MapLoader">
-      <UniqueIdentifier>{b1484466-d6a8-4512-b56a-eaf3695aa03f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Player">
-      <UniqueIdentifier>{d97bb00f-37fb-4024-bb70-bcadc5bf1c58}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GBMap">
-      <UniqueIdentifier>{814ff6c8-d74e-4b75-b5f4-1399d7c7f9a3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\VBMap">
-      <UniqueIdentifier>{1dd10163-c5bb-4eef-9d40-a39df0d66c08}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\ResourceCounter">
-      <UniqueIdentifier>{38616d90-a8a7-4f6d-9281-99397b679e7f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Scoring">
-      <UniqueIdentifier>{07df2a12-d7e0-40b3-8cb8-762b3f2ecfac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\Engine Resources">
-      <UniqueIdentifier>{5e94a078-9510-4175-8d2d-2185a7ffbcc8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\Engine Resources\Fonts">
-      <UniqueIdentifier>{6a424f1d-e8f3-4891-adaf-aa6e3249b12d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\Engine Resources\Textures">
-      <UniqueIdentifier>{8ce4dfa0-ba2b-4f7e-81f9-7ada3080af76}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\MainGame">
-      <UniqueIdentifier>{716cdb86-05bd-43ae-8dac-fb35dd8ab0bb}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="src\GameStart\GameStart.cpp" />
+    <ClCompile Include="src\Engine\Entities\Entity.cpp" />
+    <ClCompile Include="src\Engine\Game.cpp" />
+    <ClCompile Include="src\Engine\GameStateSystem\EndState.cpp" />
+    <ClCompile Include="src\Engine\GameStateSystem\GameState.cpp" />
+    <ClCompile Include="src\Engine\GameStateSystem\MenuState.cpp" />
+    <ClCompile Include="src\Engine\GameStateSystem\State.cpp" />
+    <ClCompile Include="src\Engine\UI\Button.cpp" />
+    <ClCompile Include="src\Engine\UI\Text.cpp" />
+    <ClCompile Include="src\Engine\Utilities\Helpers.cpp" />
+    <ClCompile Include="src\MainLoop\MainLoop.cpp" />
+    <ClCompile Include="src\ResourceCounter\ResourceCounter.cpp" />
+    <ClCompile Include="src\Scoring\Scoring.cpp" />
+    <ClCompile Include="src\MapLoader\MapLoader.cpp" />
+    <ClCompile Include="src\GBMaps\GBMap.cpp" />
+    <ClCompile Include="src\Player\Player.cpp" />
+    <ClCompile Include="src\Resources\Resources.cpp" />
+    <ClCompile Include="src\Source.cpp" />
+    <ClCompile Include="src\VGMaps\VGMap.cpp" />
+    <ClCompile Include="src\MainLoop\TurnSequence.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Source.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Resources\Resources.cpp">
-      <Filter>Game\Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\MapLoader\MapLoader.cpp">
-      <Filter>Game\MapLoader</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Player\Player.cpp">
-      <Filter>Game\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GBMaps\GBMap.cpp">
-      <Filter>Game\GBMap</Filter>
-    </ClCompile>
-    <ClCompile Include="src\VGMaps\VGMap.cpp">
-      <Filter>Game\VBMap</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scoring\Scoring.cpp">
-      <Filter>Game\Scoring</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ResourceCounter\ResourceCounter.cpp">
-      <Filter>Game\ResourceCounter</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Game.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\UI\Text.cpp">
-      <Filter>Engine\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\UI\Button.cpp">
-      <Filter>Engine\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\GameStateSystem\EndState.cpp">
-      <Filter>Engine\GameStateSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\GameStateSystem\GameState.cpp">
-      <Filter>Engine\GameStateSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\GameStateSystem\MenuState.cpp">
-      <Filter>Engine\GameStateSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\GameStateSystem\State.cpp">
-      <Filter>Engine\GameStateSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Utilities\Helpers.cpp">
-      <Filter>Engine\Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Entities\Entity.cpp">
-      <Filter>Engine\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="src\MainLoop\MainLoop.cpp">
-      <Filter>Game\MainGame</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\Engine\Game.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\UI\UI.h">
-      <Filter>Engine\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\UI\Text.h">
-      <Filter>Engine\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\UI\Button.h">
-      <Filter>Engine\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\GameStateSystem\EndState.h">
-      <Filter>Engine\GameStateSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\GameStateSystem\GameState.h">
-      <Filter>Engine\GameStateSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\GameStateSystem\MenuState.h">
-      <Filter>Engine\GameStateSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\GameStateSystem\State.h">
-      <Filter>Engine\GameStateSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Utilities\Helpers.h">
-      <Filter>Engine\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Entities\Entity.h">
-      <Filter>Engine\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GBMaps\GBMap.h">
-      <Filter>Game\GBMap</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MapLoader\MapLoader.h">
-      <Filter>Game\MapLoader</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Player\Player.h">
-      <Filter>Game\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ResourceCounter\ResourceCounter.h">
-      <Filter>Game\ResourceCounter</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Resources\Resources.h">
-      <Filter>Game\Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scoring\Scoring.h">
-      <Filter>Game\Scoring</Filter>
-    </ClInclude>
-    <ClInclude Include="src\VGMaps\VGMap.h">
-      <Filter>Game\VBMap</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="src\MainLoop\MainLoop.h">
-      <Filter>Game\MainGame</Filter>
-    </ClInclude>
-=======
     <ClInclude Include="src\GameStart\GameStart.h" />
->>>>>>> master
+    <ClInclude Include="src\Engine\Entities\Entity.h" />
+    <ClInclude Include="src\Engine\Game.h" />
+    <ClInclude Include="src\Engine\GameStateSystem\EndState.h" />
+    <ClInclude Include="src\Engine\GameStateSystem\GameState.h" />
+    <ClInclude Include="src\Engine\GameStateSystem\MenuState.h" />
+    <ClInclude Include="src\Engine\GameStateSystem\State.h" />
+    <ClInclude Include="src\Engine\UI\Button.h" />
+    <ClInclude Include="src\Engine\UI\Text.h" />
+    <ClInclude Include="src\Engine\UI\UI.h" />
+    <ClInclude Include="src\Engine\Utilities\Helpers.h" />
+    <ClInclude Include="src\MainLoop\MainLoop.h" />
+    <ClInclude Include="src\ResourceCounter\ResourceCounter.h" />
+    <ClInclude Include="src\Scoring\Scoring.h" />
+    <ClInclude Include="src\MapLoader\MapLoader.h" />
+    <ClInclude Include="src\GBMaps\GBMap.h" />
+    <ClInclude Include="src\Player\Player.h" />
+    <ClInclude Include="src\VGMaps\VGMap.h" />
+    <ClInclude Include="src\Resources\Resources.h" />
+    <ClInclude Include="src\MainLoop\TurnSequence.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="src\Other Files\2player.txt">
-      <Filter>Resource Files\Maps</Filter>
-    </Text>
-    <Text Include="src\Other Files\3player.txt">
-      <Filter>Resource Files\Maps</Filter>
-    </Text>
-    <Text Include="src\Other Files\4player.txt">
-      <Filter>Resource Files\Maps</Filter>
-    </Text>
-    <Text Include="src\Other Files\InvalidTileFormat.txt">
-      <Filter>Resource Files\Maps</Filter>
-    </Text>
-    <Text Include="src\Other Files\MissingEnd.txt">
-      <Filter>Resource Files\Maps</Filter>
-    </Text>
-    <Text Include="src\Other Files\NoTiles.txt">
-      <Filter>Resource Files\Maps</Filter>
-    </Text>
+    <Image Include="src\Files\textures\newhaven.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="src\Other Files\fonts\Blacklisted.ttf">
-      <Filter>Resource Files\Engine Resources\Fonts</Filter>
-    </Font>
+    <Font Include="src\Other Files\fonts\Blacklisted.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="src\Files\textures\newhaven.jpg">
-      <Filter>Resource Files\Engine Resources\Textures</Filter>
-    </Image>
+    <Text Include="src\Other Files\2player.txt" />
+    <Text Include="src\Other Files\3player.txt" />
+    <Text Include="src\Other Files\4player.txt" />
+    <Text Include="src\Other Files\InvalidTileFormat.txt" />
+    <Text Include="src\Other Files\MissingEnd.txt" />
+    <Text Include="src\Other Files\NoTiles.txt" />
   </ItemGroup>
 </Project>

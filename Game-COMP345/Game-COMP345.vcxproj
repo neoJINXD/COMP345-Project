@@ -160,6 +160,7 @@
     <ClCompile Include="src\Resources\Resources.cpp" />
     <ClCompile Include="src\Source.cpp" />
     <ClCompile Include="src\VGMaps\VGMap.cpp" />
+    <ClCompile Include="src\MainLoop\TurnSequence.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameStart\GameStart.h" />
@@ -180,6 +181,7 @@
     <ClInclude Include="src\GBMaps\GBMap.h" />
     <ClInclude Include="src\Player\Player.h" />
     <ClInclude Include="src\VGMaps\VGMap.h" />
+    <ClInclude Include="src\MainLoop\TurnSequence.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Resources\Resources.h" />

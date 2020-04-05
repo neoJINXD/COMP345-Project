@@ -126,8 +126,8 @@ void player::PlayerDriver::run() {
   deck::HarvestDeck* Hdeck = new deck::HarvestDeck();
   deck::BuildingDeck* Bdeck = new deck::BuildingDeck();
 
-  std::string name = "Josuke";
-  Player jojo(&name, map, Hdeck, Bdeck);
+  std::string* name = new std::string("Josuke");
+  Player jojo(name, map, Hdeck, Bdeck);
 
   jojo.DrawBuilding();
   jojo.DrawBuilding();
