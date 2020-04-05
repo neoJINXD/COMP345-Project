@@ -6,7 +6,7 @@ void maingame::TurnSequence::playTurn(player::Player* player)
 {
 
 	//Plays the harvest tile
-	//player->PlaceHarvestTile();
+	player->PlaceHarvestTile();
 	//handle playing shipment tile
 
 	//Calculate the resources from previous play
@@ -18,7 +18,6 @@ void maingame::TurnSequence::playTurn(player::Player* player)
 
 	//Let other players build with same logic
 
-	//
 
 
 }
@@ -26,6 +25,7 @@ void maingame::TurnSequence::playTurn(player::Player* player)
 void maingame::TurnSequenceDriver::run()
 {
 	GB::GBMap* map = new GB::GBMap(2);
+	map->buildBoard();
 	deck::BuildingDeck* bDeck = new deck::BuildingDeck();
 	deck::HarvestDeck* hDeck = new deck::HarvestDeck();
 
@@ -38,9 +38,8 @@ void maingame::TurnSequenceDriver::run()
 	testPlayer->DrawHarvestTile();
 	testPlayer->DrawShipment();
 
-	testPlayer->PlaceHarvestTile();
-	//maingame::TurnSequence turnary;
-	//turnary.playTurn(testPlayer);
+	maingame::TurnSequence turnary;
+	turnary.playTurn(testPlayer);
 
 	delete map;
 	map = nullptr;
