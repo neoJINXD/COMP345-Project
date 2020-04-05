@@ -260,7 +260,7 @@ void GB::GBMap::placeTile(int loc, deck::Tile* tile)
 {
 	//Check at this vertex if a tile already exists
 	deck::Tile* existTile = peekTile(loc);
-	if (existTile != nullptr || 
+	if (false || 
 		std::find(blockedKeys->begin(), blockedKeys->end(), loc) != blockedKeys->end())
 	{
 		delete tile;
