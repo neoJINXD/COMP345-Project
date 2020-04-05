@@ -403,6 +403,12 @@ void deck::HandDriver::run() {
 
   delete picked.second;
   picked.second = nullptr;
+
+  delete Hdeck;
+  Hdeck = nullptr;
+
+  delete Ddeck;
+  Ddeck = nullptr;
 }
 
 std::pair<int, deck::Tile*> deck::Hand::exchange() {

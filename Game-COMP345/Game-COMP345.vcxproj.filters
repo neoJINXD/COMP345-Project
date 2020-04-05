@@ -21,6 +21,7 @@
     <ClCompile Include="src\Source.cpp" />
     <ClCompile Include="src\VGMaps\VGMap.cpp" />
     <ClCompile Include="src\MainLoop\TurnSequence.cpp" />
+    <ClCompile Include="src\Helpers\Graph.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameStart\GameStart.h" />
@@ -43,6 +44,7 @@
     <ClInclude Include="src\VGMaps\VGMap.h" />
     <ClInclude Include="src\Resources\Resources.h" />
     <ClInclude Include="src\MainLoop\TurnSequence.h" />
+    <ClInclude Include="src\Helpers\Graph.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="src\Files\textures\newhaven.jpg" />

@@ -8,10 +8,12 @@ void player::Player::init()
 	counters = new std::map<Resource, int>();
 }
 
-player::Player::~Player()
+
+player::Player::~Player() 
 {
 
-	board = nullptr;
+   //delete board;
+   board = nullptr;
 
 	delete name;
 	name = nullptr;
@@ -197,6 +199,7 @@ void player::PlayerDriver::run()
 	jojo.CalculateResources();
 	jojo.PlaceHarvestTile();
 
+
 	std::cout << "Attempting to place Building on Village Board" << std::endl;
 	jojo.BuildVillage();
 	jojo.BuildVillage();
@@ -209,4 +212,5 @@ void player::PlayerDriver::run()
 
 	delete Bdeck;
 	Bdeck = nullptr;
+
 }
