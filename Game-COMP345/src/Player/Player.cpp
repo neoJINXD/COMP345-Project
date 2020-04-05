@@ -2,7 +2,7 @@
 
 void player::Player::init() {
   hands = new deck::Hand(Hdeck, Bdeck);
-  DrawShipment();
+  //DrawShipment();
   std::cout << "Creating Village" << std::endl;
   village = new VG::VGMap("Boiomer");
   counters = new std::map<Resource, int>();
@@ -40,6 +40,10 @@ void player::Player::createHand(deck::HarvestDeck* HDeck,
 void player::Player::printHand() {
   hands->displayBuildings();
   hands->displayTiles();
+  if (hands->getShipment())
+      std::cout << "This player has a Shipment Card" << std::endl;
+  else
+      std::cout << "No Shipment Tile available" << std::endl;
 }
 
 void player::Player::DrawBuilding() { hands->drawBuilding(); }
@@ -136,6 +140,8 @@ void player::PlayerDriver::run() {
   jojo.DrawHarvestTile();
   jojo.DrawHarvestTile();
 
+  jojo.DrawShipment();
+
   std::cout << "Attempting to place Harvest Tile on Game Board" << std::endl;
   jojo.PlaceHarvestTile();
   jojo.CalculateResources();
@@ -144,4 +150,13 @@ void player::PlayerDriver::run() {
   std::cout << "Attempting to place Building on Village Board" << std::endl;
   jojo.BuildVillage();
   jojo.BuildVillage();
+
+  delete map;
+  map = nullptr;
+
+  delete Hdeck;
+  Hdeck = nullptr;
+
+  delete Bdeck;
+  Bdeck = nullptr;
 }

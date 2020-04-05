@@ -20,9 +20,11 @@
 #include "Scoring/Scoring.h"
 #include "VGMaps/VGMap.h"
 
-int main() {
+int main() 
+{
   _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
+  //A1----------------------------------------------------------------------------------
   // Part 1
   // GB::GBMapDriver testGb;
   // testGb.run();
@@ -48,22 +50,30 @@ int main() {
   // zahando.run();
 
   // Part 6
-  counter::ScoringDriver testScore;
-  testScore.run();
+  //counter::ScoringDriver testScore;
+  //testScore.run();
   // counter::ResourceCounterDriver testRC;
   // testRC.run();
 
-  // A2 Part 1
-  // gi::MakarovsWeddingDress O_O;
-  // O_O.run();
 
   // Game
-  // engine::Game gam;
-  // gam.loop();
+  //engine::Game gam;
+  //gam.loop();
+
+  //A2----------------------------------------------------------------------------------
+  // Part 1
+  gi::MakarovsWeddingDress O_O;
+  O_O.run();
 
   // Part 2
   //maingame::MainLoopDriver mainLoop;
   //mainLoop.run();
+
+  // Part 3
+  //
+  //
+
+
 
   system("pause");
   return 0;
