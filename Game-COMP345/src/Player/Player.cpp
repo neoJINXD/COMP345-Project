@@ -1,4 +1,5 @@
 #include "Player.h"
+#include <cmath>
 
 void player::Player::init()
 {
@@ -160,13 +161,7 @@ void player::Player::BuildVillage()
 {
 	hands->displayBuildings();
 
-	int location;
-	std::cout << "Select a location" << std::endl;
-	std::cin >> location;
-	while (village->peekBuilding(location) != nullptr) {
-		std::cout << "A building already occupies this location!\nSelect location\n";
-		std::cin >> location;
-	}
+	
 
 	int selection;
 	std::cout << "Select a building" << std::endl;
@@ -181,6 +176,17 @@ void player::Player::BuildVillage()
 		std::cout << "Setting selected building face down!\n";
 		selected->setFaceDown(true);
 	}
+	int location;
+	std::cout << "Select a location" << std::endl;
+	std::cin >> location;
+	while (village->peekBuilding(location) != nullptr) {
+		std::cout << "A building already occupies this location!\nSelect location\n";
+		std::cin >> location;
+		int row = ceil(location / 5.0f);
+		int cost = 7 - row;
+		std::cout << "Cost at location " << location << ": Row: " << row << " Cost: " << cost << std::endl;
+	}
+
 	
 	village->placeBuilding(location, selected);
 	std::cout << "Placing at " << location << std::endl;

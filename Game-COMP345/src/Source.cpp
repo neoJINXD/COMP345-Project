@@ -39,8 +39,8 @@ int main()
   //mapTest.run();
 
   // Part 4
-  //player::PlayerDriver playerTest;
-  //playerTest.run();
+  player::PlayerDriver playerTest;
+  playerTest.run();
 
   // Part 5
   //deck::HarvestDriver hDeckTest;
@@ -54,8 +54,8 @@ int main()
   // Part 6
   //counter::ScoringDriver testScore;
   //testScore.run();
-  counter::ResourceCounterDriver testRC;
-  testRC.run();
+  //counter::ResourceCounterDriver testRC;
+  //testRC.run();
 
 
 
