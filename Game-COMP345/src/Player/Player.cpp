@@ -2,21 +2,17 @@
 
 void player::Player::init() {
   hands = new deck::Hand(Hdeck, Bdeck);
-  //DrawShipment();
   std::cout << "Creating Village" << std::endl;
-  village = new VG::VGMap("Boiomer");
+  village = new VG::VGMap("Boiomer"); //TODO remove
   counters = new std::map<Resource, int>();
 }
 
 player::Player::~Player() {
-  // delete board
-  // delete board;
+
   board = nullptr;
+
   delete name;
   name = nullptr;
-
-  // delete board;
-  // board = nullptr;
 
   // delete village
   delete village;
@@ -82,6 +78,16 @@ void player::Player::displayResources()
     std::cout << "Sheep: " << counters->at(Sheep) << std::endl;
     std::cout << "Timber: " << counters->at(Timber) << std::endl;
     std::cout << "Stone: " << counters->at(Stone) << std::endl;
+}
+
+void player::Player::passResources(Player* otherPlayer)
+{
+    otherPlayer->ResourceTracker(
+        counters->at(Wheat),
+        counters->at(Sheep),
+        counters->at(Timber),
+        counters->at(Stone)
+    );
 }
 
 int player::Player::countDrawAmount() {

@@ -316,7 +316,8 @@ deck::Hand::~Hand() {
   // TODO delete the hands
 
   // (shipmentTile)
-  delete shipmentTile;
+  if(shipmentTile)
+    delete shipmentTile;
   shipmentTile = nullptr;
 
   for (auto i : *HarvestHand) {

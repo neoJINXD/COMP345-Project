@@ -58,7 +58,7 @@ namespace player {
 		void DrawFromField();
 
 		void DrawShipment();
-		bool hasShipment() { return hands->getShipment() == nullptr; }
+		inline bool hasShipment() { return hands->getShipment() == nullptr; }
 
 		void ResourceTracker(int yes, int no, int maybe, int so);
 
@@ -66,6 +66,8 @@ namespace player {
 		void BuildVillage();
 		void CalculateResources();
 		void displayResources();
+		void passResources(Player* otherPlayer);
+		inline bool getEmptyResources() { return (counters->at(Wheat) == 0 && counters->at(Sheep) == 0 && counters->at(Timber) == 0 && counters->at(Stone) == 0); }
 
 		int countDrawAmount();
 		void refreshField();

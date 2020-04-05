@@ -161,7 +161,7 @@ namespace deck
 		HarvestDeck* _HarvestDeck;
 		BuildingDeck* _BuildingDeck;
 
-		Tile* shipmentTile;
+		Tile* shipmentTile = nullptr;
 	public:
 		Hand(HarvestDeck* HDeck, BuildingDeck* BDeck);
 		~Hand();

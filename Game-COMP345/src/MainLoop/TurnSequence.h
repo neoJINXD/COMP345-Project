@@ -8,7 +8,7 @@ namespace maingame
 	private:
 	public:
 		TurnSequence() {}
-		void playTurn(player::Player* player);
+		void playTurn(player::Player* player, player::Player** others);
 	};
 
 
