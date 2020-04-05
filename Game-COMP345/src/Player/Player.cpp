@@ -75,6 +75,15 @@ void player::Player::CalculateResources() {
                   counted.at(Stone));
 }
 
+void player::Player::displayResources()
+{
+    std::cout << "Current ressources: " << std::endl;
+    std::cout << "Wheat: " << counters->at(Wheat) << std::endl;
+    std::cout << "Sheep: " << counters->at(Sheep) << std::endl;
+    std::cout << "Timber: " << counters->at(Timber) << std::endl;
+    std::cout << "Stone: " << counters->at(Stone) << std::endl;
+}
+
 int player::Player::countDrawAmount() {
   int result = 0;
 

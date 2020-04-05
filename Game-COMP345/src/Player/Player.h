@@ -65,6 +65,7 @@ namespace player {
 		//part6
 		void BuildVillage();
 		void CalculateResources();
+		void displayResources();
 
 		int countDrawAmount();
 		void refreshField();

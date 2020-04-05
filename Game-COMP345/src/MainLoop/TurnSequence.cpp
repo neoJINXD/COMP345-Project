@@ -6,9 +6,12 @@ void maingame::TurnSequence::playTurn(player::Player* player)
 {
 
 	//Plays the harvest tile
+	//player->PlaceHarvestTile();
 	//handle playing shipment tile
 
 	//Calculate the resources from previous play
+	player->CalculateResources();
+	player->displayResources();
 
 	//Build on the village board
 	//keep track of recently placed node? (within player)
@@ -35,8 +38,9 @@ void maingame::TurnSequenceDriver::run()
 	testPlayer->DrawHarvestTile();
 	testPlayer->DrawShipment();
 
-	maingame::TurnSequence turnary;
-	turnary.playTurn(testPlayer);
+	testPlayer->PlaceHarvestTile();
+	//maingame::TurnSequence turnary;
+	//turnary.playTurn(testPlayer);
 
 	delete map;
 	map = nullptr;
