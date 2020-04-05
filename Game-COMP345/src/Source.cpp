@@ -23,23 +23,23 @@
 int main() {
   _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-  // Part 1
-  // GB::GBMapDriver testGb;
-  // testGb.run();
+   //Part 1
+   GB::GBMapDriver testGb;
+   testGb.run();
 
   // Part 2
-  // VG::VGMapDriver testVg;
-  // testVg.run();
+   //VG::VGMapDriver testVg;
+   //testVg.run();
 
   // Part 3
-  // maploader::MapLoaderDriver mapTest;
-  // mapTest.run();
+   //maploader::MapLoaderDriver mapTest;
+   //mapTest.run();
 
   // Part 4
-  // player::PlayerDriver playerTest;
-  // playerTest.run();
+   //player::PlayerDriver playerTest;
+   //playerTest.run();
 
-  // Part 5
+  //// Part 5
   // deck::HarvestDriver hDeckTest;
   // hDeckTest.run();
   // deck::BuildingDriver bDeckTest;
@@ -47,9 +47,9 @@ int main() {
   // deck::HandDriver zahando;
   // zahando.run();
 
-  // Part 6
-  counter::ScoringDriver testScore;
-  testScore.run();
+  //// Part 6
+  //counter::ScoringDriver testScore;
+  //testScore.run();
   // counter::ResourceCounterDriver testRC;
   // testRC.run();
 

@@ -1,6 +1,8 @@
 #include "GBMap.h"
 //#include <sstream>
 
+class GBMap;
+class Node;
 //Misc
 std::string EdgeToStr(EdgeLoc edge) {
 	switch (edge)
@@ -173,81 +175,112 @@ EdgeLoc* GB::Node::getEdge(Node* adjNode)
 
 //Graph Implmentations
 
-GB::Graph::~Graph()
-{
-	for (auto k : *graph)
-	{
-		delete k.second;
-		k.second = nullptr;
-	}
-	graph->clear();
-	delete graph;
-	graph = nullptr;
-	
-}
+//GB::Graph::~Graph()
+//{
+//	for (auto k : *graph)
+//	{
+//		delete k.second;
+//		k.second = nullptr;
+//	}
+//	graph->clear();
+//	delete graph;
+//	graph = nullptr;
+//	
+//}
 
-void GB::Graph::addVertex(int srcId)
+//void GB::Graph::addVertex(int srcId)
+//{
+//	//auto graphPtr = graph.get;
+//
+//	//If the node with srcId is not found in the map
+//	if (graph->find(srcId) == graph->end())
+//	{
+//		Node *node = new Node(srcId);
+//		graph->emplace(srcId, node);
+//
+//		return;
+//	}
+//
+//	std::cout << "That node already exists!" << std::endl;
+//}
+
+void GB::GBMap::addVertex(int srcId)
 {
 	//auto graphPtr = graph.get;
 
 	//If the node with srcId is not found in the map
 	if (graph->find(srcId) == graph->end())
 	{
-		Node *node = new Node(srcId);
+		Node* node = new Node(srcId);
 		graph->emplace(srcId, node);
 
 		return;
 	}
 
-	std::cout << "That node already exists!" << std::endl;
+	//std::cout << "That node already exists!" << std::endl;
 }
 
 //
-void GB::Graph::addEdge(int src, int dest, EdgeLoc edgeToDest, EdgeLoc edgeToSrc)
-{
-	Node *srcNode = graph->find(src)->second;
-	Node *destNode = graph->find(dest)->second;
+//void GB::Graph::addEdge(int src, int dest, EdgeLoc edgeToDest, EdgeLoc edgeToSrc)
+//{
+//	Node *srcNode = graph->find(src)->second;
+//	Node *destNode = graph->find(dest)->second;
+//
+//	//Undirected Graph
+//	srcNode->insertAdj(edgeToDest, destNode);
+//	destNode->insertAdj(edgeToSrc, srcNode);
+//}
 
+void GB::GBMap::addEdge(int src, int dest, EdgeLoc edgeToDest, EdgeLoc edgeToSrc)
+{
+	Node* srcNode = graph->find(src)->second;
+	Node* destNode = graph->find(dest)->second;
+	
+	
 	//Undirected Graph
 	srcNode->insertAdj(edgeToDest, destNode);
 	destNode->insertAdj(edgeToSrc, srcNode);
 }
-
-//void GB::Graph::addEdge(int src, int dest)
+//
+//GB::Node* GB::Graph::getNode(int nodeId) const
 //{
-//	Node srcObj = graph->find(src)->second;
-//	Node destObj = graph->find(dest)->second;
+//	return graph->find(nodeId)->second;
+//}
 //
-//	//Undirected Graph
-//	srcObj.insertAdj(destObj);
-//	destObj.insertAdj(srcObj);
+//void GB::Graph::insertTile(int nodeId, deck::Tile* tile)
+//{
 //
 //
+//	graph->find(nodeId)->second->setTile(tile);
+//}
+//
+//void GB::Graph::printGraph()
+//{
+//	std::cout << "Node|\tAdjacentNodes\n";	
+//	for (auto pair : *graph)
+//	{
+//		std::cout << pair.first << ":\t";
+//		pair.second->printAdjList();
+//		std::cout << std::endl;
+//	}
 //}
 
-GB::Node* GB::Graph::getNode(int nodeId) const
+void GB::GBMap::printGraph()
 {
-	return graph->find(nodeId)->second;
-}
-
-void GB::Graph::insertTile(int nodeId, deck::Tile* tile)
-{
-
-
-	graph->find(nodeId)->second->setTile(tile);
-}
-
-void GB::Graph::printGraph()
-{
-	std::cout << "Node|\tAdjacentNodes\n";	
+	std::cout << "Node|\tAdjacentNodes\n";
 	for (auto pair : *graph)
 	{
 		std::cout << pair.first << ":\t";
+		
+		if (pair.second->getTile() != nullptr) {
+			std::vector<Resource>* res = pair.second->getTile()->getResources();
+			for (auto r : *res)
+				std::cout << int(r) << ", ";
+		}
 		pair.second->printAdjList();
 		std::cout << std::endl;
 	}
 }
-
 //GBMap Implementations
 
 void GB::GBMap::createGrid(int rows, int cols)
@@ -257,7 +290,7 @@ void GB::GBMap::createGrid(int rows, int cols)
 	//Create vertexes, initialize the nodeIds / locations
 	for (int vertex = 1; vertex <= totalVertexes; vertex++) 
 	{
-		graph->addVertex(vertex);
+		addVertex(vertex);
 	}
 
 	//Add edges to all vertexes O(n)
@@ -268,21 +301,21 @@ void GB::GBMap::createGrid(int rows, int cols)
 		if ((vertex % cols) != 0)
 		{
 			//graph->addEdge(vertex, vertex + 1);
-			graph->addEdge(vertex, vertex + 1, EdgeLoc::Right, EdgeLoc::Left);
+			addEdge(vertex, vertex + 1, EdgeLoc::Right, EdgeLoc::Left);
 		}
 
 		//Link path to the node below current node
 		if (vertex + cols <= totalVertexes)
 		{
 			//graph->addEdge(vertex, vertex + cols);
-			graph->addEdge(vertex, vertex + cols, EdgeLoc::Bot, EdgeLoc::Top);
+			addEdge(vertex, vertex + cols, EdgeLoc::Bot, EdgeLoc::Top);
 		}
 	}
 
 	//Link rows
 	
 
-	graph->printGraph();
+	//printGraph();
 }
 
 bool GB::GBMap::buildBoard()
@@ -318,13 +351,13 @@ void GB::GBMap::blockKeys(const std::vector<int>& badKeys)
 
 void GB::GBMap::setOwner(int loc, std::string player)
 {
-	graph->getNode(loc)->setOwner(player);
+	getNode(loc)->setOwner(player);
 }
 
 std::string GB::GBMap::getOwner(int loc) const
 {
 
-	return graph->getNode(loc)->getOwner();
+	return getNode(loc)->getOwner();
 }
 
 //Very error prone, find a better way
@@ -339,19 +372,20 @@ void GB::GBMap::placeTile(int loc, deck::Tile* tile)
 		std::cout << "It is not free estate!\n";
 		return;
 	}
-	graph->insertTile(loc, tile);
+	//graph->insertTile(loc, tile);
+	graph->find(loc)->second->setTile(tile);
 	*recentTile = loc; 
 }
 
 deck::Tile* GB::GBMap::peekTile(int loc) const
 {
 	//Something is deleting the node around here
-	return graph->getNode(loc)->getTile();
+	return getNode(loc)->getTile();
 }
 
 deck::Tile* GB::GBMap::getAdjTile(int loc, EdgeLoc adjDir)
 {
-	int adjNodeId = graph->getNode(loc)->getAdj(adjDir);
+	int adjNodeId = getNode(loc)->getAdj(adjDir);
 	if (adjNodeId == -1)
 	{
 		return nullptr;
@@ -374,8 +408,15 @@ void GB::GBMap::createFullBoard()
 
 GB::GBMap::~GBMap()
 {
+	for (auto k : *graph)
+	{
+		delete k.second;
+		k.second = nullptr;
+	}
+	graph->clear();
 	delete graph;
 	graph = nullptr;
+
 
 	delete numberOfPlayers;
 	numberOfPlayers = nullptr;
@@ -409,6 +450,7 @@ void GB::GBMapDriver::run()
 		std::cout << "Owner:\t" << testMap->getOwner(1) << std::endl;*/
 		
 	}
+	testMap->printGraph();
 
 	delete testMap;
 	//delete testMap;

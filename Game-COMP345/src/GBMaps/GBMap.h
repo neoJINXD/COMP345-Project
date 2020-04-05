@@ -10,14 +10,8 @@
 
 #include "../Resources/Resources.h"
 #include <utility>
+#include "../Helpers/Graph.h"
 
-
-enum class EdgeLoc {
-	Top,
-	Bot,
-	Left,
-	Right
-};
 namespace GB 
 {
 	
@@ -57,62 +51,65 @@ namespace GB
 	};
 
 	//Unnecessary, can implement graph directly inside of GBMap
-	class Graph
-	{
-	private:
-		//typedef Node square;
-		//int* numberOfNodes = new int(0);
-		//const int* maxNodes;
-		std::map<int, Node*>  *graph = new std::map<int, Node*>();
+	//class Graph
+	//{
+	//private:
+	//	//typedef Node square;
+	//	//int* numberOfNodes = new int(0);
+	//	//const int* maxNodes;
+	//	std::map<int, Node*>  *graph = new std::map<int, Node*>();
 
-		
-	public:
+	//	
+	//public:
 
-		//Graph(int* _numberOfNodes) : numberOfNodes(_numberOfNodes), graph(new std::map<int, Node>()) {}
-		Graph() = default;
+	//	//Graph(int* _numberOfNodes) : numberOfNodes(_numberOfNodes), graph(new std::map<int, Node>()) {}
+	//	Graph() = default;
 
-		//Cleanup memory
-		~Graph();
+	//	//Cleanup memory
+	//	~Graph();
 
-		//Add vertex no edge
-		void addVertex(int src);
-		void addEdge(int src, int dest, EdgeLoc edgeSrc, EdgeLoc edgeDest);
-		//void addEdge(int src, int dest);
+	//	//Add vertex no edge
+	//	void addVertex(int src);
+	//	void addEdge(int src, int dest, EdgeLoc edgeSrc, EdgeLoc edgeDest);
+	//	//void addEdge(int src, int dest);
 
-		Node* getNode(int nodeId) const;
-		
-		
-		void insertTile(int nodeId, deck::Tile* tile);
-		void printGraph(); //Traveser all vertexes and list adjacents
-		bool isTileExists(int loc);
-	};
+	//	Node* getNode(int nodeId) const;
+	//	
+	//	
+	//	void insertTile(int nodeId, deck::Tile* tile);
+	//	void printGraph(); //Traveser all vertexes and list adjacents
+	//	//bool isTileExists(int loc);
+	//};
 
-	class GBMap
+	class GBMap : private dat::Graph
 	{
 
 	private:
 		const int* numberOfPlayers = new int(4);
 		int* recentTile = new int(0); 
-		Graph* graph = new Graph();
+		//Graph* graph = new Graph();
+		std::map<int, Node*>* graph = new std::map<int, Node*>();
 		std::vector<int>* blockedKeys = new std::vector<int>();
 
 		void createFullBoard();
 		void create5By7();
 		void create5By5();
 		void createGrid(int row, int col);
-
+		void dat::Graph::addVertex(int loc);
+		void dat::Graph::addEdge(int src, int dest, EdgeLoc edgeSrc, EdgeLoc edgeDest);
+		inline Node* getNode(int nodeId) const { return graph->find(nodeId)->second; }
 	public:
 
 		GBMap() = default;
-		GBMap(const int _players) : numberOfPlayers(new int(_players)), graph(new Graph()) {}
+		GBMap(const int _players) : numberOfPlayers(new int(_players)), graph(new std::map<int, Node*>()) {}
 		~GBMap();
-		
+		void printGraph();
 		//~GBMap(); // Delete all pointers
 		bool buildBoard();
 		void blockKeys(const std::vector<int>& badKeys);
 
 		//Returns most-recent tile. Used for game scoring
-		Node* getRecentNode() const { return graph->getNode(*recentTile); }
+		Node* getRecentNode() const { return getNode(*recentTile); }
 		int recentTileById() { return *recentTile; };
 		deck::Tile* getRecentTile() { return peekTile(*recentTile); }
 
