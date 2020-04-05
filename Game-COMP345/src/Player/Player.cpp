@@ -11,7 +11,7 @@ void player::Player::init() {
 player::Player::~Player() {
   // delete board
   // delete board;
-  board = nullptr;
+  //board = nullptr;
   delete name;
   name = nullptr;
 
@@ -126,8 +126,8 @@ void player::PlayerDriver::run() {
   deck::HarvestDeck* Hdeck = new deck::HarvestDeck();
   deck::BuildingDeck* Bdeck = new deck::BuildingDeck();
 
-  std::string name = "Josuke";
-  Player jojo(&name, map, Hdeck, Bdeck);
+  std::string* name = new std::string("Josuke");
+  Player jojo(name, map, Hdeck, Bdeck);
 
   jojo.DrawBuilding();
   jojo.DrawBuilding();
@@ -144,6 +144,10 @@ void player::PlayerDriver::run() {
   std::cout << "Attempting to place Building on Village Board" << std::endl;
   jojo.BuildVillage();
   jojo.BuildVillage();
-  //delete map;
-  //map = nullptr;
+  delete map;
+  map = nullptr;
+  delete Hdeck;
+  Hdeck = nullptr;
+  delete Bdeck;
+  Bdeck = nullptr;
 }
