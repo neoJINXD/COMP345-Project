@@ -57,16 +57,16 @@ void gi::GameStart::drawStart(player::Player* player)
 
 std::vector<player::Player*>* gi::GameStart::initPlayers(unsigned totalPlayers)
 {
+	if (totalPlayers < 2 || totalPlayers > 4) { 
+		std::cout << "Invlid number of players dessuuu~~~" << std::endl;
+		exit(-1337);
+	}
 	std::vector<player::Player*>* players = new std::vector<player::Player*>();
 	//players->reserve(totalPlayers);
 	gameboard = initGameBoard(totalPlayers);
 	buildingDeck = initBuildingDeck();
 	harvestDeck = initHarvestDeck();
 
-	if (totalPlayers < 2 || totalPlayers > 4) { 
-		std::cout << "Invlid number of players dessuuu~~~" << std::endl;
-		exit(-1337);
-	}
 
 	for (auto i = 0; i < totalPlayers; i++) {
 		std::string* name = new std::string("P" + std::to_string(i + 1));

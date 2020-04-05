@@ -313,8 +313,6 @@ deck::Hand::Hand(HarvestDeck* HDeck, BuildingDeck* BDeck) {
 }
 
 deck::Hand::~Hand() {
-  // TODO delete the hands
-
   // (shipmentTile)
   if(shipmentTile)
     delete shipmentTile;
