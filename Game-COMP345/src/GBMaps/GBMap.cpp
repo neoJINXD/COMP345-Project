@@ -1,9 +1,7 @@
 #include "GBMap.h"
-//#include <sstream>
-
 class GBMap;
 class Node;
-//Misc
+//Misc, used for testing only
 std::string EdgeToStr(EdgeLoc edge) {
 	switch (edge)
 	{
@@ -25,27 +23,8 @@ GB::Node::Node(int _nodeId) : nodeId(new int(_nodeId)), owner(new std::string("F
 {
 	
 	tile = nullptr;
-	//adj_list = new std::vector<Node>();
 	adjList = new std::vector<Vertex>();
 }
-
-//GB::Node::Node(const Node& node)
-//{
-//	nodeId = new int;
-//	owner = new std::string();
-//	tile = new deck::Tile(*node.getTile());
-//	adjList = new std::vector<Vertex>(node.adjList->size());
-//
-//	*nodeId = *node.nodeId;
-//	*owner = *node.owner;
-//
-//	if (!node.adjList->empty()) {
-//		for (auto i = 0; i < adjList->size(); i++) {
-//			//adjList[i] = { node.adjList.at(i)  };
-//		}
-//	}
-//
-//}
 
 GB::Node::~Node()
 {
@@ -89,12 +68,6 @@ int GB::Node::getAdj(EdgeLoc edge)
 	return -1; //node with that edge does not exist
 }
 
-//Node Implementations, might switch to have vector hold pointers to node
-//void GB::Node::insertAdj(Node node)
-//{
-//	this->adj_list->push_back(node);
-//}
-
 void GB::Node::setTile(deck::Tile* _tile)
 {
 	tile = _tile;
@@ -112,21 +85,7 @@ std::string GB::Node::getOwner() const
 
 void GB::Node::printAdjList()
 {
-	//std::size_t sz = adj_list->size();
 	int i = 0;
-	/*for (auto node : *adj_list)
-	{
-		i++;
-		std::cout << node.getId();
-		if (i == sz)
-		{
-			std::cout << "\n";
-		}
-		else
-		{
-			std::cout << ", ";
-		}
-	}*/
 
 	std::size_t sz = adjList->size();
 	for (auto v : *adjList)
@@ -173,36 +132,7 @@ EdgeLoc* GB::Node::getEdge(Node* adjNode)
 	return nullptr;
 }
 
-//Graph Implmentations
 
-//GB::Graph::~Graph()
-//{
-//	for (auto k : *graph)
-//	{
-//		delete k.second;
-//		k.second = nullptr;
-//	}
-//	graph->clear();
-//	delete graph;
-//	graph = nullptr;
-//	
-//}
-
-//void GB::Graph::addVertex(int srcId)
-//{
-//	//auto graphPtr = graph.get;
-//
-//	//If the node with srcId is not found in the map
-//	if (graph->find(srcId) == graph->end())
-//	{
-//		Node *node = new Node(srcId);
-//		graph->emplace(srcId, node);
-//
-//		return;
-//	}
-//
-//	std::cout << "That node already exists!" << std::endl;
-//}
 
 void GB::GBMap::addVertex(int srcId)
 {
@@ -220,17 +150,6 @@ void GB::GBMap::addVertex(int srcId)
 	//std::cout << "That node already exists!" << std::endl;
 }
 
-//
-//void GB::Graph::addEdge(int src, int dest, EdgeLoc edgeToDest, EdgeLoc edgeToSrc)
-//{
-//	Node *srcNode = graph->find(src)->second;
-//	Node *destNode = graph->find(dest)->second;
-//
-//	//Undirected Graph
-//	srcNode->insertAdj(edgeToDest, destNode);
-//	destNode->insertAdj(edgeToSrc, srcNode);
-//}
-
 void GB::GBMap::addEdge(int src, int dest, EdgeLoc edgeToDest, EdgeLoc edgeToSrc)
 {
 	Node* srcNode = graph->find(src)->second;
@@ -241,29 +160,6 @@ void GB::GBMap::addEdge(int src, int dest, EdgeLoc edgeToDest, EdgeLoc edgeToSrc
 	srcNode->insertAdj(edgeToDest, destNode);
 	destNode->insertAdj(edgeToSrc, srcNode);
 }
-//
-//GB::Node* GB::Graph::getNode(int nodeId) const
-//{
-//	return graph->find(nodeId)->second;
-//}
-//
-//void GB::Graph::insertTile(int nodeId, deck::Tile* tile)
-//{
-//
-//
-//	graph->find(nodeId)->second->setTile(tile);
-//}
-//
-//void GB::Graph::printGraph()
-//{
-//	std::cout << "Node|\tAdjacentNodes\n";	
-//	for (auto pair : *graph)
-//	{
-//		std::cout << pair.first << ":\t";
-//		pair.second->printAdjList();
-//		std::cout << std::endl;
-//	}
-//}
 
 void GB::GBMap::printGraph()
 {
@@ -312,10 +208,7 @@ void GB::GBMap::createGrid(int rows, int cols)
 		}
 	}
 
-	//Link rows
 	
-
-	//printGraph();
 }
 
 bool GB::GBMap::buildBoard()
@@ -337,16 +230,17 @@ bool GB::GBMap::buildBoard()
 
 	}
 
-	return true; // uhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+	return true; 
 }
 
+//Specifies the nodes that are blocked; Cannot place on that node
 void GB::GBMap::blockKeys(const std::vector<int>& badKeys)
 {
 	if (blockedKeys) {
 		delete blockedKeys;
 		blockedKeys = nullptr;
 	}
-	blockedKeys = new std::vector<int>(badKeys); // UmU
+	blockedKeys = new std::vector<int>(badKeys); 
 }
 
 void GB::GBMap::setOwner(int loc, std::string player)
@@ -372,7 +266,6 @@ void GB::GBMap::placeTile(int loc, deck::Tile* tile)
 		std::cout << "It is not free estate!\n";
 		return;
 	}
-	//graph->insertTile(loc, tile);
 	graph->find(loc)->second->setTile(tile);
 	*recentTile = loc; 
 }
@@ -424,7 +317,7 @@ GB::GBMap::~GBMap()
 	delete recentTile;
 	recentTile = nullptr;
 
-	//blockedKeys->clear();
+	blockedKeys->clear();
 	delete blockedKeys;
 	blockedKeys = nullptr;
 
@@ -445,9 +338,6 @@ void GB::GBMapDriver::run()
 		testMap->placeTile(2, new deck::Tile(Wheat, Timber, Stone, Timber));
 		testMap->placeTile(1, new deck::Tile(Sheep, Wheat, Stone, Timber));
 		testMap->getAdjTile(1, EdgeLoc::Right)->printInfo();
-		/*testMap->peekTile(5)->printInfo();
-		testMap->setOwner(1, "C-MS <3");
-		std::cout << "Owner:\t" << testMap->getOwner(1) << std::endl;*/
 		
 	}
 	testMap->printGraph();

@@ -23,24 +23,19 @@ namespace GB
 		std::string* owner; // Replace with player
 		deck::Tile* tile;
 
-		//Old implementation, remove when all adjList conversion moved to the new one
-		//std::vector<Node>* adj_list;
-
-		//New implementation, keeps track of where the adjacent node is using edge cost as location
+		//Keeps track of where the adjacent node is using edge as location
 		typedef std::pair<EdgeLoc, Node*> Vertex;
 		std::vector<Vertex>* adjList;
 		
 	public:
 		Node(int _nodeId);
-		//Node(const Node& node);
 		~Node();
-		//Node(int _nodeId, std::string _owner) : nodeId(new int(_nodeId)), owner() { }
 		int getId() { return *nodeId; }
+
+		//Insert an adjnode with corresponding edge location. Ex: Node 1 is Right of this node
 		void insertAdj(EdgeLoc edge, Node* node);
 		int getAdj(EdgeLoc edge);
-		//void insertAdj(Node node);
-		//int getAdjId(EdgeLoc edge); 
-		void setTile(deck::Tile* _tile); // func(new Tile()) func(&tile)
+		void setTile(deck::Tile* _tile); 
 		deck::Tile* getTile() const;
 		void setOwner(std::string _owner) { *owner = _owner; }
 		std::string getOwner() const;
@@ -50,44 +45,12 @@ namespace GB
 		std::vector<Vertex>* getAdjList() { return adjList; }
 	};
 
-	//Unnecessary, can implement graph directly inside of GBMap
-	//class Graph
-	//{
-	//private:
-	//	//typedef Node square;
-	//	//int* numberOfNodes = new int(0);
-	//	//const int* maxNodes;
-	//	std::map<int, Node*>  *graph = new std::map<int, Node*>();
-
-	//	
-	//public:
-
-	//	//Graph(int* _numberOfNodes) : numberOfNodes(_numberOfNodes), graph(new std::map<int, Node>()) {}
-	//	Graph() = default;
-
-	//	//Cleanup memory
-	//	~Graph();
-
-	//	//Add vertex no edge
-	//	void addVertex(int src);
-	//	void addEdge(int src, int dest, EdgeLoc edgeSrc, EdgeLoc edgeDest);
-	//	//void addEdge(int src, int dest);
-
-	//	Node* getNode(int nodeId) const;
-	//	
-	//	
-	//	void insertTile(int nodeId, deck::Tile* tile);
-	//	void printGraph(); //Traveser all vertexes and list adjacents
-	//	//bool isTileExists(int loc);
-	//};
-
 	class GBMap : private dat::Graph
 	{
 
 	private:
 		const int* numberOfPlayers = new int(4);
 		int* recentTile = new int(0); 
-		//Graph* graph = new Graph();
 		std::map<int, Node*>* graph = new std::map<int, Node*>();
 		std::vector<int>* blockedKeys = new std::vector<int>();
 
@@ -104,7 +67,6 @@ namespace GB
 		GBMap(const int _players) : numberOfPlayers(new int(_players)), graph(new std::map<int, Node*>()) {}
 		~GBMap();
 		void printGraph();
-		//~GBMap(); // Delete all pointers
 		bool buildBoard();
 		void blockKeys(const std::vector<int>& badKeys);
 
@@ -120,9 +82,6 @@ namespace GB
 		deck::Tile* peekTile(int loc) const;
 		deck::Tile* getAdjTile(int loc, EdgeLoc adjDirection);
 		
-
-		//void printBoard();
-
 	};
 
 	
