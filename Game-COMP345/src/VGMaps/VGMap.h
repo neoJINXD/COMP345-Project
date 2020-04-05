@@ -7,9 +7,9 @@
 #include <vector>
 #include <map>
 #include <string>
-#include <memory>
+#include <utility>
 #include "../Resources/Resources.h" 
-
+#include "../Helpers/Graph.h"
 
 namespace VG {
 
@@ -21,10 +21,9 @@ namespace VG {
 		int* nodeId;
 		int* placementCost;
 		deck::Building* building;
-
-		//std::unique_ptr<int> nodeId;
-
-		std::vector<Node*>* adj_list = new std::vector<Node*>();
+		
+		//std::vector<Node*>* adj_list = new std::vector<Node*>();
+		std::vector<std::pair<EdgeLoc, Node*>>* adjList = new std::vector<std::pair<EdgeLoc, Node*>>();
 	public:
 		Node(int _nodeId) : nodeId(new int(_nodeId)), placementCost(new int(0)), building(nullptr) {}
 		//Node(const Node& node);
@@ -34,8 +33,8 @@ namespace VG {
 		int getCost() { return *placementCost; }
 		void setBuilding(deck::Building* _building) { building = _building; }
 		deck::Building* getBuilding();
-		void insertAdj(Node* node);
-
+		//void insertAdj(Node* node);
+		void insertAdj(Node* node, EdgeLoc loc);
 		void printAdjList();
 
 	};
@@ -72,30 +71,33 @@ namespace VG {
 	};
 
 	
-	class VGMap
+	class VGMap : public dat::Graph
 	{
 
 	private:
-		Graph* graph;
+		//Graph* graph;
 		std::string* villageName;
-		
+		std::map<int, Node*>* graph;
 		void buildBoard(int rows, int cols);
 
 		int rowScore[6] = { 6,5,4,3,2,1 };
 		int colScore[5] = { 5,4,3,4,5 };
+		void dat::Graph::addVertex(int nodeId);
+		void dat::Graph::addEdge(int src, int dest, EdgeLoc edgeSrc, EdgeLoc edgeDest);
 
 	public:
 		VGMap();
 		VGMap(std::string name);
 		//VGMap(std::string _owner) : owner(_owner), graph(new Graph()) { buildBoard(6, 5); }
 		~VGMap();
-		//void printVillage();
 		void placeBuilding(int loc, deck::Building* building);
 		deck::Building* peekBuilding(int loc);
 
 		void setCustomScores(int* rows, int* cols);
 		int* getRowScore() { return rowScore; }
 		int* getColScore() { return colScore; }
+
+		void printGraph();
 	};
 
 	class VGMapDriver 

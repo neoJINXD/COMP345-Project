@@ -15,8 +15,8 @@ player::Player::~Player() {
   delete name;
   name = nullptr;
 
-  // delete board;
-  // board = nullptr;
+   //delete board;
+   board = nullptr;
 
   // delete village
   delete village;
@@ -144,4 +144,6 @@ void player::PlayerDriver::run() {
   std::cout << "Attempting to place Building on Village Board" << std::endl;
   jojo.BuildVillage();
   jojo.BuildVillage();
+  //delete map;
+  //map = nullptr;
 }

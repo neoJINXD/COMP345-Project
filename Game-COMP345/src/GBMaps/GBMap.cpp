@@ -34,9 +34,10 @@ GB::Node::~Node()
 	delete owner;
 	//owner = nullptr;
 
-	delete tile;
-	tile = nullptr;
-
+	if (tile) {
+		delete tile;
+		tile = nullptr;
+	}
 	
 	for (auto adj : *adjList) {
 		

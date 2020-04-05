@@ -12,7 +12,7 @@ namespace dat {
 	public:
 			
 		//Cleanup memory
-		//~Graph() = 0;
+		virtual ~Graph() {};
 
 		//Add vertex no edge
 		virtual void addVertex(int src) = 0;

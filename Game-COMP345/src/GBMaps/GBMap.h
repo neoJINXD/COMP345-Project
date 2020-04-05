@@ -45,12 +45,12 @@ namespace GB
 		std::vector<Vertex>* getAdjList() { return adjList; }
 	};
 
-	class GBMap : private dat::Graph
+	class GBMap : public dat::Graph
 	{
 
 	private:
 		const int* numberOfPlayers = new int(4);
-		int* recentTile = new int(0); 
+		int* recentTile = new int(0); // 
 		std::map<int, Node*>* graph = new std::map<int, Node*>();
 		std::vector<int>* blockedKeys = new std::vector<int>();
 
