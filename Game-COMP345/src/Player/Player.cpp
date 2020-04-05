@@ -74,8 +74,8 @@ void player::Player::ResourceTracker(int yes, int no, int maybe, int so)
 
 void player::Player::CalculateResources()
 {
-	counter::ResourceCounter count;
-	std::map<Resource, int> counted = count.harvestCount(board->getRecentNode());
+	//counter::ResourceCounter count;
+	std::map<Resource, int> counted = count->harvestCount(board->getRecentNode());
 	ResourceTracker(counted.at(Wheat), counted.at(Sheep), counted.at(Timber),
 		counted.at(Stone));
 }
@@ -132,7 +132,7 @@ void player::Player::PlaceHarvestTile()
 	if (selection == 1)
 	{
 		// Placing normal harvest Tile
-		std::cout << "Placing Hervest tile" << std::endl;
+		std::cout << "Placing Harvest tile" << std::endl;
 
 		std::pair<int, deck::Tile*> placement = hands->exchange();
 		board->placeTile(placement.first, placement.second);
@@ -145,6 +145,16 @@ void player::Player::PlaceHarvestTile()
 	{
 		// Placing shipment tile
 		std::cout << "Placing Shipment tile" << std::endl;
+
+
+
+
+		//new tile with resource
+		//place in board
+		
+		//return true since placed shipment tile
+
+
 		std::cout << std::endl;
 
 	}

@@ -18,6 +18,11 @@ void maingame::TurnSequence::playTurn(player::Player* player, player::Player** o
 	player->displayResources();
 	std::cout << std::endl;
 
+	player->PlaceHarvestTile();
+	player->CalculateResources();
+	player->PlaceHarvestTile();
+	player->CalculateResources();
+
 	//Build on the village board
 	std::cout << "Build a bear together" << std::endl;
 	player->BuildVillage();
@@ -41,6 +46,9 @@ void maingame::TurnSequence::playTurn(player::Player* player, player::Player** o
 			break;
 	}
 
+	//if shipment
+	//gb needs to delete recentNode
+	//hands places shipment pointer at same location
 
 
 }
@@ -64,6 +72,20 @@ void maingame::TurnSequenceDriver::run()
 	testPlayer->DrawHarvestTile();
 	testPlayer->DrawHarvestTile();
 	testPlayer->DrawHarvestTile();
+
+	testPlayer->DrawHarvestTile();
+	testPlayer->DrawHarvestTile();
+	testPlayer->DrawHarvestTile();
+	testPlayer->DrawHarvestTile();
+	testPlayer->DrawHarvestTile();
+	testPlayer->DrawHarvestTile();
+	testPlayer->DrawHarvestTile();
+	testPlayer->DrawHarvestTile();
+	testPlayer->DrawHarvestTile();
+	testPlayer->DrawHarvestTile();
+	testPlayer->DrawHarvestTile();
+	testPlayer->DrawHarvestTile();
+	
 	testPlayer->DrawShipment();
 
 	testPlayer2->DrawBuilding();

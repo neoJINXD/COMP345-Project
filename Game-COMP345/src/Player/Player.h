@@ -39,11 +39,12 @@ namespace player {
 
 		//Scoring from village board state(part 6)
 		std::map<Resource, int>* counters;
+		counter::ResourceCounter* count;
 
 		void init();
 
 	public:
-		Player(std::string* _name, GB::GBMap* _board, deck::HarvestDeck* _Hdeck, deck::BuildingDeck* _Bdeck) : name(_name) { board = _board; Hdeck = _Hdeck; Bdeck = _Bdeck;  init(); }
+		Player(std::string* _name, GB::GBMap* _board, deck::HarvestDeck* _Hdeck, deck::BuildingDeck* _Bdeck) : name(_name) { board = _board; Hdeck = _Hdeck; Bdeck = _Bdeck;  count = new counter::ResourceCounter();  init(); }
 		~Player();
 		const std::string* name;
 		//std::string getName() { return name; }
