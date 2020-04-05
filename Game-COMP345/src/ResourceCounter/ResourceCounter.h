@@ -39,6 +39,7 @@ namespace counter
 		AdjNodes* getAdjResources();
 		void setAdjResource(EdgeLoc edgeDir, ResourceNode* adjNode);
 		ResourceNode* getAdj(EdgeLoc dir);
+		void setResource(Resource newResource) { *resource = newResource; }
 		Resource* getResource() { return resource; }
 		std::pair<int, SubNode> getNodeId() { return *nodeId; };
 		void display();

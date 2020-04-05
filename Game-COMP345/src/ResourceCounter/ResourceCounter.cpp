@@ -270,14 +270,19 @@ std::map<Resource, int> counter::ResourceCounter::harvestCount(GB::Node* recentN
 	int tileId = recentNode->getId();
 	std::vector<Resource> curResources = *recentNode->getTile()->getResources();
 
-
+	
 	const SubNode subLocations[] = {SubNode::TopLeft, SubNode::TopRight, SubNode::BotRight, SubNode::BotLeft };
+	auto subGraph = harvestGraph->getGraph();
 
 	for (auto subLoc : subLocations)
 	{
 		int index = (int)subLoc;
 		//std::cout << "Adding resource:\t" << curResources[index] << std::endl;
-		harvestGraph->addVertex({tileId, subLoc}, curResources[index]);
+		if (subGraph->find({ tileId, subLoc }) != subGraph->end()) {
+			subGraph->at({ tileId, subLoc })->setResource(curResources[index]);
+		}
+		else 
+			harvestGraph->addVertex({tileId, subLoc}, curResources[index]);
 	}
 
 	//Link subNodes 
