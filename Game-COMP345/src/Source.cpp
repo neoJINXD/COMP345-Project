@@ -13,6 +13,7 @@
 #include "GBMaps/GBMap.h"
 #include "GameStart/GameStart.h"
 #include "MainLoop/MainLoop.h"
+#include "MainLoop/TurnSequence.h"
 #include "MapLoader/MapLoader.h"
 #include "Player/Player.h"
 #include "ResourceCounter/ResourceCounter.h"
@@ -70,8 +71,9 @@ int main()
   //mainLoop.run();
 
   // Part 3
-  //
-  //
+  maingame::TurnSequenceDriver turnSeq;
+  turnSeq.run();
+  
 
 
 

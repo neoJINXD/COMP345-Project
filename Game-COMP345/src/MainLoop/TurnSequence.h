@@ -6,8 +6,8 @@ namespace maingame
 	class TurnSequence
 	{
 	private:
-		TurnSequence() {}
 	public:
+		TurnSequence() {}
 		void playTurn(player::Player* player);
 	};
 
