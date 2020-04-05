@@ -46,7 +46,7 @@ namespace gi {
 
 	};
 
-	class MakarovsWeddingDress {
+	class GameStartDriver {
 	public:
 		void run();
 	};

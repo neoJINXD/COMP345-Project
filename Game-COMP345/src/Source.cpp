@@ -62,7 +62,7 @@ int main()
 
   //A2----------------------------------------------------------------------------------
   // Part 1
-  gi::MakarovsWeddingDress O_O;
+  gi::GameStartDriver O_O;
   O_O.run();
 
   // Part 2

@@ -49,7 +49,7 @@ void gi::GameStart::drawStart(player::Player* player)
 		player->DrawHarvestTile();
 	}
 
-	//Player draw shipment Desuu~~~~~~~~
+	player->DrawShipment();
 }
 
 
@@ -79,7 +79,7 @@ std::vector<player::Player*>* gi::GameStart::initPlayers(unsigned totalPlayers)
 	return players;
 }
 
-void gi::MakarovsWeddingDress::run()
+void gi::GameStartDriver::run()
 {
 	GameStart* gs = new GameStart();
 
@@ -89,6 +89,7 @@ void gi::MakarovsWeddingDress::run()
 		
 		std::cout << *p->name << std::endl;
 		p->printHand();
+		std::cout << std::endl;
 	}
 
 	delete gs;
