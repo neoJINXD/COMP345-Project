@@ -203,18 +203,6 @@ void counter::SubGraph::printGraph()
 	}
 }
 
-
-
-//counter::ResourceCounter::ResourceCounter() : 
-//	counter(new ResourceScores()), harvestGraph(new SubGraph())
-//{
-//	const Resource rsrcTypes[] = { Wheat, Stone, Timber, Sheep };
-//	for (auto rsrc : rsrcTypes)
-//	{
-//		counter->emplace(rsrc, 0);
-//	}
-//}
-
 counter::ResourceCounter::ResourceCounter() : harvestGraph(new SubGraph())
 {
 	/*const Resource rsrcTypes[] = { Wheat, Stone, Timber, Sheep };
@@ -322,29 +310,31 @@ std::map<Resource, int> counter::ResourceCounter::harvestCount(GB::Node* recentN
 	}
 	
 	std::map<Resource, bool> harvested = { {Wheat, false}, {Stone, false}, {Timber, false}, {Sheep, false} };
-	for (auto subLoc : subLocations)
-	{
-		int count = 0;
-		ResourceNode* root = harvestGraph->getResource({ tileId, subLoc });
-		if (harvested[*root->getResource()]) {
-			continue; // if the current resource was already checked, skip it
-		}
+	Resource resourceList[] = { Wheat, Stone, Timber, Sheep };
 
-		harvested[*root->getResource()] = true;
-		harvestGraph->dfs(root->getNodeId(), visited, *root->getResource(), &count);
-		//std::cout << "Count after DFS:\t" << count << std::endl;
-		counter_res[*root->getResource()] = count;
-		//resourceCounter[*root->getResource()] = count;
+	for (auto r : resourceList) {
+		int totalCount = 0;
+		for (auto subLoc : subLocations)
+		{
+			
+			int count = 0;
+			ResourceNode* root = harvestGraph->getResource({ tileId, subLoc });
+			if (*root->getResource() == r) {
+				//if (harvested[*root->getResource()]) {
+				//	continue; // if the current resource was already checked, skip it
+				//}
+
+				//harvested[*root->getResource()] = true;
+				harvestGraph->dfs(root->getNodeId(), visited, *root->getResource(), &count);
+				//std::cout << "Count after DFS:\t" << count << std::endl;
+				//counter_res[*root->getResource()] = count;
+				totalCount += count;
+			}
+			//resourceCounter[*root->getResource()] = count;
+		}
+		counter_res[r] = totalCount;
 	}
-	
 	int resIndex = 0;
-	//for (int i : resourceCounter)
-	//{
-	//	
-	//	std::cout << "ResourceID: " << resIndex << " Count: " << i << std::endl;
-	//	//counter->insert(std::pair<Resource, int>((Resource)resIndex, i));
-	//	resIndex++;
-	//}
 
 	for (auto k : counter_res)
 	{
@@ -369,14 +359,19 @@ void counter::ResourceCounterDriver::run()
 	{	
 		
 		////testMap->blockKeys({1,2,3,4});
-		testMap->placeTile(1, new deck::Tile(Stone, Stone, Stone, Stone));
+		testMap->placeTile(1, new deck::Tile(Stone, Timber, Stone, Timber));
 		testCnt.harvestCount(testMap->getRecentNode());
 		////testCnt.display();
-		testMap->placeTile(2, new deck::Tile(Stone, Stone, Stone, Stone));
+		testMap->placeTile(2, new deck::Tile(Sheep, Stone, Sheep, Stone));
 		testCnt.harvestCount(testMap->getRecentNode());
 		//////testCnt.displayScores();
 		testMap->placeTile(3, new deck::Tile(Timber, Timber, Timber, Wheat));
 		testCnt.harvestCount(testMap->getRecentNode());
+		//testMap->placeTile(3, new deck::Tile(Sheep, Sheep, Sheep, Sheep));
+		GB::Node* testNode = new GB::Node(3);
+		testNode->setTile(new deck::Tile(Wheat, Wheat, Wheat, Wheat));
+		testCnt.harvestCount(testNode);
+		std::cout << "Placing tile at loc 8\n";
 		testMap->placeTile(8, new deck::Tile(Timber, Timber, Timber, Wheat));
 		testCnt.harvestCount(testMap->getRecentNode());
 		testMap->placeTile(30, new deck::Tile(Timber, Timber, Timber, Wheat));
@@ -385,8 +380,10 @@ void counter::ResourceCounterDriver::run()
 		//testMap->placeTile(3, new deck::Tile(Stone, Wheat, Wheat, Wheat));
 		//testCnt.harvestCount(testMap->getRecentNode());
 		//testCnt.displayScores();
+		delete testNode;
+		testNode = nullptr;
 	}
-
+	
 	delete testMap;
 	testMap = nullptr;
 	//testCnt.display();
