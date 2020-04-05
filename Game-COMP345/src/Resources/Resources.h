@@ -182,6 +182,8 @@ namespace deck
 
 		Tile* getShipment() { return shipmentTile; }
 		void drawShipment();
+
+		inline void killShipment() { shipmentTile = nullptr; }
 	};
 
 	class HandDriver

@@ -39,11 +39,12 @@ namespace player {
 
 		//Scoring from village board state(part 6)
 		std::map<Resource, int>* counters;
+		counter::ResourceCounter* count;
 
 		void init();
 
 	public:
-		Player(std::string* _name, GB::GBMap* _board, deck::HarvestDeck* _Hdeck, deck::BuildingDeck* _Bdeck) : name(_name) { board = _board; Hdeck = _Hdeck; Bdeck = _Bdeck;  init(); }
+		Player(std::string* _name, GB::GBMap* _board, deck::HarvestDeck* _Hdeck, deck::BuildingDeck* _Bdeck) : name(_name) { board = _board; Hdeck = _Hdeck; Bdeck = _Bdeck; init(); }
 		~Player();
 		const std::string* name;
 		//std::string getName() { return name; }
@@ -52,7 +53,7 @@ namespace player {
 		void printHand();
 
 		//part5
-		void PlaceHarvestTile();
+		std::pair<bool, int> PlaceHarvestTile();
 		void DrawBuilding();
 		void DrawHarvestTile();
 		void DrawFromField();
@@ -74,6 +75,9 @@ namespace player {
 
 		int countDrawAmountTiles();
 
+		inline void setCounterSystem(counter::ResourceCounter* _count) { count = _count; }
+		void insertShipment(int location);
+		deck::Tile* getTileAt(int location);
 	};
 
 	class PlayerDriver

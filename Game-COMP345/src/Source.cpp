@@ -73,8 +73,8 @@ int main()
   //mainLoop.run();
 
   // Part 3
-  //maingame::TurnSequenceDriver turnSeq;
-  //turnSeq.run();
+  maingame::TurnSequenceDriver turnSeq;
+  turnSeq.run();
   
 
   system("pause");
