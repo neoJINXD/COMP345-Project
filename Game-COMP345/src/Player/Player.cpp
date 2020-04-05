@@ -163,12 +163,24 @@ void player::Player::BuildVillage()
 	int location;
 	std::cout << "Select a location" << std::endl;
 	std::cin >> location;
+	while (village->peekBuilding(location) != nullptr) {
+		std::cout << "A building already occupies this location!\nSelect location";
+		std::cin >> location;
+	}
 
 	int selection;
 	std::cout << "Select a building" << std::endl;
 	std::cin >> selection;
 
 	deck::Building* selected = hands->getBuilding(selection);
+
+	std::cout << "Do you want to place the building face down? (1 = yes / 0 = no)\n";
+	int choice; 
+	std::cin >> choice;
+	if (choice > 0) {
+		selected->setFaceDown(true);
+	}
+	
 	village->placeBuilding(location, selected);
 	std::cout << "Placing at " << location << std::endl;
 	village->peekBuilding(location)->printInfo();
@@ -194,10 +206,10 @@ void player::PlayerDriver::run()
 
 	jojo.DrawShipment();
 
-	std::cout << "Attempting to place Harvest Tile on Game Board" << std::endl;
-	jojo.PlaceHarvestTile();
-	jojo.CalculateResources();
-	jojo.PlaceHarvestTile();
+	//std::cout << "Attempting to place Harvest Tile on Game Board" << std::endl;
+	//jojo.PlaceHarvestTile();
+	//jojo.CalculateResources();
+	//jojo.PlaceHarvestTile();
 
 
 	std::cout << "Attempting to place Building on Village Board" << std::endl;
