@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\EndGame\EndGame.cpp" />
     <ClCompile Include="src\Helpers\Graph.cpp" />
     <ClCompile Include="src\GameStart\GameStart.cpp" />
     <ClCompile Include="src\Engine\Entities\Entity.cpp" />
@@ -164,6 +165,7 @@
     <ClCompile Include="src\MainLoop\TurnSequence.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\EndGame\EndGame.h" />
     <ClInclude Include="src\Helpers\Graph.h" />
     <ClInclude Include="src\GameStart\GameStart.h" />
     <ClInclude Include="src\Engine\Entities\Entity.h" />

@@ -14,6 +14,7 @@
 #include "GameStart/GameStart.h"
 #include "MainLoop/MainLoop.h"
 #include "MainLoop/TurnSequence.h"
+#include "EndGame/EndGame.h"
 #include "MapLoader/MapLoader.h"
 #include "Player/Player.h"
 #include "ResourceCounter/ResourceCounter.h"
@@ -65,7 +66,7 @@ int main()
 
   //A2----------------------------------------------------------------------------------
   // Part 1
-  //gi::GameStartDriver O_O;
+  //maingame::GameStartDriver O_O;
   //O_O.run();
 
   // Part 2
@@ -73,8 +74,12 @@ int main()
   //mainLoop.run();
 
   // Part 3
-  maingame::TurnSequenceDriver turnSeq;
-  turnSeq.run();
+  //maingame::TurnSequenceDriver turnSeq;
+  //turnSeq.run();
+
+  // Part 4
+  maingame::EndGameDriver endGame;
+  endGame.run();
   
 
   system("pause");

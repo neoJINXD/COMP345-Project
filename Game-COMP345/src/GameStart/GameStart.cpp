@@ -7,7 +7,7 @@
 #include <iostream>
 #include <string>
 
-GB::GBMap* gi::GameStart::initGameBoard(unsigned players)
+GB::GBMap* maingame::GameStart::initGameBoard(unsigned players)
 {
 	maploader::MapLoader loader;
 	std::string path;
@@ -30,17 +30,17 @@ GB::GBMap* gi::GameStart::initGameBoard(unsigned players)
 
 }
 
-deck::HarvestDeck* gi::GameStart::initHarvestDeck() 
+deck::HarvestDeck* maingame::GameStart::initHarvestDeck()
 {
 	return new deck::HarvestDeck();
 }
 
-deck::BuildingDeck* gi::GameStart::initBuildingDeck()
+deck::BuildingDeck* maingame::GameStart::initBuildingDeck()
 {
 	return new deck::BuildingDeck();
 }
 
-void gi::GameStart::drawStart(player::Player* player)
+void maingame::GameStart::drawStart(player::Player* player)
 {
 	for (int cnt = 0; cnt < 6; cnt++) {
 		player->DrawBuilding();
@@ -55,7 +55,7 @@ void gi::GameStart::drawStart(player::Player* player)
 
 
 
-std::vector<player::Player*>* gi::GameStart::initPlayers(unsigned totalPlayers)
+std::vector<player::Player*>* maingame::GameStart::initPlayers(unsigned totalPlayers)
 {
 	if (totalPlayers < 2 || totalPlayers > 4) { 
 		std::cout << "Invlid number of players dessuuu~~~" << std::endl;
@@ -79,7 +79,7 @@ std::vector<player::Player*>* gi::GameStart::initPlayers(unsigned totalPlayers)
 	return players;
 }
 
-void gi::GameStartDriver::run()
+void maingame::GameStartDriver::run()
 {
 	GameStart* gs = new GameStart();
 
