@@ -24,7 +24,6 @@ maingame::EndGame::EndGame(std::vector<player::Player*>* _players)
 
 maingame::EndGame::~EndGame()
 {
-
 	for (auto i : *players)
 	{
 		delete i;
@@ -45,8 +44,8 @@ std::vector<player::Player*> maingame::EndGame::computeScores()
 	std::vector<player::Player*> p4; //create this to store the last round
 
 	int max1 = 0; // keep track of first round
-	int max2 = 0; // keep track of second round
-	int max3 = 404; // keep track of third round
+	int minSpace = 404; // keep track of second round
+	int minHand = 404; // keep track of third round
 
 	int win1 = 0; // keep track if there's a winner first round
 	int win2 = 0; //keep track if there's a winner second round
@@ -57,7 +56,7 @@ std::vector<player::Player*> maingame::EndGame::computeScores()
 	//First round checks - each player scores
 	for (auto i : p)
 	{
-		if (counter.countScore(i->getVillage()) >= max1)
+		if (counter.countScore(i->getVillage()) > max1)
 		{
 			// if theres a max score, it will be added to max
 			max1 = counter.countScore(i->getVillage()); 
@@ -75,9 +74,10 @@ std::vector<player::Player*> maingame::EndGame::computeScores()
 
 	if (win1 == 1) // if only 1 has top score then we have a winner
 	{
-		std::vector<player::Player*> result;
-		result.push_back(p2.at(0));
-		return result; //display the winner, only one in the second vector
+		return p2;
+		//std::vector<player::Player*> result;
+		//result.push_back(p2.at(0));
+		//return result; //display the winner, only one in the second vector
 	}
 
 
@@ -87,15 +87,15 @@ std::vector<player::Player*> maingame::EndGame::computeScores()
 	{
 		for (auto i : p2) // check who has the least spaces left
 		{
-			if (i->getFreeSpace() >= max2) // if the nunmber of buildings are more than the max
+			if (i->getFreeSpace() < minSpace) // winner should be the player with lowest free space
 			{
-				max2 = i->getFreeSpace(); // the max becomes the number of buildings
+				minSpace = i->getFreeSpace(); // the max becomes the number of buildings
 			}
 		}
 
 		for (auto i : p2)
 		{
-			if (i->getFreeSpace() == max2)  // check how many players receive the maximum score
+			if (i->getFreeSpace() == minSpace)  // check how many players receive the maximum score
 			{
 				p3.push_back(i);
 				win2++; //increment 
@@ -104,9 +104,10 @@ std::vector<player::Player*> maingame::EndGame::computeScores()
 
 		if (win2 == 1) // if 1 then we have a  winner
 		{
-			std::vector<player::Player*> result;
-			result.push_back(p3.at(0));
-			return result; //display the winner, only one in the second vector
+			return p3;
+			//std::vector<player::Player*> result;
+			//result.push_back(p3.at(0));
+			//return result; //display the winner, only one in the second vector
 		}
 
 		//-----------------------------------------------------------------------------
@@ -115,15 +116,15 @@ std::vector<player::Player*> maingame::EndGame::computeScores()
 		{
 			for (auto i : p3) // gets the lowest numbers of buildings in hand
 			{
-				if (i->getBuildingHandSize() <= max3) // Iterate
+				if (i->getBuildingHandSize() < minHand) // Iterate
 				{
-					max3 = i->getBuildingHandSize();
+					minHand = i->getBuildingHandSize();
 				}
 			}
 
 			for (auto i : p3)
 			{
-				if (i->getBuildingHandSize() == max3)
+				if (i->getBuildingHandSize() == minHand)
 				{
 					p4.push_back(i);
 					win3++;// increment
@@ -138,10 +139,12 @@ std::vector<player::Player*> maingame::EndGame::computeScores()
 			}
 			else
 			{
+				//-----------------------------------------------------------------------------
+
 				std::vector<player::Player*> result; //interate through the last vector
 				for (auto i : p4)
 				{
-					result.push_back(p4.at(0));
+					result.push_back(i);
 				}
 				return result; //display the name of all winners
 			}
@@ -173,6 +176,8 @@ void maingame::EndGameDriver::run()
 	simulate(players->at(0));
 
 	EndGame end(players);
+
+	//everyone is in a tie
 	auto bots = end.computeScores();
 
 	if (bots.size() == 1)
@@ -189,5 +194,54 @@ void maingame::EndGameDriver::run()
 	}
 
 
+	//p3 has1 building in hand, so three way tie with the others
+	players->at(2)->DrawBuilding();
+
+	bots = end.computeScores();
+
+	if (bots.size() == 1)
+	{
+		std::cout << "There is one winner and it is :" << *bots.at(0)->getName() << std::endl;
+	}
+	else
+	{
+		std::cout << "Despite all the tie breakers, there is still a tie between: " << std::endl;
+		for (auto i : bots)
+		{
+			std::cout << *i->getName() << std::endl;
+		}
+	}
+
+	//p1 has a building built, so he should be the winner
+	//console user picks location for test
+	players->at(0)->DrawBuilding();
+	players->at(0)->BuildVillage();
+	bots = end.computeScores();
+
+	if (bots.size() == 1)
+	{
+		std::cout << "There is one winner and it is :" << *bots.at(0)->getName() << std::endl;
+	}
+	else
+	{
+		std::cout << "Despite all the tie breakers, there is still a tie between: " << std::endl;
+		for (auto i : bots)
+		{
+			std::cout << *i->getName() << std::endl;
+		}
+	}
+
+
+	delete players;
+	players = nullptr;
+
+	delete map;
+	map = nullptr;
+
+	delete hDeck;
+	hDeck = nullptr;
+
+	delete bDeck;
+	bDeck = nullptr;
 
 }
