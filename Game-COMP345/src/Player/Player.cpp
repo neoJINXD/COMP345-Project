@@ -274,7 +274,9 @@ std::pair<Resource, int> player::Player::BuildVillage()
 
 	if (!firstTimeResource) {
 		for (auto loc : resourceLoc->at(buildingsRes)) {
-			std::cout << loc << ", ";
+			
+			if (village->peekBuilding(loc) == nullptr)
+				std::cout << loc << ", ";
 		}
 		std::cout << std::endl;
 	}
