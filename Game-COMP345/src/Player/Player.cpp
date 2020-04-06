@@ -291,6 +291,15 @@ void player::Player::BuildVillage()
 	village->placeBuilding(location, selected);
 	std::cout << "Placing at " << location << std::endl;
 	village->peekBuilding(location)->printInfo();
+
+
+
+
+
+
+
+
+	freeSpaceInVillage--;
 }
 
 //Check for adjacent buildings at this location

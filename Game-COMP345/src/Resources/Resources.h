@@ -187,6 +187,7 @@ namespace deck
 		void drawShipment();
 
 		inline void killShipment() { shipmentTile = nullptr; }
+		inline int getBuildingSize() { return BuildingHand->size(); }
 	};
 
 	class HandDriver

@@ -41,13 +41,15 @@ namespace player {
 		std::map<Resource, int>* counters;
 		counter::ResourceCounter* count;
 
+		const std::string* name;
 		bool isAdjExist(int loc);
 		void init();
+
+		int freeSpaceInVillage = 30;
 
 	public:
 		Player(std::string* _name, GB::GBMap* _board, deck::HarvestDeck* _Hdeck, deck::BuildingDeck* _Bdeck) : name(_name) { board = _board; Hdeck = _Hdeck; Bdeck = _Bdeck; init(); }
 		~Player();
-		const std::string* name;
 		//std::string getName() { return name; }
 		void createHand(deck::HarvestDeck* HDeck, deck::BuildingDeck* BDeck);
 
@@ -79,6 +81,11 @@ namespace player {
 		inline void setCounterSystem(counter::ResourceCounter* _count) { count = _count; }
 		void insertShipment(int location);
 		deck::Tile* getTileAt(int location);
+
+		inline VG::VGMap* getVillage() { return village; }
+		inline const std::string* getName() { return name; }
+		inline int getFreeSpace() { return freeSpaceInVillage; }
+		inline int getBuildingHandSize() { return hands->getBuildingSize(); }
 	};
 
 	class PlayerDriver

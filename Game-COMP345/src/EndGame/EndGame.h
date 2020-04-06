@@ -6,6 +6,8 @@
 
 #include "../Player/Player.h"
 #include <vector>
+#include <list>
+
 
 namespace maingame
 {
@@ -15,15 +17,15 @@ namespace maingame
 		std::vector<player::Player*>* players;
 
 		void init();
+
+		int villageFreeSpace(player::Player* _player);
 		
 	public:
-		EndGame() : players(new std::vector<player::Player*>()) { init(); }
+		EndGame(std::vector<player::Player*>* _players);
 		~EndGame();
 
 
 		std::vector<player::Player*> computeScores();
-
-
 
 	};
 
@@ -32,6 +34,8 @@ namespace maingame
 
 	class EndGameDriver
 	{
+	private:
+		void simulate(player::Player* _player);
 	public:
 		void run();
 	};

@@ -87,7 +87,7 @@ void maingame::GameStartDriver::run()
 
 	for (auto p : *players) {
 		
-		std::cout << *p->name << std::endl;
+		std::cout << *p->getName() << std::endl;
 		p->printHand();
 		std::cout << std::endl;
 	}
