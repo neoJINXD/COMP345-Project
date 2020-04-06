@@ -20,8 +20,8 @@ void maingame::TurnSequence::playTurn(player::Player* player, player::Player** o
 	std::cout << std::endl;
 
 	//placiung multiple tiles for testing purposes
-	player->PlaceHarvestTile();
-	player->CalculateResources();
+	//player->PlaceHarvestTile();
+	//player->CalculateResources();
 
 
 
@@ -31,6 +31,11 @@ void maingame::TurnSequence::playTurn(player::Player* player, player::Player** o
 	std::cout << std::endl;
 	//keep track of recently placed node? (within player)
 
+
+	//use resourceTracker to decrease based on cost, for player
+	//buildvillage returns cost of building placed
+	//if facedown, take cost of location
+	//else cost of building being placed
 
 	int i = 0;
 	if (player->getEmptyResources())
@@ -44,8 +49,16 @@ void maingame::TurnSequence::playTurn(player::Player* player, player::Player** o
 		std::cout << "Build a bear together" << std::endl;
 		nowBuilding->BuildVillage();
 		std::cout << std::endl;
+
+		//use resourceTracker to decrease based on cost, for nowBuilding
+		//buildvillage returns cost of building placed
+		//if facedown, take cost of location
+		//else cost of building being placed
+
 		if (nowBuilding->getEmptyResources())
 			break;
+
+		nowBuilding->passResources(player);
 	}
 
 	//if shipment was placed

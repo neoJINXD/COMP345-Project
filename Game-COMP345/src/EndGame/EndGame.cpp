@@ -12,4 +12,6 @@ void maingame::EndGame::init()
 
 maingame::EndGame::~EndGame()
 {
+	delete players;
+	players = nullptr;
 }
