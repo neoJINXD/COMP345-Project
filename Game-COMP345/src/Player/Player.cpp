@@ -1,6 +1,21 @@
 #include "Player.h"
 #include <cmath>
 
+bool player::Player::isAdjExist(int loc)
+{
+	int row = loc / 6; // top = row - 1, bot = row + 1 ->  
+	int col = loc % 6; // right = col + 1, left = col - 1 ->
+ 
+	int top = row * 5 - col;
+	int bot = row * 5 + col;
+
+	if (col == 0) col = 1;
+
+
+	
+	return false;
+}
+
 void player::Player::init()
 {
 	hands = new deck::Hand(Hdeck, Bdeck);
@@ -224,19 +239,37 @@ void player::Player::BuildVillage()
 	int location;
 	std::cout << "Select a location" << std::endl;
 	std::cin >> location;
-	while (village->peekBuilding(location) != nullptr) {
-		std::cout << "A building already occupies this location!\nSelect location\n";
-		std::cin >> location;
-		int row = ceil(location / 5.0f);
-		int cost = 7 - row;
-		std::cout << "Cost at location " << location << ": Row: " << row << " Cost: " << cost << std::endl;
+	int row = ceil(location / 5.0f);
+	int cost = 7 - row;
+	std::cout << "Cost at location " << location << ": Row: " << row << " Cost: " << cost << std::endl;
+	/*
+		Check adjacent locations:
+		- top and bottom +/- 5
+		- right and left +/- 1
+	
+	*/
+	while (village->peekBuilding(location) != nullptr || cost != selected->getCost()) {
+		if (village->peekBuilding(location) != nullptr) {
+			std::cout << "A building already occupies this location!\nSelect location\n";
+			std::cin >> location;
+		}
+		else if (cost != selected->getCost()) {
+			std::cout << "Cost at location " << location << ": Row: " << row << " Cost: " << cost << std::endl;
+			std::cout << "Please Select the location with the correct cost\nSelect location\n";
+			std::cin >> location;
+			row = ceil(location / 5.0f);
+			cost = 7 - row;
+		}
+		
 	}
 
-	
 	village->placeBuilding(location, selected);
 	std::cout << "Placing at " << location << std::endl;
 	village->peekBuilding(location)->printInfo();
 }
+
+//Check for adjacent buildings at this location
+
 
 void player::PlayerDriver::run()
 {

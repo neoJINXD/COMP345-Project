@@ -41,6 +41,7 @@ namespace player {
 		std::map<Resource, int>* counters;
 		counter::ResourceCounter* count;
 
+		bool isAdjExist(int loc);
 		void init();
 
 	public:
