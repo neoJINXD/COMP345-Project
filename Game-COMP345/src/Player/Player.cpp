@@ -256,10 +256,11 @@ void player::Player::BuildVillage()
 	std::cout << "Do you want to place the building face down? (1 = yes / 0 = no)\n";
 	int choice; 
 	std::cin >> choice;
+
 	if (choice > 0) {
 		std::cout << "Setting selected building face down!\n";
 		selected->setFaceDown(true);
-	}
+	} 
 	int location;
 	std::cout << "Select a location" << std::endl;
 	std::cin >> location;
@@ -272,7 +273,7 @@ void player::Player::BuildVillage()
 		- right and left +/- 1
 	
 	*/
-	while (village->peekBuilding(location) != nullptr || cost != selected->getCost()) {
+	while (village->peekBuilding(location) != nullptr || (cost != selected->getCost() && !selected->getFaceDown())) {
 		if (village->peekBuilding(location) != nullptr) {
 			std::cout << "A building already occupies this location!\nSelect location\n";
 			std::cin >> location;
