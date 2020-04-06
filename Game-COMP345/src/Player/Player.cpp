@@ -48,17 +48,8 @@ player::Player::~Player()
 	//delete count;
 	//count = nullptr;
 
-	delete wheatLoc;
-	wheatLoc = nullptr;
-
-	delete sheepLoc;
-	sheepLoc = nullptr;
-
-	delete timberLoc;
-	timberLoc = nullptr;
-
-	delete stoneLoc;
-	stoneLoc = nullptr;
+	delete resourceLoc;
+	resourceLoc = nullptr;
 }
 
 void player::Player::createHand(deck::HarvestDeck* HDeck,
@@ -265,6 +256,7 @@ std::pair<Resource, int> player::Player::BuildVillage()
 	Resource buildingsRes = *selected->getResource();
 	bool firstTimeResource = true;
 
+	//Checks for an existing resource in the village
 	if (!resourceLoc->at(*selected->getResource()).empty()) {
 		firstTimeResource = false;
 	}
@@ -277,39 +269,42 @@ std::pair<Resource, int> player::Player::BuildVillage()
 		std::cout << "Setting selected building face down!\n";
 		selected->setFaceDown(true);
 	} 
+
 	int location;
+
 	if (!firstTimeResource) {
 		for (auto loc : resourceLoc->at(buildingsRes)) {
 			std::cout << loc << ", ";
 		}
 		std::cout << std::endl;
 	}
+
 	std::cout << "Select a location" << std::endl;
 	std::cin >> location;
 	int row = ceil(location / 5.0f);
 	int cost = 7 - row;
 	std::cout << "Cost at location " << location << ": Row: " << row << " Cost: " << cost << std::endl;
-	/*
-		Check adjacent locations:
-		- top and bottom +/- 5
-		- right and left +/- 1
-	
-	*/
+
 	bool validLoc = std::find(resourceLoc->at(buildingsRes).begin(), resourceLoc->at(buildingsRes).end(), location) != resourceLoc->at(buildingsRes).end();
 	while (village->peekBuilding(location) != nullptr || 
 		(cost != selected->getCost() && !selected->getFaceDown()) || (!firstTimeResource && !validLoc)) {
+
+		//Check if selected location is not occupied by an existing building
 		if (village->peekBuilding(location) != nullptr) {
 			std::cout << "A building already occupies this location!\nSelect location\n";
 			std::cin >> location;
 		}
-		else if (cost != selected->getCost()) {
-			std::cout << "Cost at location " << location << ": Row: " << row << " Cost: " << cost << std::endl;
+
+		//Check if Cost is valid for the location
+		else if (cost != selected->getCost() && !selected->getFaceDown()) {
+			//std::cout << "Cost at location " << location << ": Row: " << row << " Cost: " << cost << std::endl;
 			std::cout << "Please Select the location with the correct cost\nSelect location\n";
 			std::cin >> location;
 			row = ceil(location / 5.0f);
 			cost = 7 - row;
 		}
-		//Check if there is an existing building with resource
+
+		//Check if selected location is adjacent to an existing building
 		else if (!firstTimeResource && !validLoc) {
 			for (auto loc : resourceLoc->at(buildingsRes)) {
 				std::cout << loc << ", ";
@@ -355,10 +350,10 @@ void player::PlayerDriver::run()
 
 	jojo.DrawShipment();
 
-	//std::cout << "Attempting to place Harvest Tile on Game Board" << std::endl;
-	//jojo.PlaceHarvestTile();
-	//jojo.CalculateResources();
-	//jojo.PlaceHarvestTile();
+	std::cout << "Attempting to place Harvest Tile on Game Board" << std::endl;
+	jojo.PlaceHarvestTile();
+	jojo.CalculateResources();
+	jojo.PlaceHarvestTile();
 
 
 	std::cout << "Attempting to place Building on Village Board" << std::endl;

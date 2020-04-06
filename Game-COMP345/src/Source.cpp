@@ -40,8 +40,8 @@ int main()
   //mapTest.run();
 
   // Part 4
-  //player::PlayerDriver playerTest;
-  //playerTest.run();
+  player::PlayerDriver playerTest;
+  playerTest.run();
 
   // Part 5
   //deck::HarvestDriver hDeckTest;
@@ -74,12 +74,12 @@ int main()
   //mainLoop.run();
 
   // Part 3
-  maingame::TurnSequenceDriver turnSeq;
-  turnSeq.run();
+  //maingame::TurnSequenceDriver turnSeq;
+  //turnSeq.run();
 
-  // Part 4
-  maingame::EndGameDriver endGame;
-  endGame.run();
+  //// Part 4
+  //maingame::EndGameDriver endGame;
+  //endGame.run();
   
 
   system("pause");

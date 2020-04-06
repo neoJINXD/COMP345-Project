@@ -43,6 +43,7 @@ namespace player {
 
 		std::map<Resource, std::vector<int>>* resourceLoc;
 		bool isAdjExist(int loc);
+		void trackBuildings(int loc, Resource res);
 		void init();
 
 	public:
