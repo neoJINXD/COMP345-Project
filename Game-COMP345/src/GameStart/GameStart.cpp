@@ -76,6 +76,8 @@ std::vector<player::Player*>* maingame::GameStart::initPlayers(unsigned totalPla
 		players->push_back(player);
 	}
 
+
+
 	return players;
 }
 

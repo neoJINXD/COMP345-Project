@@ -161,12 +161,25 @@ void maingame::MainLoopDriver::run()
 	std::string* p3 = new std::string("p3");
 	std::string* p4 = new std::string("p4");
 
+	player::Player* testPlayer = new player::Player(p1, board, hDeck, bDeck);
+	player::Player* testPlayer2 = new player::Player(p2, board, hDeck, bDeck);
+	player::Player* testPlayer3 = new player::Player(p3, board, hDeck, bDeck);
+	player::Player* testPlayer4 = new player::Player(p4, board, hDeck, bDeck);
+
+
+	counter::ResourceCounter* count = new counter::ResourceCounter();
+	testPlayer->setCounterSystem(count);
+	testPlayer2->setCounterSystem(count);
+	testPlayer3->setCounterSystem(count);
+	testPlayer4->setCounterSystem(count);
+
+
 	loop.setupPlayerOrder(
-		new player::Player(p1, board, hDeck, bDeck),
-		new player::Player(p2, board, hDeck, bDeck),
-		new player::Player(p3, board, hDeck, bDeck),
-		new player::Player(p4, board, hDeck, bDeck)
-		);
+		testPlayer,
+		testPlayer2,
+		testPlayer3,
+		testPlayer4
+	);
 	
 
 
@@ -197,4 +210,7 @@ void maingame::MainLoopDriver::run()
 
 	delete bDeck;
 	bDeck = nullptr;
+
+	delete count;
+	count = nullptr;
 }

@@ -117,7 +117,7 @@ namespace deck
 
 		int getCost() const { return *cost; }
 		void setCost(int _cost) { *cost = _cost; }
-		Resource getResource() const { return *resource; }
+		Resource* getResource() const { return resource; }
 		void setResource(Resource _resource) { *resource = _resource; }
 		void setFaceDown(bool _FaceDown) { *isFaceDown = _FaceDown; }
 		bool getFaceDown() { return *isFaceDown; }

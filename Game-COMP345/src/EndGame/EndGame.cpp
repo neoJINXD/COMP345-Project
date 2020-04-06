@@ -173,6 +173,12 @@ void maingame::EndGameDriver::run()
 	players->push_back(new player::Player(new std::string("p3"), map, hDeck, bDeck));
 	players->push_back(new player::Player(new std::string("p4"), map, hDeck, bDeck));
 
+	counter::ResourceCounter* count = new counter::ResourceCounter();
+	players->at(0)->setCounterSystem(count);
+	players->at(1)->setCounterSystem(count);
+	players->at(2)->setCounterSystem(count);
+	players->at(3)->setCounterSystem(count);
+
 	simulate(players->at(0));
 
 	EndGame end(players);
@@ -244,4 +250,6 @@ void maingame::EndGameDriver::run()
 	delete bDeck;
 	bDeck = nullptr;
 
+	delete count;
+	count = nullptr;
 }

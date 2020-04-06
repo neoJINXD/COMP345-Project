@@ -79,13 +79,13 @@ void maingame::TurnSequenceDriver::run()
 	map->buildBoard();
 	deck::BuildingDeck* bDeck = new deck::BuildingDeck();
 	deck::HarvestDeck* hDeck = new deck::HarvestDeck();
-	counter::ResourceCounter* count = new counter::ResourceCounter();
 
 	player::Player* testPlayer = new player::Player(new std::string("Joseph"), map, hDeck, bDeck);
 	player::Player* testPlayer2 = new player::Player(new std::string("Jotaro"), map, hDeck, bDeck);
 	player::Player* testPlayer3 = new player::Player(new std::string("Jolyne"), map, hDeck, bDeck);
 	player::Player* testPlayer4 = new player::Player(new std::string("Johnny"), map, hDeck, bDeck);
 
+	counter::ResourceCounter* count = new counter::ResourceCounter();
 	testPlayer->setCounterSystem(count);
 	testPlayer2->setCounterSystem(count);
 	testPlayer3->setCounterSystem(count);
