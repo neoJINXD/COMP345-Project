@@ -41,11 +41,13 @@ namespace player {
 		std::map<Resource, int>* counters;
 		counter::ResourceCounter* count;
 
+		std::map<Resource, std::vector<int>>* resourceLoc;
 		bool isAdjExist(int loc);
 		void init();
 
 	public:
-		Player(std::string* _name, GB::GBMap* _board, deck::HarvestDeck* _Hdeck, deck::BuildingDeck* _Bdeck) : name(_name) { board = _board; Hdeck = _Hdeck; Bdeck = _Bdeck; init(); }
+		Player(std::string* _name, GB::GBMap* _board, deck::HarvestDeck* _Hdeck, deck::BuildingDeck* _Bdeck) : name(_name) 
+		{ board = _board; Hdeck = _Hdeck; Bdeck = _Bdeck; init();  }
 		~Player();
 		const std::string* name;
 		//std::string getName() { return name; }
@@ -65,7 +67,7 @@ namespace player {
 		void ResourceTracker(int yes, int no, int maybe, int so);
 
 		//part6
-		void BuildVillage();
+		std::pair<Resource, int> BuildVillage();
 		void CalculateResources();
 		void displayResources();
 		void passResources(Player* otherPlayer);
