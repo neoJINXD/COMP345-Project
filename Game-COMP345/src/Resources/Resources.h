@@ -10,6 +10,8 @@
 #include <vector>
 #include <iostream>
 #include <memory>
+//#include "../GBMaps/GBMap.h"
+
 
 //TODO maybe have both decks extend from a base deck class
 
@@ -19,6 +21,7 @@ enum Resource {
 	Timber,
 	Stone
 };
+
 
 namespace deck 
 {
@@ -173,7 +176,7 @@ namespace deck
 
 		int countHarvestHand();
 
-		std::pair<int, deck::Tile*> exchange();
+		std::pair<int, deck::Tile*> exchange(int loc);
 		void displayTiles();
 		void displayBuildings();
 		void displayField();

@@ -164,7 +164,22 @@ std::pair<bool, int> player::Player::PlaceHarvestTile()
 		// Placing normal harvest Tile
 		std::cout << "Placing Harvest tile" << std::endl;
 
-		std::pair<int, deck::Tile*> placement = hands->exchange();
+		int location;
+
+		do
+		{
+			std::cout << "Select a location" << std::endl;
+			std::cin >> location;
+
+			if (board->peekTile(location) == nullptr)
+				break;
+			else
+				std::cout << "Invalid location, A tile is already placed there" << std::endl;
+		} while (true);
+
+		std::pair<int, deck::Tile*> placement = hands->exchange(location);
+
+
 		board->placeTile(placement.first, placement.second);
 		std::cout << "Placing at " << placement.first << std::endl;
 		board->peekTile(placement.first)->printInfo();
@@ -198,8 +213,17 @@ std::pair<bool, int> player::Player::PlaceHarvestTile()
 
 		//place in board
 		int location;
-		std::cout << "Select a location" << std::endl;
-		std::cin >> location;
+
+		do
+		{
+			std::cout << "Select a location" << std::endl;
+			std::cin >> location;
+			
+			if (board->peekTile(location) == nullptr)
+				break;
+			else
+				std::cout << "Invalid location, A tile is already placed there" << std::endl;
+		} while (true);
 
 		board->placeTile(location, eugen);
 		std::cout << "Placing at " << location << std::endl;

@@ -11,13 +11,19 @@ void maingame::TurnSequence::playTurn(player::Player* player, player::Player** o
 	std::cout << "Building A Tile" << std::endl;
 	std::pair<bool, int> shipmentPlaced = player->PlaceHarvestTile();
 	std::cout << std::endl;
-	//handle playing shipment tile------------------------------------
+	//handle playing shipment tile
 
 	//Calculate the resources from previous play
 	std::cout << "Calculating resources" << std::endl;
 	player->CalculateResources();
 	player->displayResources();
 	std::cout << std::endl;
+
+	//placiung multiple tiles for testing purposes
+	player->PlaceHarvestTile();
+	player->CalculateResources();
+
+
 
 	//Build on the village board
 	std::cout << "Build a bear together" << std::endl;

@@ -1,5 +1,6 @@
 #include "Resources.h"
 
+
 #include <chrono>
 #include <ctime>
 #include <random>
@@ -383,6 +384,7 @@ void deck::Hand::displayField() { _BuildingDeck->printField(); }
 void deck::HandDriver::run() {
   HarvestDeck* Hdeck = new HarvestDeck();
   BuildingDeck* Ddeck = new BuildingDeck();
+  //GB::GBMap* map = new GB::GBMap(4);
 
   Hand test(Hdeck, Ddeck);
 
@@ -396,7 +398,9 @@ void deck::HandDriver::run() {
   test.drawBuilding();
   test.displayBuildings();
 
-  std::pair<int, deck::Tile*> picked = test.exchange();
+
+
+  std::pair<int, deck::Tile*> picked = test.exchange(1);
   std::cout << "You picked location " << picked.first
             << " and Tile : " << std::endl;
   picked.second->printInfo();
@@ -409,19 +413,34 @@ void deck::HandDriver::run() {
 
   delete Ddeck;
   Ddeck = nullptr;
+
+
+
 }
 
-std::pair<int, deck::Tile*> deck::Hand::exchange() {
+std::pair<int, deck::Tile*> deck::Hand::exchange(int loc) {
   // have player select a Tile from list
   displayTiles();
-
-  int location;
-  std::cout << "Select a location" << std::endl;
-  std::cin >> location;
 
   int selection;
   std::cout << "Select a tile" << std::endl;
   std::cin >> selection;
+
+  int location;
+  location = loc;
+  
+ /* do
+  {
+      std::cout << "Select a location" << std::endl;
+      std::cin >> location;
+
+      if (board->peekTile(location) == nullptr)
+          break;
+      else
+          std::cout << "Invalid location, A tile is already placed there" << std::endl;
+
+  } while (true);*/
+  
 
   Tile* selected = HarvestHand->at(selection);
   Tile* temp =
