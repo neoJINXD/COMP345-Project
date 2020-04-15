@@ -182,23 +182,27 @@ void maingame::MainLoopDriver::run()
 	);
 	
 
+	for (int i = 0; i < 4; i++)
+	{
+		std::cout << std::endl;
+		std::cout << "This is, player " << i + 1 << std::endl;
+
+		loop.turnStart();
+
+		//Turn Sequence
+		loop.setResources();
+
+		//Active player draws Buildings based on empty resource counters
+		loop.drawBuildings();
 
 
-	loop.turnStart();
+		//Draw Harvest Tiles
+		loop.drawHarvestTiles();
 
-	//Turn Sequence
-	loop.setResources();
+		//Turn's end
+		loop.turnEnd();
 
-	//Active player draws Buildings based on empty resource counters
-	loop.drawBuildings();
-
-
-	//Draw Harvest Tiles
-	loop.drawHarvestTiles();
-
-	//Turn's end
-	loop.turnEnd();
-
+	}
 
 	//std::cout << loop.checkEndState() << std::endl;
 
