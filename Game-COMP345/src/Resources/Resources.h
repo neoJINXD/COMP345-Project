@@ -147,6 +147,8 @@ namespace deck
 
 		void printDeck();
 		void printField();
+
+		inline int getBoardFieldAmt() { return boardField->size(); }
 	};
 
 	class BuildingDriver
@@ -189,6 +191,9 @@ namespace deck
 
 		inline void killShipment() { shipmentTile = nullptr; }
 		inline int getBuildingSize() { return BuildingHand->size(); }
+
+		//Extra helpers
+		inline int getFieldAmount() { return _BuildingDeck->getBoardFieldAmt(); }
 	};
 
 	class HandDriver

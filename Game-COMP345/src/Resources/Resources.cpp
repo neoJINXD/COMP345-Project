@@ -423,7 +423,7 @@ std::pair<int, deck::Tile*> deck::Hand::exchange(int loc) {
   displayTiles();
 
   int selection;
-  std::cout << "Select a tile" << std::endl;
+  std::cout << "Select a tile (0 to MAX):" << std::endl;
   std::cin >> selection;
 
   int location;

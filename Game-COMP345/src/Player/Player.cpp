@@ -76,7 +76,8 @@ void player::Player::DrawHarvestTile() { hands->drawTile(); }
 
 void player::Player::DrawFromField()
 {
-	std::cout << "Pick which building to draw from the selection" << std::endl;
+	int maxField = hands->getFieldAmount() - 1;
+	std::cout << "Pick which building to draw from the selection; (0 to "<< maxField <<")" << std::endl;
 	hands->displayField();
 
 	int selection;
@@ -171,7 +172,7 @@ std::pair<bool, int> player::Player::PlaceHarvestTile()
 
 		do
 		{
-			std::cout << "Select a location" << std::endl;
+			std::cout << "Select a location (1 to MAX)" << std::endl;
 			std::cin >> location;
 
 			if (board->peekTile(location) == nullptr)
@@ -255,7 +256,7 @@ bool player::Player::BuildVillage()
 	} 
 
 	
-	std::cout << "Select a building: ( -1 to skip )" << std::endl;
+	std::cout << "Select a building: ( 0 to MAX or -1 to skip )" << std::endl;
 	std::cin >> selection;
 
 	if (selection < 0) {
@@ -273,7 +274,7 @@ bool player::Player::BuildVillage()
 
 	while (!canBuild) {
 		std::cout << "You do not have enough resources to place this building, pick another!\n";
-		std::cout << "Select a building" << std::endl;
+		std::cout << "Select a building: ( 0 to MAX or -1 to skip )" << std::endl;
 		std::cin >> selection;
 		if (selection < 0) {
 			std::cout << "Deciding not place UmU!\n";
@@ -314,7 +315,7 @@ bool player::Player::BuildVillage()
 		std::cout << std::endl;
 	}
 
-	std::cout << "Select a location" << std::endl;
+	std::cout << "Select a location (1 to 30)" << std::endl;
 	std::cin >> location;
 	int row = ceil(location / 5.0f);
 	int cost = 7 - row;
@@ -326,14 +327,14 @@ bool player::Player::BuildVillage()
 
 		//Check if selected location is not occupied by an existing building
 		if (village->peekBuilding(location) != nullptr) {
-			std::cout << "A building already occupies this location!\nSelect location\n";
+			std::cout << "A building already occupies this location!\nSelect location: (1 to 30)\n";
 			std::cin >> location;
 		}
 
 		//Check if Cost is valid for the location
 		else if (cost != selected->getCost() && !selected->getFaceDown()) {
 			//std::cout << "Cost at location " << location << ": Row: " << row << " Cost: " << cost << std::endl;
-			std::cout << "Please Select the location with the correct cost\nSelect location\n";
+			std::cout << "Please Select the location with the correct cost\nSelect location: (1 to 30)\n";
 			std::cin >> location;
 			row = ceil(location / 5.0f);
 			cost = 7 - row;
@@ -345,7 +346,7 @@ bool player::Player::BuildVillage()
 				std::cout << loc << ", ";
 			}
 			std::cout << std::endl;
-			std::cout << "Please place building adjacent to existing building!\nSelect location\n";
+			std::cout << "Please place building adjacent to existing building!\nSelect location: (1 to 30)\n";
 			std::cin >> location;
 			validLoc = std::find(resourceLoc->at(buildingsRes).begin(), resourceLoc->at(buildingsRes).end(), location) != resourceLoc->at(buildingsRes).end();
 
