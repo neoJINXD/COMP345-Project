@@ -244,16 +244,50 @@ std::pair<bool, int> player::Player::PlaceHarvestTile()
 
 }
 
-std::pair<Resource, int> player::Player::BuildVillage()
+bool player::Player::BuildVillage()
 {
+	village->printGraph();
 	hands->displayBuildings();
 
 	int selection;
+	std::cout << "Current Resource Stockpile:\n";
+	for (auto r : *counters) {
+		std::cout << r.first << ":\t" << r.second << std::endl;
+	} 
+
+	
 	std::cout << "Select a building" << std::endl;
 	std::cin >> selection;
 
-	deck::Building* selected = hands->getBuilding(selection);
+	if (selection < 0) {
+		std::cout << "Deciding not place UmU!\n";
+		return false;
+	}
+
+	deck::Building* selected = hands->peekBuilding(selection);
 	Resource buildingsRes = *selected->getResource();
+	bool canBuild = true;
+
+	if (getResourceAmount(*selected->getResource()) - selected->getCost() < 0) {
+		canBuild = false;
+	}
+
+	while (!canBuild) {
+		std::cout << "You do not have enough resources to place this building, pick another!\n";
+		std::cout << "Select a building" << std::endl;
+		std::cin >> selection;
+		if (selection < 0) {
+			std::cout << "Deciding not place UmU!\n";
+			return false;
+		}
+		selected = hands->peekBuilding(selection);
+		buildingsRes = *selected->getResource();
+
+		if (getResourceAmount(*selected->getResource()) - selected->getCost() >= 0) {
+			canBuild = true;
+		}
+		
+	}
 	bool firstTimeResource = true;
 
 	//Checks for an existing resource in the village
@@ -328,7 +362,7 @@ std::pair<Resource, int> player::Player::BuildVillage()
 
 
 	freeSpaceInVillage--;
-	return {*selected->getResource(), selected->getCost()};
+	return true;
 
 }
 

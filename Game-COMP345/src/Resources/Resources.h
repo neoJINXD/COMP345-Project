@@ -182,6 +182,7 @@ namespace deck
 		void displayField();
 
 		Building* getBuilding(int location);
+		Building* peekBuilding(int location) { return BuildingHand->at(location); }
 
 		Tile* getShipment() { return shipmentTile; }
 		void drawShipment();

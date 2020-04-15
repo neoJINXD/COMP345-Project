@@ -71,7 +71,7 @@ namespace player {
 		void ResourceTracker(int yes, int no, int maybe, int so);
 
 		//part6
-		std::pair<Resource, int> BuildVillage();
+		bool BuildVillage();
 		void CalculateResources();
 		void displayResources();
 		void passResources(Player* otherPlayer);
@@ -90,6 +90,9 @@ namespace player {
 		inline const std::string* getName() { return name; }
 		inline int getFreeSpace() { return freeSpaceInVillage; }
 		inline int getBuildingHandSize() { return hands->getBuildingSize(); }
+
+		//Demo-2 fixes; used for validating if the player has enough resources to place a building
+		inline int getResourceAmount(Resource resourceType) { return counters->at(resourceType); };
 	};
 
 	class PlayerDriver
