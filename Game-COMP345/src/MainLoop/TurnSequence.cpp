@@ -26,18 +26,23 @@ void maingame::TurnSequence::playTurn(player::Player* player, player::Player** o
 
 
 	//Build on the village board
-	std::cout << "Build a bear together" << std::endl;
+	std::cout << "Build a village together" << std::endl;
 	player->BuildVillage();
 	std::cout << std::endl;
 	//keep track of recently placed node? (within player)
 
+	int i = 0;
+	std::cout << "Do you wish to have a trade deal mate? (1 == yes, 0 == no):\n";
+	std::cin >> i;
 
+	if (i == 0) {
+		i = 1337;
+	}
 	//use resourceTracker to decrease based on cost, for player
 	//buildvillage returns cost of building placed
 	//if facedown, take cost of location
 	//else cost of building being placed
 
-	int i = 0;
 	if (player->getEmptyResources())
 		i = 404;
 	//Let other players build with same logic
@@ -46,7 +51,7 @@ void maingame::TurnSequence::playTurn(player::Player* player, player::Player** o
 		std::cout << "Next Player" << std::endl;
 		player::Player* nowBuilding = *(others+i);
 		player->passResources(nowBuilding);
-		std::cout << "Build a bear together" << std::endl;
+		std::cout << "Build a village together" << std::endl;
 		nowBuilding->BuildVillage();
 		std::cout << std::endl;
 

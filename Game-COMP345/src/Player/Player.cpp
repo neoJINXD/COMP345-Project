@@ -246,7 +246,6 @@ std::pair<bool, int> player::Player::PlaceHarvestTile()
 
 bool player::Player::BuildVillage()
 {
-	village->printGraph();
 	hands->displayBuildings();
 
 	int selection;
@@ -256,7 +255,7 @@ bool player::Player::BuildVillage()
 	} 
 
 	
-	std::cout << "Select a building" << std::endl;
+	std::cout << "Select a building: ( -1 to skip )" << std::endl;
 	std::cin >> selection;
 
 	if (selection < 0) {
