@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
+#include <map>
 #include "../Player/Player.h"
+
 
 namespace obs {
 	class GameObserver
@@ -17,6 +19,11 @@ namespace obs {
 	public:
 		TurnObserver(Observable* _model);
 		~TurnObserver();
+
+		/*
+		Print out current player information
+		
+		*/
 		void GameObserver::update();
 	};
 
@@ -37,7 +44,7 @@ namespace obs {
 
 		// Model/State information
 		int* currentTurn;
-		std::vector<player::Player*>* players;
+		std::map<int, player::Player*>* players;
 		
 
 	public:
@@ -47,10 +54,16 @@ namespace obs {
 		void notify();
 
 		void setState();
-		void getPlayerState();
+		player::Player* getCurrentPlayer();
 		void getTurnState();
+		inline std::map<int, player::Player*>* getPlayers() { return players; }
 
 
+	};
 
+	class ObserverDriver {
+
+	public:
+		void run();
 	};
 }
