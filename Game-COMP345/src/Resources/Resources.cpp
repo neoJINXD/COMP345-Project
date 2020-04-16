@@ -421,9 +421,9 @@ void deck::HandDriver::run() {
 std::pair<int, deck::Tile*> deck::Hand::exchange(int loc) {
   // have player select a Tile from list
   displayTiles();
-
+  int maxHandSize = HarvestHand->size() - 1;
   int selection;
-  std::cout << "Select a tile (0 to MAX):" << std::endl;
+  std::cout << "Select a tile (0 to " << maxHandSize <<"):" << std::endl;
   std::cin >> selection;
 
   int location;

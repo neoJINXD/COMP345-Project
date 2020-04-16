@@ -81,7 +81,8 @@ namespace GB
 		void placeTile(int loc, deck::Tile* tile);
 		deck::Tile* peekTile(int loc) const;
 		deck::Tile* getAdjTile(int loc, EdgeLoc adjDirection);
-		
+		inline int getBoardSize() { return graph->size(); }
+
 	};
 
 	

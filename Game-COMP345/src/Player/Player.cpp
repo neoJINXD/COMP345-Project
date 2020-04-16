@@ -163,6 +163,8 @@ std::pair<bool, int> player::Player::PlaceHarvestTile()
 	std::cin >> selection;
 	std::cout << std::endl;
 
+	int gbSize = board->getBoardSize();
+	
 	if (selection == 1)
 	{
 		// Placing normal harvest Tile
@@ -172,7 +174,7 @@ std::pair<bool, int> player::Player::PlaceHarvestTile()
 
 		do
 		{
-			std::cout << "Select a location (1 to MAX)" << std::endl;
+			std::cout << "Select a location (1 to " << gbSize << ")" << std::endl;
 			std::cin >> location;
 
 			if (board->peekTile(location) == nullptr)
@@ -254,9 +256,9 @@ bool player::Player::BuildVillage()
 	for (auto r : *counters) {
 		std::cout << r.first << ":\t" << r.second << std::endl;
 	} 
-
+	int maxSize = hands->getBuildingSize() - 1;
 	
-	std::cout << "Select a building: ( 0 to MAX or -1 to skip )" << std::endl;
+	std::cout << "Select a building: ( 0 to " << maxSize << " or -1 to skip )" << std::endl;
 	std::cin >> selection;
 
 	if (selection < 0) {
@@ -274,7 +276,7 @@ bool player::Player::BuildVillage()
 
 	while (!canBuild) {
 		std::cout << "You do not have enough resources to place this building, pick another!\n";
-		std::cout << "Select a building: ( 0 to MAX or -1 to skip )" << std::endl;
+		std::cout << "Select a building: ( 0 to " << maxSize << " or -1 to skip )" << std::endl;
 		std::cin >> selection;
 		if (selection < 0) {
 			std::cout << "Deciding not place UmU!\n";
