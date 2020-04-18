@@ -13,6 +13,7 @@ namespace obs {
 
 	class TurnObserver : public GameObserver {
 	private:
+		//Basically this is the subject my comrade. You use this object
 		Observable* model;
 		int currentTurn;
 

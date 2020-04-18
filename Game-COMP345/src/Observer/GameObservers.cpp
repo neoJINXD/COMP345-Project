@@ -1,4 +1,5 @@
 #include "GameObservers.h"
+#include <string>
 
 void obs::Observable::attach(GameObserver* obs)
 {
@@ -14,7 +15,24 @@ void obs::Observable::notify()
 
 void obs::StatisticsObserver::update() {
 	
-	for (auto& p : model->getPlayers()) {
-
+	std::cout << "Game Statistics:\n";
+	for (auto &p : *model->getPlayers()) {
+		auto player = p.second;
+		std::cout << player->getName()  << " Info:" << std::endl;
+		player->getVillage()->printGraph();
+		player->displayResources();
+		
 	}
 }
+
+obs::StatisticsObserver::StatisticsObserver(Observable* _model)
+{
+	model = _model;
+
+}
+
+obs::StatisticsObserver::~StatisticsObserver()
+{
+	model = nullptr;
+}
+
