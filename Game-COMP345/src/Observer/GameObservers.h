@@ -60,8 +60,9 @@ namespace obs {
 		// Model/State information
 		int* currentTurn = new int(0);
 		std::map<int, player::Player*>* players = nullptr;
+		player::Player* currentPlayer = nullptr;
 		bool* isBuildingPlaced;
-		//bool* isHarvestTilePlaced;
+		bool* isHarvestTilePlaced;
 		std::map<Resource, int>* counter;
 	public:
 		Observable() = default;
@@ -75,9 +76,10 @@ namespace obs {
 		void setPlayers(std::map<int, player::Player*>* playerQueue) { players = playerQueue; }
 		void setCurrentTurn(int curTurn);
 		void setResourceMarkers(std::map<Resource, int>* _counter);
+		inline void setCurrentPlayer(player::Player* player) { currentPlayer = player; }
 
 		//Accessors for the observers to use to update themselves
-		player::Player* getCurrentPlayer();
+		player::Player* getCurrentPlayer() { return currentPlayer; }
 		int getTurnState() { return *currentTurn; }
 		inline std::map<int, player::Player*>* getPlayers() { return players; }
 		std::map<Resource, int>* getResourceMarkers() { return counter; }

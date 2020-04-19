@@ -205,6 +205,26 @@ std::pair<bool, int> player::Player::PlaceHarvestTile()
 
 		std::pair<int, deck::Tile*> placement = hands->exchange(location);
 
+		std::cout << "Do you want to rotate the tile? (1 = yes, any = no):" << std::endl;
+		int choice;
+		std::cin >> choice;
+		if (choice == 1) {
+			while (true) {
+
+				std::cout << "Rotate left(0) or right(1)?:\n";
+				int dir;
+				std::cin >> dir;
+				if (dir == 0) { placement.second->rotateLeft(); }
+				else if (dir == 1) { placement.second->rotateRight(); }
+				
+				std::cout << "Tile after rotation:\n";
+				placement.second->printInfo();
+				std::cout << "Do you want to rotate again? (1 = yes, any = no):" << std::endl;
+				int choice;
+				std::cin >> choice;
+				if (choice != 1) break;
+			}
+		}
 
 		board->placeTile(placement.first, placement.second);
 		std::cout << "Placing at " << placement.first << std::endl;

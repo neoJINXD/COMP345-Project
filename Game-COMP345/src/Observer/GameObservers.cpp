@@ -40,6 +40,14 @@ void obs::Observable::setResourceMarkers(std::map<Resource, int>* _counter)
 	counter = _counter;
 }
 
+void obs::TurnObserver::update() {
+
+	player::Player* currentPlayer = model->getCurrentPlayer();
+	std::string name = *currentPlayer->getName();
+	std::cout << name << " IS NOW PLAYING" << std::endl;
+	
+}
+
 void obs::StatisticsObserver::update() {
 	
 	int i = 0;
@@ -85,63 +93,52 @@ obs::StatisticsObserver::~StatisticsObserver()
 
 void obs::ObserverDriver::run()
 {
-	
-	maingame::MainLoop loop(4);
+	const int numberOfPlayers = 2;
+
+	maingame::MainLoop loop(numberOfPlayers);
 
 	maingame::GameStart setGame;
 
-	auto players = setGame.initPlayers(2);
+	auto players = setGame.initPlayers(numberOfPlayers);
 	loop.setupPlayerOrder(players);
 	auto testPlayer = players->at(0);
 
 	//Set Observable objects
 	obs::Observable* subject = new Observable();
+
 	subject->setPlayers(loop.getPlayerQueue());
 	subject->setCurrentTurn(1);
 	//subject->setPlayers();
+	//obs::TurnObserver* turnObserver = new TurnObserver(subject);
 	obs::StatisticsObserver* statObserver = new StatisticsObserver(subject);
 	
+
 	maingame::TurnSequence turnSeq;
 	for (int i = 0; i < 4; i++)
 	{
 
-		//loop.turnStart();
+		loop.turnStart();
 
 		//Turn Sequence
-		//turnSeq.playTurn(loop.getActivePlayer(), );
+		turnSeq.playTurn(loop.getActivePlayer(), loop.getOtherPlayers());
 		//loop.setResources();
-		/*testPlayer->DrawBuilding();
-		testPlayer->DrawBuilding();
-		testPlayer->DrawBuilding();
-		testPlayer->DrawBuilding();
-		testPlayer->DrawBuilding();
-		testPlayer->DrawShipment();
-		testPlayer->DrawHarvestTile();
-		testPlayer->DrawHarvestTile();
-		testPlayer->DrawHarvestTile();
-		testPlayer->DrawHarvestTile();
-		testPlayer->DrawHarvestTile();*/
-		//testPlayer->printHand();
-		testPlayer->PlaceHarvestTile();
-		testPlayer->CalculateResources();
-		testPlayer->displayResources();
-		testPlayer->BuildVillage();
+
 	
 		subject->setResourceMarkers(testPlayer->getResCounter()); // automatically notify all observers
 		subject->notify();
 		//testPlayer->ResourceTracker(0,0,0,0);
 		//Active player draws Buildings based on empty resource counters
-		//loop.drawBuildings();
+		loop.drawBuildings();
 		
 
 		//Draw Harvest Tiles
-		//loop.drawHarvestTiles();
+		loop.drawHarvestTiles();
 
 		
 
 
 		//Turn's end
-		//loop.turnEnd();
+		loop.turnEnd();
 
 	}
 
@@ -161,5 +158,17 @@ void obs::ObserverDriver::run()
 
 	delete subject;
 	subject = nullptr;
+
+}
+
+obs::TurnObserver::TurnObserver(Observable* _model)
+{
+	model = _model;
+	model->attach(this);
+}
+
+obs::TurnObserver::~TurnObserver()
+{
+	model = nullptr;
 
 }

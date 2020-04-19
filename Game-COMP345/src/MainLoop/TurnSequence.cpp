@@ -3,7 +3,7 @@
 #include "../Resources/Resources.h"
 #include "../ResourceCounter/ResourceCounter.h"
 
-
+//This had two parameters now theres 3 :3
 void maingame::TurnSequence::playTurn(player::Player* player, player::Player** others)
 {
 

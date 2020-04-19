@@ -158,12 +158,30 @@ void maingame::MainLoop::drawHarvestTiles()
 
 player::Player** maingame::MainLoop::getOtherPlayers()
 {
-	player::Player* others[3] = {
-		queue->at((currentPlayer + 1) % nbPlayers),
-		queue->at((currentPlayer + 2) % nbPlayers),
-		queue->at((currentPlayer + 3) % nbPlayers)
-	};
-	return others;
+	if (nbPlayers == 2)
+	{
+		player::Player* others[1] = {
+			queue->at((currentPlayer + 1) % nbPlayers)
+		};
+		return others;
+	}
+	else if (nbPlayers == 3)
+	{
+		player::Player* others[2] = {
+			queue->at((currentPlayer + 1) % nbPlayers),
+			queue->at((currentPlayer + 2) % nbPlayers)
+		};
+		return others;
+	}
+	else if (nbPlayers == 4)
+	{
+		player::Player* others[3] = {
+			queue->at((currentPlayer + 1) % nbPlayers),
+			queue->at((currentPlayer + 2) % nbPlayers),
+			queue->at((currentPlayer + 3) % nbPlayers)
+		};
+		return others;
+	}
 }
 
 
