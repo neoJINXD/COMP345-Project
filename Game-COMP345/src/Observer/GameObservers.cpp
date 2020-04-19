@@ -38,7 +38,6 @@ void obs::Observable::setCurrentTurn(int curTurn) {
 void obs::Observable::setResourceMarkers(std::map<Resource, int>* _counter)
 {
 	counter = _counter;
-	//notify();
 }
 
 void obs::StatisticsObserver::update() {
@@ -90,29 +89,6 @@ void obs::ObserverDriver::run()
 	maingame::MainLoop loop(4);
 
 	maingame::GameStart setGame;
-	
-	//GB::GBMap* board = new GB::GBMap(4);
-	//board->buildBoard();
-	//board->printGraph();
-	//deck::BuildingDeck* bDeck = new deck::BuildingDeck();
-	//deck::HarvestDeck* hDeck = new deck::HarvestDeck();
-
-	////names of players
-	//std::string* p1 = new std::string("p1");
-	//std::string* p2 = new std::string("p2");
-	//std::string* p3 = new std::string("p3");
-	//std::string* p4 = new std::string("p4");
-
-	//player::Player* testPlayer = new player::Player(p1, board, hDeck, bDeck);
-	//player::Player* testPlayer2 = new player::Player(p2, board, hDeck, bDeck);
-	//player::Player* testPlayer3 = new player::Player(p3, board, hDeck, bDeck);
-	//player::Player* testPlayer4 = new player::Player(p4, board, hDeck, bDeck);
-
-	//counter::ResourceCounter* count = new counter::ResourceCounter();
-	//testPlayer->setCounterSystem(count);
-	//testPlayer2->setCounterSystem(count);
-	//testPlayer3->setCounterSystem(count);
-	//testPlayer4->setCounterSystem(count);
 
 	auto players = setGame.initPlayers(2);
 	loop.setupPlayerOrder(players);
@@ -148,7 +124,9 @@ void obs::ObserverDriver::run()
 		//testPlayer->printHand();
 		testPlayer->PlaceHarvestTile();
 		testPlayer->CalculateResources();
+		testPlayer->displayResources();
 		testPlayer->BuildVillage();
+	
 		subject->setResourceMarkers(testPlayer->getResCounter()); // automatically notify all observers
 		subject->notify();
 		testPlayer->ResourceTracker(0,0,0,0);

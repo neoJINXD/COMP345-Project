@@ -62,7 +62,7 @@ namespace obs {
 		std::map<int, player::Player*>* players = nullptr;
 		bool* isBuildingPlaced;
 		//bool* isHarvestTilePlaced;
-		std::map<Resource, int>* counter = nullptr;
+		std::map<Resource, int>* counter;
 	public:
 		Observable() = default;
 		~Observable();

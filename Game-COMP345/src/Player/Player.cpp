@@ -104,6 +104,7 @@ void player::Player::ResourceTracker(int yes, int no, int maybe, int so)
 void player::Player::CalculateResources()
 {
 	//counter::ResourceCounter count;
+	std::cout << "Recent Node:\t" << board->getRecentNode()->getId() << std::endl;
 	std::map<Resource, int> counted = count->harvestCount(board->getRecentNode());
 	ResourceTracker(counted.at(Wheat), counted.at(Sheep), counted.at(Timber),
 		counted.at(Stone));
