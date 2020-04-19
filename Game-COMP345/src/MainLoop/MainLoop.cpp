@@ -47,6 +47,18 @@ maingame::MainLoop::~MainLoop()
 	queue = nullptr;
 }
 
+void maingame::MainLoop::setupPlayerOrder(std::vector<player::Player*>* players)
+{
+	int i = 0;
+
+	for (auto& p : *players){
+		queue->emplace(i, p);
+	i++;
+	}
+
+}
+
+
 void maingame::MainLoop::setupPlayerOrder(player::Player* p1, player::Player* p2, player::Player* p3, player::Player* p4)
 {
 	queue->emplace(0, p1);

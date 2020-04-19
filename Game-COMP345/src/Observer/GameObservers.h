@@ -47,6 +47,12 @@ namespace obs {
 	};
 
 	//Use this to share state information of the game
+	/*
+	procedure:
+	- create and attach observers to observable / subject
+	- set the state of the observables
+	- once all states are set notify the observers
+	*/
 	class Observable {
 	private:
 		std::vector<GameObserver*>* views = new std::vector<GameObserver*>();
@@ -56,7 +62,7 @@ namespace obs {
 		std::map<int, player::Player*>* players = nullptr;
 		bool* isBuildingPlaced;
 		//bool* isHarvestTilePlaced;
-
+		std::map<Resource, int>* counter = nullptr;
 	public:
 		Observable() = default;
 		~Observable();
@@ -68,12 +74,13 @@ namespace obs {
 		//Use these mutator methods to change the state which will automatically update the observers 
 		void setPlayers(std::map<int, player::Player*>* playerQueue) { players = playerQueue; }
 		void setCurrentTurn(int curTurn);
+		void setResourceMarkers(std::map<Resource, int>* _counter);
 
 		//Accessors for the observers to use to update themselves
 		player::Player* getCurrentPlayer();
 		int getTurnState() { return *currentTurn; }
 		inline std::map<int, player::Player*>* getPlayers() { return players; }
-
+		std::map<Resource, int>* getResourceMarkers() { return counter; }
 
 	};
 

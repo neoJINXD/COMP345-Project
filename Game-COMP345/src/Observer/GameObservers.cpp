@@ -33,9 +33,12 @@ void obs::Observable::notify()
 void obs::Observable::setCurrentTurn(int curTurn) {
 	
 	*currentTurn = curTurn;
+}
 
-	//Notify all observers 
-	this->notify();
+void obs::Observable::setResourceMarkers(std::map<Resource, int>* _counter)
+{
+	counter = _counter;
+	//notify();
 }
 
 void obs::StatisticsObserver::update() {
@@ -56,10 +59,15 @@ void obs::StatisticsObserver::update() {
 
 		std::cout << std::endl;
 		
-		if (i == 0) {
-			//Only display this once since all players reference the same resourceCounter object
-			player->displayResources();
-		}
+		//if (i == 0) {
+		//	//Only display this once since all players reference the same resourceCounter object
+		//	player->displayResources();
+		//}
+	}
+	//display the current resources
+	std::cout << "STATE OF RESOURCES:\n";
+	for (auto res : *model->getResourceMarkers()) {
+		std::cout << "ID:" << res.first << ": " << res.second << std::endl;
 	}
 }
 
@@ -82,37 +90,33 @@ void obs::ObserverDriver::run()
 	maingame::MainLoop loop(4);
 
 	maingame::GameStart setGame;
+	
+	//GB::GBMap* board = new GB::GBMap(4);
+	//board->buildBoard();
+	//board->printGraph();
+	//deck::BuildingDeck* bDeck = new deck::BuildingDeck();
+	//deck::HarvestDeck* hDeck = new deck::HarvestDeck();
+
+	////names of players
+	//std::string* p1 = new std::string("p1");
+	//std::string* p2 = new std::string("p2");
+	//std::string* p3 = new std::string("p3");
+	//std::string* p4 = new std::string("p4");
+
+	//player::Player* testPlayer = new player::Player(p1, board, hDeck, bDeck);
+	//player::Player* testPlayer2 = new player::Player(p2, board, hDeck, bDeck);
+	//player::Player* testPlayer3 = new player::Player(p3, board, hDeck, bDeck);
+	//player::Player* testPlayer4 = new player::Player(p4, board, hDeck, bDeck);
+
+	//counter::ResourceCounter* count = new counter::ResourceCounter();
+	//testPlayer->setCounterSystem(count);
+	//testPlayer2->setCounterSystem(count);
+	//testPlayer3->setCounterSystem(count);
+	//testPlayer4->setCounterSystem(count);
+
 	auto players = setGame.initPlayers(2);
-	GB::GBMap* board = new GB::GBMap(4);
-	board->buildBoard();
-	board->printGraph();
-	deck::BuildingDeck* bDeck = new deck::BuildingDeck();
-	deck::HarvestDeck* hDeck = new deck::HarvestDeck();
-
-	//names of players
-	std::string* p1 = new std::string("p1");
-	std::string* p2 = new std::string("p2");
-	std::string* p3 = new std::string("p3");
-	std::string* p4 = new std::string("p4");
-
-	player::Player* testPlayer = new player::Player(p1, board, hDeck, bDeck);
-	player::Player* testPlayer2 = new player::Player(p2, board, hDeck, bDeck);
-	player::Player* testPlayer3 = new player::Player(p3, board, hDeck, bDeck);
-	player::Player* testPlayer4 = new player::Player(p4, board, hDeck, bDeck);
-
-	counter::ResourceCounter* count = new counter::ResourceCounter();
-	testPlayer->setCounterSystem(count);
-	testPlayer2->setCounterSystem(count);
-	testPlayer3->setCounterSystem(count);
-	testPlayer4->setCounterSystem(count);
-
-
-	loop.setupPlayerOrder(
-		testPlayer,
-		testPlayer2,
-		testPlayer3,
-		testPlayer4
-	);
+	loop.setupPlayerOrder(players);
+	auto testPlayer = players->at(0);
 
 	//Set Observable objects
 	obs::Observable* subject = new Observable();
@@ -125,12 +129,12 @@ void obs::ObserverDriver::run()
 	for (int i = 0; i < 4; i++)
 	{
 
-		loop.turnStart();
+		//loop.turnStart();
 
 		//Turn Sequence
 		//turnSeq.playTurn(loop.getActivePlayer(), );
 		//loop.setResources();
-		testPlayer->DrawBuilding();
+		/*testPlayer->DrawBuilding();
 		testPlayer->DrawBuilding();
 		testPlayer->DrawBuilding();
 		testPlayer->DrawBuilding();
@@ -140,40 +144,42 @@ void obs::ObserverDriver::run()
 		testPlayer->DrawHarvestTile();
 		testPlayer->DrawHarvestTile();
 		testPlayer->DrawHarvestTile();
-		testPlayer->DrawHarvestTile();
-		testPlayer->printHand();
+		testPlayer->DrawHarvestTile();*/
+		//testPlayer->printHand();
 		testPlayer->PlaceHarvestTile();
 		testPlayer->CalculateResources();
 		testPlayer->BuildVillage();
+		subject->setResourceMarkers(testPlayer->getResCounter()); // automatically notify all observers
 		subject->notify();
+		testPlayer->ResourceTracker(0,0,0,0);
 		//Active player draws Buildings based on empty resource counters
-		loop.drawBuildings();
+		//loop.drawBuildings();
 		
 
 		//Draw Harvest Tiles
-		loop.drawHarvestTiles();
+		//loop.drawHarvestTiles();
 
 		
 
 
 		//Turn's end
-		loop.turnEnd();
+		//loop.turnEnd();
 
 	}
 
 	//std::cout << loop.checkEndState() << std::endl;
 
-	delete board;
-	board = nullptr;
+	//delete board;
+	//board = nullptr;
 
-	delete hDeck;
-	hDeck = nullptr;
+	//delete hDeck;
+	//hDeck = nullptr;
 
-	delete bDeck;
-	bDeck = nullptr;
+	//delete bDeck;
+	//bDeck = nullptr;
 
-	delete count;
-	count = nullptr;
+	//delete count;
+	//count = nullptr;
 
 	delete subject;
 	subject = nullptr;

@@ -336,10 +336,10 @@ std::map<Resource, int> counter::ResourceCounter::harvestCount(GB::Node* recentN
 	}
 	int resIndex = 0;
 
-	for (auto k : counter_res)
-	{
-		std::cout << "ResourceID: " << k.first << " Count: " << k.second << std::endl;
-	}
+	//for (auto k : counter_res)
+	//{
+	//	std::cout << "ResourceID: " << k.first << " Count: " << k.second << std::endl;
+	//}
 
 	/*std::cout << "Current Subgraph:";
 	display();*/

@@ -28,6 +28,8 @@ namespace maingame
 		~MainLoop();
 
 		void setupPlayerOrder(player::Player* p1, player::Player* p2, player::Player* p3, player::Player* p4);
+		void setupPlayerOrder(std::vector<player::Player*>* players);
+
 		void turnStart();
 		void turnEnd();
 		bool checkEndState();

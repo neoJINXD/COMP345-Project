@@ -111,7 +111,7 @@ void player::Player::CalculateResources()
 
 void player::Player::displayResources()
 {
-	std::cout << "Current ressources: " << std::endl;
+	std::cout << "Current resources: " << std::endl;
 	std::cout << "Wheat: " << counters->at(Wheat) << std::endl;
 	std::cout << "Sheep: " << counters->at(Sheep) << std::endl;
 	std::cout << "Timber: " << counters->at(Timber) << std::endl;
@@ -266,7 +266,7 @@ bool player::Player::BuildVillage()
 	hands->displayBuildings();
 
 	int selection;
-	displayResources();
+	//displayResources();
 	/*std::cout << "Current Resource Stockpile:\n";
 	for (auto r : *counters) {
 		std::cout << (int)r.first << ":\t" << r.second << std::endl;
@@ -277,7 +277,7 @@ bool player::Player::BuildVillage()
 	std::cin >> selection;
 
 	if (selection < 0) {
-		std::cout << "You decided not place a building!\n";
+		std::cout << "You decided to not place a building!\n";
 		return false;
 	}
 
@@ -388,7 +388,7 @@ bool player::Player::BuildVillage()
 	//Track current buildings to show possible placements
 	trackBuildings(location, *selected->getResource());
 	std::cout << "Placing at " << location << std::endl;
-	village->peekBuilding(location)->printInfo();
+	//village->peekBuilding(location)->printInfo();
 
 	buildingsPlaced++;
 	freeSpaceInVillage--;

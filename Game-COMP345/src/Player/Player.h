@@ -94,9 +94,10 @@ namespace player {
 		//Demo-2 fixes; used for validating if the player has enough resources to place a building
 		inline int getResourceAmount(Resource resourceType) { return counters->at(resourceType); };
 		
-		//Scoring for this player
+		//Scoring for this player, used for observers
 		int getCurrentScore();
 		inline int getBuildingCount() { return *buildingsPlaced; }
+		std::map<Resource, int>* getResCounter() { return counters; }
 	};
 
 	class PlayerDriver
