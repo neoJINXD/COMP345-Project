@@ -44,7 +44,6 @@ namespace player {
 		const std::string* name;
 		std::map<Resource, std::vector<int>>* resourceLoc;
 
-		bool isAdjExist(int loc);
 		void trackBuildings(int loc, Resource res);
 		void init();
 
@@ -93,6 +92,9 @@ namespace player {
 
 		//Demo-2 fixes; used for validating if the player has enough resources to place a building
 		inline int getResourceAmount(Resource resourceType) { return counters->at(resourceType); };
+		
+		//Scoring for this player
+		int getCurrentScore();
 	};
 
 	class PlayerDriver

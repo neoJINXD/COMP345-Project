@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "../Scoring/Scoring.h"
 #include <cmath>
 
 void player::Player::trackBuildings(int loc, Resource res)
@@ -154,6 +155,14 @@ void player::Player::insertShipment(int location)
 deck::Tile* player::Player::getTileAt(int location)
 {
 	return board->peekTile(location);
+}
+
+int player::Player::getCurrentScore()
+{
+	counter::ScoringCounter scoreCalc;
+
+
+	return scoreCalc.countScore(this->getVillage());
 }
 
 std::pair<bool, int> player::Player::PlaceHarvestTile()
