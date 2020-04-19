@@ -129,7 +129,7 @@ void obs::ObserverDriver::run()
 	
 		subject->setResourceMarkers(testPlayer->getResCounter()); // automatically notify all observers
 		subject->notify();
-		testPlayer->ResourceTracker(0,0,0,0);
+		//testPlayer->ResourceTracker(0,0,0,0);
 		//Active player draws Buildings based on empty resource counters
 		//loop.drawBuildings();
 		

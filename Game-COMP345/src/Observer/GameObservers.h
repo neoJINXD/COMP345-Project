@@ -68,7 +68,7 @@ namespace obs {
 		~Observable();
 
 		//Updates and attaches observers to the view
-		void attach(GameObserver* obs);
+		void attach(GameObserver* _obs);
 		void notify();
 
 		//Use these mutator methods to change the state which will automatically update the observers 

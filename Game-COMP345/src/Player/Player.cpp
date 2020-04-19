@@ -23,6 +23,10 @@ void player::Player::init()
 	counters = new std::map<Resource, int>();
 	resourceLoc = new std::map<Resource, std::vector<int>>({ {Wheat,std::vector<int>()}, {Sheep,std::vector<int>()}, {Stone,std::vector<int>()}, {Timber,std::vector<int>()} });
 	//count = new counter::ResourceCounter();
+	counters->emplace(Wheat, 0);
+	counters->emplace(Sheep, 0);
+	counters->emplace(Timber, 0);
+	counters->emplace(Stone, 0);
 }
 
 
@@ -95,17 +99,18 @@ void player::Player::DrawShipment() { hands->drawShipment(); }
 
 void player::Player::ResourceTracker(int yes, int no, int maybe, int so)
 {
-	counters->emplace(Wheat, yes);
-	counters->emplace(Sheep, no);
-	counters->emplace(Timber, maybe);
-	counters->emplace(Stone, so);
+	counters->at(Wheat)= yes;
+	counters->at(Sheep)= no;
+	counters->at(Timber)= maybe;
+	counters->at(Stone)= so;
 }
 
 void player::Player::CalculateResources()
 {
 	//counter::ResourceCounter count;
-	std::cout << "Recent Node:\t" << board->getRecentNode()->getId() << std::endl;
+	//std::cout << "Recent Node:\t" << board->getRecentNode()->getId() << std::endl;
 	std::map<Resource, int> counted = count->harvestCount(board->getRecentNode());
+
 	ResourceTracker(counted.at(Wheat), counted.at(Sheep), counted.at(Timber),
 		counted.at(Stone));
 }
@@ -391,7 +396,7 @@ bool player::Player::BuildVillage()
 	std::cout << "Placing at " << location << std::endl;
 	//village->peekBuilding(location)->printInfo();
 
-	buildingsPlaced++;
+	(*buildingsPlaced)++;
 	freeSpaceInVillage--;
 	return true;
 
