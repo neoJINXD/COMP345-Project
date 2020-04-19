@@ -13,7 +13,7 @@ namespace obs {
 
 	class TurnObserver : public GameObserver {
 	private:
-		//Basically this is the subject my comrade. You use this object
+		//Dependent functionality
 		Observable* model;
 		int currentTurn;
 
@@ -32,6 +32,8 @@ namespace obs {
 
 	class StatisticsObserver : public GameObserver {
 	private:
+
+		//Dependent functionality
 		Observable* model;
 	public:
 		StatisticsObserver(Observable* _model);
@@ -56,8 +58,11 @@ namespace obs {
 		void attach(GameObserver* obs);
 		void notify();
 
+		//Use these mutator methods to change the state which will automatically update the observers 
 		void setPlayers(std::map<int, player::Player*>* playerQueue) { players = playerQueue; }
-		void setCurrentTurn(int curTurn) { *currentTurn = curTurn; }
+		void setCurrentTurn(int curTurn);
+
+		//Accessors for the observers to use to update
 		player::Player* getCurrentPlayer();
 		int getTurnState() { return *currentTurn; }
 		inline std::map<int, player::Player*>* getPlayers() { return players; }

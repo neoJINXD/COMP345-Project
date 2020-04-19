@@ -20,6 +20,14 @@ void obs::Observable::notify()
 	}
 }
 
+void obs::Observable::setCurrentTurn(int curTurn) {
+	
+	*currentTurn = curTurn;
+
+	//Notify all observers 
+	this->notify();
+}
+
 void obs::StatisticsObserver::update() {
 	
 	int i = 0;
@@ -34,7 +42,7 @@ void obs::StatisticsObserver::update() {
 		std::cout << "COLONISTS:\t" << player->getCurrentScore() << ", ";
 		
 		//Print the number of buildings this player has on his village
-		//player->getBuildingCount();
+		std::cout << "Placed Buildings:\t" << player->getBuildingCount();
 
 		std::cout << std::endl;
 		

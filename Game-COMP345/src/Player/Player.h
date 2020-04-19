@@ -40,6 +40,7 @@ namespace player {
 		//Scoring from village board state(part 6)
 		std::map<Resource, int>* counters;
 		counter::ResourceCounter* count;
+		int* buildingsPlaced = new int(0);
 
 		const std::string* name;
 		std::map<Resource, std::vector<int>>* resourceLoc;
@@ -95,6 +96,7 @@ namespace player {
 		
 		//Scoring for this player
 		int getCurrentScore();
+		inline int getBuildingCount() { return *buildingsPlaced; }
 	};
 
 	class PlayerDriver

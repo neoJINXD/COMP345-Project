@@ -51,6 +51,11 @@ player::Player::~Player()
 
 	delete resourceLoc;
 	resourceLoc = nullptr;
+
+	if (buildingsPlaced) {
+		delete buildingsPlaced;
+		buildingsPlaced = nullptr;
+	}
 }
 
 void player::Player::createHand(deck::HarvestDeck* HDeck,
@@ -271,7 +276,7 @@ bool player::Player::BuildVillage()
 	std::cin >> selection;
 
 	if (selection < 0) {
-		std::cout << "Deciding not place UmU!\n";
+		std::cout << "You decided not place a building!\n";
 		return false;
 	}
 
@@ -304,6 +309,14 @@ bool player::Player::BuildVillage()
 	counters->at(*selected->getResource()) -= selected->getCost();
 	bool firstTimeResource = true;
 
+	/*
+	This part is validating the location the user chooses to place.
+	Must satisfy these conditions:
+	- Adjacent to an existing building with the same resource, otherwise anywhere
+	- Validates the cost of that location
+	- The location has no existing building
+	*/
+
 	//Checks for an existing resource in the village
 	if (!resourceLoc->at(*selected->getResource()).empty()) {
 		firstTimeResource = false;
@@ -321,8 +334,10 @@ bool player::Player::BuildVillage()
 	int location;
 
 	if (!firstTimeResource) {
+		std::cout << "Possible locations:\t";
 		for (auto loc : resourceLoc->at(buildingsRes)) {
 			
+			//Checks if the node is occupied
 			if (village->peekBuilding(loc) == nullptr)
 				std::cout << loc << ", ";
 		}
@@ -374,7 +389,7 @@ bool player::Player::BuildVillage()
 	std::cout << "Placing at " << location << std::endl;
 	village->peekBuilding(location)->printInfo();
 
-
+	buildingsPlaced++;
 	freeSpaceInVillage--;
 	return true;
 

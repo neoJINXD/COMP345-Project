@@ -125,9 +125,6 @@ void VG::VGMap::printGraph()
 	for (auto pair : *graph)
 	{
 		std::cout << "" << pair.first << ":\t" << pair.second->getCost() << "\t";
-		if (pair.second->getBuilding() != nullptr) {
-			pair.second->getBuilding()->printInfo();
-		}
 		pair.second->printAdjList();
 		std::cout << std::endl;
 	}
