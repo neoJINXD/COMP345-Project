@@ -24,23 +24,24 @@ void obs::StatisticsObserver::update() {
 	
 	int i = 0;
 	
-	std::cout << "Current Game Statistics:\n";
+	std::cout << "CURRENT GAME STATE:\n";
 	for (auto &p : *model->getPlayers()) {
 		auto player = p.second;
 
-		//Current resource markers on this turn
-		if (i == 0) {
-			//Only display this once since all players reference the same resourceCounter object
-			player->displayResources();
-		}
+		std::cout << player->getName()  << ":\t" << std::endl;
 
-		std::cout << player->getName()  << " Info:" << std::endl;
-		std::cout << "Colonists:\t" << player->getCurrentScore() << "\n";
-		//Change the village print layout
-		player->getVillage()->printGraph();
+		//Print a user score
+		std::cout << "COLONISTS:\t" << player->getCurrentScore() << ", ";
+		
+		//Print the number of buildings this player has on his village
+		//player->getBuildingCount();
 
 		std::cout << std::endl;
 		
+		if (i == model->getPlayers()->size() - 1) {
+			//Only display this once since all players reference the same resourceCounter object
+			player->displayResources();
+		}
 	}
 }
 
