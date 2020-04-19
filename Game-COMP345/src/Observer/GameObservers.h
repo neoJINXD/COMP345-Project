@@ -5,6 +5,9 @@
 
 
 namespace obs {
+
+	class Observable;
+
 	class GameObserver
 	{
 	public:
@@ -45,16 +48,20 @@ namespace obs {
 
 	//Use this to share state information of the game
 	class Observable {
-		std::vector<GameObserver*>* views;
+	private:
+		std::vector<GameObserver*>* views = new std::vector<GameObserver*>();
 
 		// Model/State information
 		int* currentTurn = new int(0);
 		std::map<int, player::Player*>* players = nullptr;
-		
+		bool* isBuildingPlaced;
+		//bool* isHarvestTilePlaced;
 
 	public:
 		Observable() = default;
 		~Observable();
+
+		//Updates and attaches observers to the view
 		void attach(GameObserver* obs);
 		void notify();
 
@@ -62,7 +69,7 @@ namespace obs {
 		void setPlayers(std::map<int, player::Player*>* playerQueue) { players = playerQueue; }
 		void setCurrentTurn(int curTurn);
 
-		//Accessors for the observers to use to update
+		//Accessors for the observers to use to update themselves
 		player::Player* getCurrentPlayer();
 		int getTurnState() { return *currentTurn; }
 		inline std::map<int, player::Player*>* getPlayers() { return players; }

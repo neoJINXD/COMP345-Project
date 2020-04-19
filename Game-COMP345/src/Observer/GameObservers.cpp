@@ -2,10 +2,20 @@
 #include <string>
 #include "../MainLoop/TurnSequence.h"
 #include "../MainLoop/MainLoop.h"
+#include "../GameStart/GameStart.h"
 
 obs::Observable::~Observable()
 {
 	delete currentTurn;
+
+	for (auto& v : *views) {
+		
+		delete v;
+		v = nullptr;
+	}
+
+	delete views;
+	views = nullptr;
 }
 
 void obs::Observable::attach(GameObserver* obs)
@@ -36,7 +46,7 @@ void obs::StatisticsObserver::update() {
 	for (auto &p : *model->getPlayers()) {
 		auto player = p.second;
 
-		std::cout << player->getName()  << ":\t" << std::endl;
+		std::cout << *player->getName()  << ":\t" << std::endl;
 
 		//Print a user score
 		std::cout << "COLONISTS:\t" << player->getCurrentScore() << ", ";
@@ -46,7 +56,7 @@ void obs::StatisticsObserver::update() {
 
 		std::cout << std::endl;
 		
-		if (i == model->getPlayers()->size() - 1) {
+		if (i == 0) {
 			//Only display this once since all players reference the same resourceCounter object
 			player->displayResources();
 		}
@@ -71,7 +81,11 @@ void obs::ObserverDriver::run()
 	
 	maingame::MainLoop loop(4);
 
+	maingame::GameStart setGame;
+	auto players = setGame.initPlayers(2);
 	GB::GBMap* board = new GB::GBMap(4);
+	board->buildBoard();
+	board->printGraph();
 	deck::BuildingDeck* bDeck = new deck::BuildingDeck();
 	deck::HarvestDeck* hDeck = new deck::HarvestDeck();
 
@@ -116,7 +130,22 @@ void obs::ObserverDriver::run()
 		//Turn Sequence
 		//turnSeq.playTurn(loop.getActivePlayer(), );
 		//loop.setResources();
-
+		testPlayer->DrawBuilding();
+		testPlayer->DrawBuilding();
+		testPlayer->DrawBuilding();
+		testPlayer->DrawBuilding();
+		testPlayer->DrawBuilding();
+		testPlayer->DrawShipment();
+		testPlayer->DrawHarvestTile();
+		testPlayer->DrawHarvestTile();
+		testPlayer->DrawHarvestTile();
+		testPlayer->DrawHarvestTile();
+		testPlayer->DrawHarvestTile();
+		testPlayer->printHand();
+		testPlayer->PlaceHarvestTile();
+		testPlayer->CalculateResources();
+		testPlayer->BuildVillage();
+		subject->notify();
 		//Active player draws Buildings based on empty resource counters
 		loop.drawBuildings();
 		
@@ -146,5 +175,7 @@ void obs::ObserverDriver::run()
 	delete count;
 	count = nullptr;
 
+	delete subject;
+	subject = nullptr;
 
 }

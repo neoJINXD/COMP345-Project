@@ -6,6 +6,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include "../ResourceCounter/ResourceCounter.h"
 
 GB::GBMap* maingame::GameStart::initGameBoard(unsigned players)
 {
@@ -58,7 +59,7 @@ void maingame::GameStart::drawStart(player::Player* player)
 std::vector<player::Player*>* maingame::GameStart::initPlayers(unsigned totalPlayers)
 {
 	if (totalPlayers < 2 || totalPlayers > 4) { 
-		std::cout << "Invlid number of players dessuuu~~~" << std::endl;
+		std::cout << "Invlid number of players!" << std::endl;
 		exit(-1337);
 	}
 	std::vector<player::Player*>* players = new std::vector<player::Player*>();
@@ -66,13 +67,14 @@ std::vector<player::Player*>* maingame::GameStart::initPlayers(unsigned totalPla
 	gameboard = initGameBoard(totalPlayers);
 	buildingDeck = initBuildingDeck();
 	harvestDeck = initHarvestDeck();
-
+	counter::ResourceCounter* count = new counter::ResourceCounter();
 
 	for (auto i = 0; i < totalPlayers; i++) {
 		std::string* name = new std::string("P" + std::to_string(i + 1));
 		player::Player* player = new player::Player(name, gameboard, harvestDeck, buildingDeck);
 
 		drawStart(player);
+		player->setCounterSystem(count);
 		players->push_back(player);
 	}
 

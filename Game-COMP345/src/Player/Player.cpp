@@ -266,10 +266,11 @@ bool player::Player::BuildVillage()
 	hands->displayBuildings();
 
 	int selection;
-	std::cout << "Current Resource Stockpile:\n";
+	displayResources();
+	/*std::cout << "Current Resource Stockpile:\n";
 	for (auto r : *counters) {
-		std::cout << r.first << ":\t" << r.second << std::endl;
-	} 
+		std::cout << (int)r.first << ":\t" << r.second << std::endl;
+	} */
 	int maxSize = hands->getBuildingSize() - 1;
 	
 	std::cout << "Select a building: ( 0 to " << maxSize << " or -1 to skip )" << std::endl;

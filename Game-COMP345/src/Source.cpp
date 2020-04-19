@@ -21,6 +21,8 @@
 #include "Resources/Resources.h"
 #include "Scoring/Scoring.h"
 #include "VGMaps/VGMap.h"
+#include "Observer/GameObservers.h"
+
 
 int main() 
 {
@@ -74,13 +76,16 @@ int main()
   mainLoop.run();*/
 
   // Part 3
-  maingame::TurnSequenceDriver turnSeq;
-  turnSeq.run();
+  //maingame::TurnSequenceDriver turnSeq;
+  //turnSeq.run();
 
   //// Part 4
   //maingame::EndGameDriver endGame;
   //endGame.run();
   
+  //A3----------------------------------------------------------------------------------
+  obs::ObserverDriver observerTest;
+  observerTest.run();
 
   system("pause");
   return 0;
