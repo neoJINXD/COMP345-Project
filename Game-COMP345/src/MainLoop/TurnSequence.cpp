@@ -4,13 +4,15 @@
 #include "../ResourceCounter/ResourceCounter.h"
 
 //This had two parameters now theres 3 :3
-void maingame::TurnSequence::playTurn(player::Player* player, player::Player** others)
+void maingame::TurnSequence::playTurn(player::Player* player, player::Player** others, int numberOfPlayers, obs::Observable* subject)
 {
 
 	//Plays the harvest tile
+	subject->setCurrentPlayer(player);
 	std::cout << "Building A Tile" << std::endl;
 	std::pair<bool, int> shipmentPlaced = player->PlaceHarvestTile();
 	std::cout << std::endl;
+	
 	//handle playing shipment tile
 
 	//Calculate the resources from previous play
@@ -26,8 +28,10 @@ void maingame::TurnSequence::playTurn(player::Player* player, player::Player** o
 
 
 	//Build on the village board
-	std::cout << "Build a village together" << std::endl;
-	player->BuildVillage();
+	//std::cout << "Build a village together" << std::endl;
+	//Notify Observer to update game stats
+	subject->setVillageChange(player->BuildVillage());
+	subject->notify();
 	std::cout << std::endl;
 	//keep track of recently placed node? (within player)
 
@@ -46,11 +50,13 @@ void maingame::TurnSequence::playTurn(player::Player* player, player::Player** o
 	if (player->getEmptyResources())
 		i = 404;
 	//Let other players build with same logic
-	for (; i < 3; i++)
+	for (; i <  numberOfPlayers; i++)
 	{
 		std::cout << "Next Player" << std::endl;
 		player::Player* nowBuilding = *(others+i);
 		player->passResources(nowBuilding);
+
+
 		std::cout << "Build a village together" << std::endl;
 		nowBuilding->BuildVillage();
 		std::cout << std::endl;
@@ -113,7 +119,7 @@ void maingame::TurnSequenceDriver::run()
 
 
 	maingame::TurnSequence turnary;
-	turnary.playTurn(testPlayer, restPlayers);
+	turnary.playTurn(testPlayer, restPlayers, 4, nullptr);
 
 	delete map;
 	map = nullptr;

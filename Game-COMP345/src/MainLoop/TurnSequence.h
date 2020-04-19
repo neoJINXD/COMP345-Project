@@ -5,6 +5,7 @@
 #endif
 
 #include "../Player/Player.h"
+#include "../Observer/GameObservers.h"
 
 namespace maingame
 {
@@ -13,7 +14,7 @@ namespace maingame
 	private:
 	public:
 		TurnSequence() {}
-		void playTurn(player::Player* player, player::Player** others);
+		void playTurn(player::Player* player, player::Player** others, int numberOfPlayers, obs::Observable* subject);
 	};
 
 

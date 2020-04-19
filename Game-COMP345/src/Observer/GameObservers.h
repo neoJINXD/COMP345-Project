@@ -18,7 +18,6 @@ namespace obs {
 	private:
 		//Dependent functionality
 		Observable* model;
-		int currentTurn;
 
 	public:
 		TurnObserver(Observable* _model);
@@ -43,7 +42,7 @@ namespace obs {
 		~StatisticsObserver();
 
 		void GameObserver::update();
-		//void setObservable(Observable* subject);
+
 	};
 
 	//Use this to share state information of the game
@@ -58,12 +57,15 @@ namespace obs {
 		std::vector<GameObserver*>* views = new std::vector<GameObserver*>();
 
 		// Model/State information
-		int* currentTurn = new int(0);
 		std::map<int, player::Player*>* players = nullptr;
 		player::Player* currentPlayer = nullptr;
-		bool* isBuildingPlaced;
-		bool* isHarvestTilePlaced;
+		bool* isBuildingPlaced = new bool(true);
+		bool* isHarvestTilePlaced = new bool(true);
+		bool* isTurnStart = new bool(true);
+		bool* isTurnEnd = new bool(false);
 		std::map<Resource, int>* counter;
+
+
 	public:
 		Observable() = default;
 		~Observable();
@@ -74,15 +76,16 @@ namespace obs {
 
 		//Use these mutator methods to change the state which will automatically update the observers 
 		void setPlayers(std::map<int, player::Player*>* playerQueue) { players = playerQueue; }
-		void setCurrentTurn(int curTurn);
 		void setResourceMarkers(std::map<Resource, int>* _counter);
 		inline void setCurrentPlayer(player::Player* player) { currentPlayer = player; }
+		void setVillageChange(bool villageChange) { *isBuildingPlaced = villageChange; }
+
 
 		//Accessors for the observers to use to update themselves
 		player::Player* getCurrentPlayer() { return currentPlayer; }
-		int getTurnState() { return *currentTurn; }
 		inline std::map<int, player::Player*>* getPlayers() { return players; }
 		std::map<Resource, int>* getResourceMarkers() { return counter; }
+		bool isBuildingPlaced() { return *isBuildingPlaced; }
 
 	};
 

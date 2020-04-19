@@ -6,7 +6,7 @@
 
 obs::Observable::~Observable()
 {
-	delete currentTurn;
+
 
 	for (auto& v : *views) {
 		
@@ -30,10 +30,6 @@ void obs::Observable::notify()
 	}
 }
 
-void obs::Observable::setCurrentTurn(int curTurn) {
-	
-	*currentTurn = curTurn;
-}
 
 void obs::Observable::setResourceMarkers(std::map<Resource, int>* _counter)
 {
@@ -42,40 +38,56 @@ void obs::Observable::setResourceMarkers(std::map<Resource, int>* _counter)
 
 void obs::TurnObserver::update() {
 
+
+	std::cout << "TURN OBSERVER" << std::endl;
 	player::Player* currentPlayer = model->getCurrentPlayer();
 	std::string name = *currentPlayer->getName();
 	std::cout << name << " IS NOW PLAYING" << std::endl;
+	
+	
+
+	//Did player place building tile?
+	if (!model->isBuildingPlaced()) {
+		std::cout << name << " PLACED A BUILDING ON THEIR VILLAGE" << std::endl;
+	}
+
+		
 	
 }
 
 void obs::StatisticsObserver::update() {
 	
 	int i = 0;
+
+	//Only print this out if a building was placed
+	if (model->isBuildingPlaced()) {
+		std::cout << "CURRENT GAME STATE:\n";
+		std::cout << model->getCurrentPlayer() << " IS CURRENTLY PLAYING!\n";
+		for (auto& p : *model->getPlayers()) {
+			auto player = p.second;
+
+			std::cout << *player->getName() << ":\t" << std::endl;
+
+			//Print a user score
+			std::cout << "COLONISTS:\t" << player->getCurrentScore() << ", ";
+
+			//Print the number of buildings this player has on his village
+			std::cout << "Placed Buildings:\t" << player->getBuildingCount();
+
+			std::cout << std::endl;
+
+			//if (i == 0) {
+			//	//Only display this once since all players reference the same resourceCounter object
+			//	player->displayResources();
+			//}
+		}
+		//display the current resources
+		std::cout << "STATE OF RESOURCES:\n";
+		for (auto res : *model->getResourceMarkers()) {
+			std::cout << "ID:" << res.first << ": " << res.second << std::endl;
+		}
+	}
 	
-	std::cout << "CURRENT GAME STATE:\n";
-	for (auto &p : *model->getPlayers()) {
-		auto player = p.second;
-
-		std::cout << *player->getName()  << ":\t" << std::endl;
-
-		//Print a user score
-		std::cout << "COLONISTS:\t" << player->getCurrentScore() << ", ";
-		
-		//Print the number of buildings this player has on his village
-		std::cout << "Placed Buildings:\t" << player->getBuildingCount();
-
-		std::cout << std::endl;
-		
-		//if (i == 0) {
-		//	//Only display this once since all players reference the same resourceCounter object
-		//	player->displayResources();
-		//}
-	}
-	//display the current resources
-	std::cout << "STATE OF RESOURCES:\n";
-	for (auto res : *model->getResourceMarkers()) {
-		std::cout << "ID:" << res.first << ": " << res.second << std::endl;
-	}
 }
 
 obs::StatisticsObserver::StatisticsObserver(Observable* _model)
@@ -107,7 +119,6 @@ void obs::ObserverDriver::run()
 	obs::Observable* subject = new Observable();
 
 	subject->setPlayers(loop.getPlayerQueue());
-	subject->setCurrentTurn(1);
 	//subject->setPlayers();
 	//obs::TurnObserver* turnObserver = new TurnObserver(subject);
 	obs::StatisticsObserver* statObserver = new StatisticsObserver(subject);
@@ -120,12 +131,12 @@ void obs::ObserverDriver::run()
 		loop.turnStart();
 
 		//Turn Sequence
-		turnSeq.playTurn(loop.getActivePlayer(), loop.getOtherPlayers());
+		turnSeq.playTurn(loop.getActivePlayer(), loop.getOtherPlayers(), numberOfPlayers-1, subject);
 		//loop.setResources();
 
 	
-		subject->setResourceMarkers(testPlayer->getResCounter()); // automatically notify all observers
-		subject->notify();
+		//subject->setResourceMarkers(testPlayer->getResCounter()); // automatically notify all observers
+		//subject->notify();
 		//testPlayer->ResourceTracker(0,0,0,0);
 		//Active player draws Buildings based on empty resource counters
 		loop.drawBuildings();
