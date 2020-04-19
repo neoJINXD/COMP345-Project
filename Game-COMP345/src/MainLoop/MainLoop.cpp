@@ -156,6 +156,16 @@ void maingame::MainLoop::drawHarvestTiles()
 	activePlayer->printHand();
 }
 
+player::Player** maingame::MainLoop::getOtherPlayers()
+{
+	player::Player* others[3] = {
+		queue->at((currentPlayer + 1) % nbPlayers),
+		queue->at((currentPlayer + 2) % nbPlayers),
+		queue->at((currentPlayer + 3) % nbPlayers)
+	};
+	return others;
+}
+
 
 
 

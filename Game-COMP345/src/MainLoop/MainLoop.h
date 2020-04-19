@@ -43,6 +43,7 @@ namespace maingame
 		inline std::map<int, player::Player*>* getPlayerQueue() { return queue; }
 		inline player::Player* getActivePlayer() { return activePlayer; }
 
+		player::Player** getOtherPlayers();
 
 	};
 
