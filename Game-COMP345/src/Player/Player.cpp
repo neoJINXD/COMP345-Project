@@ -299,6 +299,9 @@ bool player::Player::BuildVillage()
 		}
 		
 	}
+
+	//Consume a resource to palce the building
+	counters->at(*selected->getResource()) -= selected->getCost();
 	bool firstTimeResource = true;
 
 	//Checks for an existing resource in the village

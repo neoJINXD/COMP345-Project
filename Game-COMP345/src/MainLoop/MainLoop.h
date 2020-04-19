@@ -37,6 +37,11 @@ namespace maingame
 		void resetResources();
 
 		void drawHarvestTiles();
+
+		inline std::map<int, player::Player*>* getPlayerQueue() { return queue; }
+		inline player::Player* getActivePlayer() { return activePlayer; }
+
+
 	};
 
 

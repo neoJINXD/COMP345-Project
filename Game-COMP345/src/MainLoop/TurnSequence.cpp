@@ -32,7 +32,7 @@ void maingame::TurnSequence::playTurn(player::Player* player, player::Player** o
 	//keep track of recently placed node? (within player)
 
 	int i = 0;
-	std::cout << "Do you wish to have a trade deal mate? (1 = yes, 0 = no):\n";
+	std::cout << "Do you wish to share the wealth? (1 = yes, 0 = no):\n";
 	std::cin >> i;
 
 	if (i == 0) {

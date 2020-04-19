@@ -22,8 +22,10 @@ namespace obs {
 		~TurnObserver();
 
 		/*
-		Print out current player information
-		
+		Print out current active player name information
+		i) Show the increase of resource markers when harvest tile is played
+		ii) Show what the current player decided to do, place building etc
+		iii) Update village building count of player
 		*/
 		void GameObserver::update();
 	};
@@ -34,7 +36,7 @@ namespace obs {
 	public:
 		StatisticsObserver(Observable* _model);
 		~StatisticsObserver();
-		void isWinCondition();
+
 		void GameObserver::update();
 		//void setObservable(Observable* subject);
 	};
@@ -44,19 +46,20 @@ namespace obs {
 		std::vector<GameObserver*>* views;
 
 		// Model/State information
-		int* currentTurn;
-		std::map<int, player::Player*>* players;
+		int* currentTurn = new int(0);
+		std::map<int, player::Player*>* players = nullptr;
 		
 
 	public:
-		Observable();
+		Observable() = default;
 		~Observable();
 		void attach(GameObserver* obs);
 		void notify();
 
-		void setState();
+		void setPlayers(std::map<int, player::Player*>* playerQueue) { players = playerQueue; }
+		void setCurrentTurn(int curTurn) { *currentTurn = curTurn; }
 		player::Player* getCurrentPlayer();
-		void getTurnState();
+		int getTurnState() { return *currentTurn; }
 		inline std::map<int, player::Player*>* getPlayers() { return players; }
 
 
