@@ -59,10 +59,12 @@ namespace obs {
 		// Model/State information
 		std::map<int, player::Player*>* players = nullptr;
 		player::Player* currentPlayer = nullptr;
-		bool* isBuildingPlaced = new bool(true);
-		bool* isHarvestTilePlaced = new bool(true);
-		bool* isTurnStart = new bool(true);
-		bool* isTurnEnd = new bool(false);
+		bool* isBuildingPlaced = new bool(false);
+		bool* isHarvestPlaced = new bool(false);
+		bool* turnStart = new bool(false);
+		bool* turnEnd = new bool(false);
+		bool* sharedWealth = new bool(false);
+
 		std::map<Resource, int>* counter;
 
 
@@ -78,15 +80,22 @@ namespace obs {
 		void setPlayers(std::map<int, player::Player*>* playerQueue) { players = playerQueue; }
 		void setResourceMarkers(std::map<Resource, int>* _counter);
 		inline void setCurrentPlayer(player::Player* player) { currentPlayer = player; }
-		void setVillageChange(bool villageChange) { *isBuildingPlaced = villageChange; }
-
+		inline void setVillageChange(bool villageChange) { *isBuildingPlaced = villageChange; }
+		inline void setGBChange(bool boardChange) { *isHarvestPlaced = boardChange; }
+		inline void setTurnStart(bool _turnStart) { *turnStart = _turnStart; }
+		inline void setTurnEnd(bool _turnEnd) { *turnEnd = _turnEnd; }
+		void setSharedWealth(bool _wealthShared) { *sharedWealth = _wealthShared; }
 
 		//Accessors for the observers to use to update themselves
 		player::Player* getCurrentPlayer() { return currentPlayer; }
 		inline std::map<int, player::Player*>* getPlayers() { return players; }
 		std::map<Resource, int>* getResourceMarkers() { return counter; }
-		bool isBuildingPlaced() { return *isBuildingPlaced; }
-
+		inline bool getVillageState() { return *isBuildingPlaced; }
+		inline bool getBoardState() { return *isHarvestPlaced; }
+		inline bool isTurnStart() { return* turnStart; }
+		bool isTurnEnd() { return* turnEnd; }
+		bool isWealthShared() { return *sharedWealth; }
+		
 	};
 
 	class ObserverDriver {

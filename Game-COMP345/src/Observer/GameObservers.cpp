@@ -7,6 +7,8 @@
 obs::Observable::~Observable()
 {
 
+	players = nullptr;
+	currentPlayer = nullptr;
 
 	for (auto& v : *views) {
 		
@@ -16,6 +18,16 @@ obs::Observable::~Observable()
 
 	delete views;
 	views = nullptr;
+
+	delete isBuildingPlaced;
+	isBuildingPlaced = nullptr;
+	
+	delete isHarvestPlaced;
+	isHarvestPlaced = nullptr;
+
+	delete turnStart;
+
+	delete turnEnd;
 }
 
 void obs::Observable::attach(GameObserver* obs)
@@ -38,20 +50,50 @@ void obs::Observable::setResourceMarkers(std::map<Resource, int>* _counter)
 
 void obs::TurnObserver::update() {
 
-
-	std::cout << "TURN OBSERVER" << std::endl;
 	player::Player* currentPlayer = model->getCurrentPlayer();
 	std::string name = *currentPlayer->getName();
-	std::cout << name << " IS NOW PLAYING" << std::endl;
-	
-	
+	bool stateChanged = true;
+	/*
+		For future, can potentially split these if into their own observers observers.
+	*/
+	//Display whos turn it is and only once.
+	std::cout << "------TURN OBSERVER------" << std::endl;
+	if (model->isTurnStart()|| model->isWealthShared()) {
+		
+		if (model->isWealthShared()) {
+			std::cout << "SHARE THE WEALTH HAS BEEN CHOSEN!\n";
+		}
 
-	//Did player place building tile?
-	if (!model->isBuildingPlaced()) {
-		std::cout << name << " PLACED A BUILDING ON THEIR VILLAGE" << std::endl;
+		std::cout << name << " IS NOW PLAYING!" << std::endl;
+		model->setTurnStart(false); // resets state
+		stateChanged = true;
+	}
+	
+	//Notify console if player placed a harvest tile
+	if (model->getBoardState()) {
+		std::cout << name << " PLACED A HARVEST TILE ON THE GAMEBOARD!\n";
+		model->setGBChange(false); // resets state
+		stateChanged = true;
 	}
 
+	//Notify if player placed a building
+	if (model->getVillageState()) {
+		std::cout << name << " PLACED A BUILDING ON THEIR VILLAGE!\n";
+		stateChanged = true;
+	
+	}
+
+	if (model->isTurnEnd()) {
+		std::cout << "END OF " << name << "'s TURN!" << std::endl;
+		model->setTurnEnd(false);
+		stateChanged = true;
+	}
+
+	if (!stateChanged) {
+		std::cout << "AN ACTION HAPPENED BUT NO ONE CAME...";
+	}
 		
+	std::cout << "------END TURN OBSERVER------\n" << std::endl;
 	
 }
 
@@ -60,33 +102,37 @@ void obs::StatisticsObserver::update() {
 	int i = 0;
 
 	//Only print this out if a building was placed
-	if (model->isBuildingPlaced()) {
-		std::cout << "CURRENT GAME STATE:\n";
-		std::cout << model->getCurrentPlayer() << " IS CURRENTLY PLAYING!\n";
-		for (auto& p : *model->getPlayers()) {
-			auto player = p.second;
+	std::cout << "\n-------STAT-OBSERVER - CURRENT GAME STATE:-------\n\n";
+	std::cout << *model->getCurrentPlayer()->getName() << " IS CURRENTLY PLAYING!\n\n";
+	for (auto& p : *model->getPlayers()) {
+		auto player = p.second;
 
-			std::cout << *player->getName() << ":\t" << std::endl;
+		std::cout << *player->getName() << ":\t";
 
-			//Print a user score
-			std::cout << "COLONISTS:\t" << player->getCurrentScore() << ", ";
+		//Print a user score
+		std::cout << "COLONISTS:\t" << player->getCurrentScore() << ", ";
 
-			//Print the number of buildings this player has on his village
-			std::cout << "Placed Buildings:\t" << player->getBuildingCount();
+		//Print the number of buildings this player has on his village
+		std::cout << "Placed Buildings:\t" << player->getBuildingCount();
 
-			std::cout << std::endl;
+		std::cout << std::endl;
 
-			//if (i == 0) {
-			//	//Only display this once since all players reference the same resourceCounter object
-			//	player->displayResources();
-			//}
-		}
+	}
+	std::cout << "\n" << std::endl;
+	if (model->getVillageState() || model->getBoardState()) {
 		//display the current resources
+		
 		std::cout << "STATE OF RESOURCES:\n";
+		if (model->getVillageState()) {
+			std::cout << "RESOURCES AFTER BUILDING PLACED\n";
+		}
 		for (auto res : *model->getResourceMarkers()) {
 			std::cout << "ID:" << res.first << ": " << res.second << std::endl;
 		}
+		std::cout << "\n" << std::endl;
+		
 	}
+	std::cout << "-----END OF STAT_OBSERVER-----\n" << std::endl;
 	
 }
 
@@ -120,8 +166,8 @@ void obs::ObserverDriver::run()
 
 	subject->setPlayers(loop.getPlayerQueue());
 	//subject->setPlayers();
-	//obs::TurnObserver* turnObserver = new TurnObserver(subject);
 	obs::StatisticsObserver* statObserver = new StatisticsObserver(subject);
+	obs::TurnObserver* turnObserver = new TurnObserver(subject);
 	
 
 	maingame::TurnSequence turnSeq;
@@ -131,7 +177,9 @@ void obs::ObserverDriver::run()
 		loop.turnStart();
 
 		//Turn Sequence
-		turnSeq.playTurn(loop.getActivePlayer(), loop.getOtherPlayers(), numberOfPlayers-1, subject);
+		turnSeq.playTurn(loop.getActivePlayer(), 
+			loop.getOtherPlayers(), 
+			numberOfPlayers-1, subject);
 		//loop.setResources();
 
 	
@@ -146,8 +194,9 @@ void obs::ObserverDriver::run()
 		loop.drawHarvestTiles();
 
 		
-
-
+		//Mew
+		subject->setTurnEnd(true);
+		subject->notify();
 		//Turn's end
 		loop.turnEnd();
 

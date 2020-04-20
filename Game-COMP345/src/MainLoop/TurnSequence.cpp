@@ -9,16 +9,23 @@ void maingame::TurnSequence::playTurn(player::Player* player, player::Player** o
 
 	//Plays the harvest tile
 	subject->setCurrentPlayer(player);
+	subject->setResourceMarkers(player->getResCounter());
+	subject->setTurnStart(true);
+	subject->notify(); 
 	std::cout << "Building A Tile" << std::endl;
 	std::pair<bool, int> shipmentPlaced = player->PlaceHarvestTile();
+	subject->setGBChange(true);
+	
 	std::cout << std::endl;
 	
 	//handle playing shipment tile
 
 	//Calculate the resources from previous play
-	std::cout << "Calculating resources" << std::endl;
+	//std::cout << "Calculating resources" << std::endl;
 	player->CalculateResources();
-	player->displayResources();
+	subject->setResourceMarkers(player->getResCounter());
+	subject->notify();
+	//player->displayResources();
 	std::cout << std::endl;
 
 	//placiung multiple tiles for testing purposes
@@ -52,13 +59,19 @@ void maingame::TurnSequence::playTurn(player::Player* player, player::Player** o
 	//Let other players build with same logic
 	for (; i <  numberOfPlayers; i++)
 	{
-		std::cout << "Next Player" << std::endl;
+		//std::cout << "SHARING THE WEALTH!:\n";
+		
+		//std::cout << "Next Player" << std::endl;
 		player::Player* nowBuilding = *(others+i);
-		player->passResources(nowBuilding);
-
-
+		player->passResources(nowBuilding); // pass buildings to this player
+		
+		subject->setSharedWealth(true);
+		subject->setCurrentPlayer(nowBuilding); // set current player placing the building
+		subject->notify();
 		std::cout << "Build a village together" << std::endl;
-		nowBuilding->BuildVillage();
+		subject->setVillageChange(nowBuilding->BuildVillage());
+		subject->setResourceMarkers(nowBuilding->getResCounter());
+		subject->notify();
 		std::cout << std::endl;
 
 		//use resourceTracker to decrease based on cost, for nowBuilding
@@ -81,7 +94,8 @@ void maingame::TurnSequence::playTurn(player::Player* player, player::Player** o
 		player->insertShipment(shipmentPlaced.second);
 	}
 
-
+	
+	
 }
 
 void maingame::TurnSequenceDriver::run()
