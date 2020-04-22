@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Game\Game.cpp" />
     <ClCompile Include="src\Observer\GameObservers.cpp" />
     <ClCompile Include="src\EndGame\EndGame.cpp" />
     <ClCompile Include="src\Helpers\Graph.cpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="src\MainLoop\TurnSequence.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Game\Game.h" />
     <ClInclude Include="src\Observer\GameObservers.h" />
     <ClInclude Include="src\EndGame\EndGame.h" />
     <ClInclude Include="src\Helpers\Graph.h" />

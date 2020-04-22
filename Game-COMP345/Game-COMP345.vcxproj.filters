@@ -24,6 +24,7 @@
     <ClCompile Include="src\Helpers\Graph.cpp" />
     <ClCompile Include="src\EndGame\EndGame.cpp" />
     <ClCompile Include="src\Observer\GameObservers.cpp" />
+    <ClCompile Include="src\Game\Game.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameStart\GameStart.h" />
@@ -49,6 +50,7 @@
     <ClInclude Include="src\Helpers\Graph.h" />
     <ClInclude Include="src\EndGame\EndGame.h" />
     <ClInclude Include="src\Observer\GameObservers.h" />
+    <ClInclude Include="src\Game\Game.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="src\Files\textures\newhaven.jpg" />
