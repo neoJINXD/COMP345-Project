@@ -3,9 +3,7 @@
 #include "../MainLoop/TurnSequence.h"
 #include "../MainLoop/MainLoop.h"
 #include "../GameStart/GameStart.h"
-#include "../Helpers/StrConversion.h"
-
-
+//#include "../Helpers/StrConversion.h"
 obs::Observable::~Observable()
 {
 
@@ -128,7 +126,7 @@ void obs::StatisticsObserver::update() {
 		}
 		std::cout << "\n" << std::endl;
 		//display the current resources
-
+		
 		std::cout << "STATE OF RESOURCES:\n";
 		if (model->getState() == States::buildingPlaced) {
 			std::cout << "RESOURCES AFTER BUILDING PLACED\n";

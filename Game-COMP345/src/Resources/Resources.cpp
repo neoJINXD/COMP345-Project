@@ -1,6 +1,4 @@
 #include "Resources.h"
-
-
 #include <chrono>
 #include <ctime>
 #include <random>
@@ -190,7 +188,7 @@ deck::Building::~Building() {
 
 // Prints the Building
 void deck::Building::printInfo() const {
-  std::cout << "Cost: " << *cost << "\tResource: " << *resource
+  std::cout << "Cost: " << *cost << "\tResource: " << resToStr(*resource)
             << "\tFacedown: " << *isFaceDown << std::endl;
 }
 

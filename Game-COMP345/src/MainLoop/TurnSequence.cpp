@@ -24,9 +24,6 @@ void maingame::TurnSequence::playTurn(player::Player* player, player::Player** o
 	
 	//std::cout << std::endl;
 
-
-
-
 	//Build on the village board
 	//Notify Observer to update game stats
 	subject->placedBuilding(player->BuildVillage());

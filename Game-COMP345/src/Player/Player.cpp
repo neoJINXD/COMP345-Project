@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "../Scoring/Scoring.h"
+
 #include <cmath>
 
 void player::Player::trackBuildings(int loc, Resource res)
@@ -227,6 +228,7 @@ std::pair<bool, int> player::Player::PlaceHarvestTile()
 		}
 
 		board->placeTile(placement.first, placement.second);
+		CalculateResources();
 		std::cout << "Placing at " << placement.first << std::endl;
 		board->peekTile(placement.first)->printInfo();
 		std::cout << std::endl;
@@ -274,7 +276,7 @@ std::pair<bool, int> player::Player::PlaceHarvestTile()
 		board->placeTile(location, eugen);
 		std::cout << "Placing at " << location << std::endl;
 		board->peekTile(location)->printInfo();
-		
+		CalculateResources();
 		//return true since placed shipment tile
 		std::cout << std::endl;
 		return std::pair<bool, int>(true, location);
@@ -292,11 +294,7 @@ bool player::Player::BuildVillage()
 	hands->displayBuildings();
 
 	int selection;
-	//displayResources();
-	/*std::cout << "Current Resource Stockpile:\n";
-	for (auto r : *counters) {
-		std::cout << (int)r.first << ":\t" << r.second << std::endl;
-	} */
+
 	int maxSize = hands->getBuildingSize() - 1;
 	
 	std::cout << "Select a building: ( 0 to " << maxSize << " or -1 to skip )" << std::endl;

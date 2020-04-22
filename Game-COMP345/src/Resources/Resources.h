@@ -21,7 +21,23 @@ enum Resource {
 	Timber,
 	Stone
 };
+std::string resToStr(Resource res) {
 
+	switch (res) {
+
+	case Wheat:
+		return "Wheat";
+
+	case Stone:
+		return "Stone";
+
+	case Sheep:
+		return "Sheep";
+
+	case Timber:
+		return "Timber";
+	}
+}
 
 namespace deck 
 {
