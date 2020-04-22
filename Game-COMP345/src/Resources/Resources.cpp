@@ -17,7 +17,7 @@ std::string resToStr(Resource res) {
         return "Sheep";
 
     case Timber:
-        return "Timber";
+        return "Wood";
 
     default:
         exit(-69);
