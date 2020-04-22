@@ -3,12 +3,15 @@
 #include "../MainLoop/TurnSequence.h"
 #include "../MainLoop/MainLoop.h"
 #include "../GameStart/GameStart.h"
+#include "../Helpers/StrConversion.h"
+
 
 obs::Observable::~Observable()
 {
 
 	players = nullptr;
 	currentPlayer = nullptr;
+
 
 	for (auto& v : *views) {
 		
@@ -19,15 +22,9 @@ obs::Observable::~Observable()
 	delete views;
 	views = nullptr;
 
-	delete isBuildingPlaced;
-	isBuildingPlaced = nullptr;
-	
-	delete isHarvestPlaced;
-	isHarvestPlaced = nullptr;
+	delete gameState;
 
-	delete turnStart;
 
-	delete turnEnd;
 }
 
 void obs::Observable::attach(GameObserver* obs)
@@ -42,58 +39,66 @@ void obs::Observable::notify()
 	}
 }
 
+void obs::Observable::setCurrentPlayer(player::Player* player) 
+{ 
+	currentPlayer = player; 
+	setState(States::turnStart);
+}
 
-void obs::Observable::setResourceMarkers(std::map<Resource, int>* _counter)
+void obs::Observable::placedBuilding(bool isBuildingPlayed)
 {
-	counter = _counter;
+	if (isBuildingPlayed) {
+		
+		setState(States::buildingPlaced);
+	}
+	else {
+		
+		setState(States::idle);
+	}
+}
+
+void obs::Observable::setState(States state)
+{
+	*gameState = state;
+	notify();
 }
 
 void obs::TurnObserver::update() {
 
 	player::Player* currentPlayer = model->getCurrentPlayer();
 	std::string name = *currentPlayer->getName();
-	bool stateChanged = true;
-	/*
-		For future, can potentially split these if into their own observers observers.
-	*/
-	//Display whos turn it is and only once.
-	std::cout << "------TURN OBSERVER------" << std::endl;
-	if (model->isTurnStart()|| model->isWealthShared()) {
-		
-		if (model->isWealthShared()) {
-			std::cout << "SHARE THE WEALTH HAS BEEN CHOSEN!\n";
-		}
 
-		std::cout << name << " IS NOW PLAYING!" << std::endl;
-		model->setTurnStart(false); // resets state
-		stateChanged = true;
-	}
-	
-	//Notify console if player placed a harvest tile
-	if (model->getBoardState()) {
-		std::cout << name << " PLACED A HARVEST TILE ON THE GAMEBOARD!\n";
-		model->setGBChange(false); // resets state
-		stateChanged = true;
-	}
+	std::cout << "***TURN OBSERVER:\t";
 
-	//Notify if player placed a building
-	if (model->getVillageState()) {
+	switch (model->getState()) {
+
+	case obs::States::harvestPlaced:
+		std::cout << name << " PLACED A HARVEST TILE ON THE GAMEBOARD!";
+		break;
+
+	case obs::States::buildingPlaced:
 		std::cout << name << " PLACED A BUILDING ON THEIR VILLAGE!\n";
-		stateChanged = true;
-	
-	}
+		break;
 
-	if (model->isTurnEnd()) {
-		std::cout << "END OF " << name << "'s TURN!" << std::endl;
-		model->setTurnEnd(false);
-		stateChanged = true;
-	}
+	case obs::States::turnStart:
+		std::cout << name << " IS NOW PLAYING!";
+		break;
 
-	if (!stateChanged) {
-		std::cout << "AN ACTION HAPPENED BUT NO ONE CAME...";
+	case obs::States::turnEnd:
+		std::cout << "END OF " << name << "'s TURN!";
+		break;
+
+	case obs::States::wealthShared:
+		std::cout << "SHARE THE WEALTH HAS BEEN CHOSEN!";
+		break;
+
+	case obs::States::idle:
+		std::cout << "NO ACTION WAS PLAYED!";
+		break;
+
 	}
 		
-	std::cout << "------END TURN OBSERVER------\n" << std::endl;
+	std::cout << std::endl;
 	
 }
 
@@ -101,39 +106,57 @@ void obs::StatisticsObserver::update() {
 	
 	int i = 0;
 
-	//Only print this out if a building was placed
-	std::cout << "\n-------STAT-OBSERVER - CURRENT GAME STATE:-------\n\n";
-	std::cout << *model->getCurrentPlayer()->getName() << " IS CURRENTLY PLAYING!\n\n";
-	for (auto& p : *model->getPlayers()) {
-		auto player = p.second;
+	obs::States state = model->getState();
 
-		std::cout << *player->getName() << ":\t";
+	if (state == obs::States::buildingPlaced || state == obs::States::harvestPlaced) {
+		//Only print this out if a building was placed
+		std::cout << "\n-------STAT-OBSERVER - CURRENT GAME STATE:-------\n\n";
+		std::cout << *model->getCurrentPlayer()->getName() << " IS CURRENTLY PLAYING!\n\n";
+		for (auto& p : *model->getPlayers()) {
+			auto player = p.second;
 
-		//Print a user score
-		std::cout << "COLONISTS:\t" << player->getCurrentScore() << ", ";
+			std::cout << *player->getName() << ":\t";
 
-		//Print the number of buildings this player has on his village
-		std::cout << "Placed Buildings:\t" << player->getBuildingCount();
+			//Print a user score
+			std::cout << "COLONISTS:\t" << player->getCurrentScore() << ", ";
 
-		std::cout << std::endl;
+			//Print the number of buildings this player has on his village
+			std::cout << "Placed Buildings:\t" << player->getBuildingCount();
 
-	}
-	std::cout << "\n" << std::endl;
-	if (model->getVillageState() || model->getBoardState()) {
-		//display the current resources
-		
-		std::cout << "STATE OF RESOURCES:\n";
-		if (model->getVillageState()) {
-			std::cout << "RESOURCES AFTER BUILDING PLACED\n";
-		}
-		for (auto res : *model->getResourceMarkers()) {
-			std::cout << "ID:" << res.first << ": " << res.second << std::endl;
+			std::cout << std::endl;
+
 		}
 		std::cout << "\n" << std::endl;
-		
+		//display the current resources
+
+		std::cout << "STATE OF RESOURCES:\n";
+		if (model->getState() == States::buildingPlaced) {
+			std::cout << "RESOURCES AFTER BUILDING PLACED\n";
+		}
+		for (auto res : *model->getCurrentPlayer()->getResCounter()) {
+			std::cout << "" << resToStr(res.first) << ": " << res.second << std::endl;
+		}
+		std::cout << "\n" << std::endl;
+
+
 	}
-	std::cout << "-----END OF STAT_OBSERVER-----\n" << std::endl;
 	
+}
+
+/*
+	OBSERVER CLASSES IMPLEMENTATIONS START
+*/
+
+obs::TurnObserver::TurnObserver(Observable* _model)
+{
+	model = _model;
+	model->attach(this);
+}
+
+obs::TurnObserver::~TurnObserver()
+{
+	model = nullptr;
+
 }
 
 obs::StatisticsObserver::StatisticsObserver(Observable* _model)
@@ -148,6 +171,10 @@ obs::StatisticsObserver::~StatisticsObserver()
 {
 	model = nullptr;
 }
+/*
+	OBSERVER CLASSES IMPLEMENTATIONS END
+*/
+
 
 void obs::ObserverDriver::run()
 {
@@ -195,8 +222,8 @@ void obs::ObserverDriver::run()
 
 		
 		//Mew
-		subject->setTurnEnd(true);
-		subject->notify();
+		
+		subject->setState(obs::States::turnEnd);
 		//Turn's end
 		loop.turnEnd();
 
@@ -218,17 +245,5 @@ void obs::ObserverDriver::run()
 
 	delete subject;
 	subject = nullptr;
-
-}
-
-obs::TurnObserver::TurnObserver(Observable* _model)
-{
-	model = _model;
-	model->attach(this);
-}
-
-obs::TurnObserver::~TurnObserver()
-{
-	model = nullptr;
 
 }

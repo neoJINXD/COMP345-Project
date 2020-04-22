@@ -9,36 +9,27 @@ void maingame::TurnSequence::playTurn(player::Player* player, player::Player** o
 
 	//Plays the harvest tile
 	subject->setCurrentPlayer(player);
-	subject->setResourceMarkers(player->getResCounter());
-	subject->setTurnStart(true);
-	subject->notify(); 
+	//subject->setResourceMarkers(player->getResCounter());
+	//subject->setState(obs::States::turnStart);
 	std::cout << "Building A Tile" << std::endl;
 	std::pair<bool, int> shipmentPlaced = player->PlaceHarvestTile();
-	subject->setGBChange(true);
+	player->CalculateResources();
+	subject->setState(obs::States::harvestPlaced);
 	
 	std::cout << std::endl;
-	
 	//handle playing shipment tile
 
 	//Calculate the resources from previous play
 	//std::cout << "Calculating resources" << std::endl;
-	player->CalculateResources();
-	subject->setResourceMarkers(player->getResCounter());
-	subject->notify();
-	//player->displayResources();
-	std::cout << std::endl;
+	
+	//std::cout << std::endl;
 
-	//placiung multiple tiles for testing purposes
-	//player->PlaceHarvestTile();
-	//player->CalculateResources();
 
 
 
 	//Build on the village board
-	//std::cout << "Build a village together" << std::endl;
 	//Notify Observer to update game stats
-	subject->setVillageChange(player->BuildVillage());
-	subject->notify();
+	subject->placedBuilding(player->BuildVillage());
 	std::cout << std::endl;
 	//keep track of recently placed node? (within player)
 
@@ -51,8 +42,6 @@ void maingame::TurnSequence::playTurn(player::Player* player, player::Player** o
 	}
 	//use resourceTracker to decrease based on cost, for player
 	//buildvillage returns cost of building placed
-	//if facedown, take cost of location
-	//else cost of building being placed
 
 	if (player->getEmptyResources())
 		i = 404;
@@ -65,11 +54,10 @@ void maingame::TurnSequence::playTurn(player::Player* player, player::Player** o
 		player::Player* nowBuilding = *(others+i);
 		player->passResources(nowBuilding); // pass buildings to this player
 		
-		subject->setSharedWealth(true);
+		subject->setState(obs::States::wealthShared);
 		subject->setCurrentPlayer(nowBuilding); // set current player placing the building
-		subject->notify();
 		std::cout << "Build a village together" << std::endl;
-		subject->setVillageChange(nowBuilding->BuildVillage());
+		subject->placedBuilding(nowBuilding->BuildVillage());
 		subject->setResourceMarkers(nowBuilding->getResCounter());
 		subject->notify();
 		std::cout << std::endl;

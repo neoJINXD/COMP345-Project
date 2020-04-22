@@ -159,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game\Game.h" />
+    <ClInclude Include="src\Helpers\StrConversion.h" />
     <ClInclude Include="src\Observer\GameObservers.h" />
     <ClInclude Include="src\EndGame\EndGame.h" />
     <ClInclude Include="src\Helpers\Graph.h" />
