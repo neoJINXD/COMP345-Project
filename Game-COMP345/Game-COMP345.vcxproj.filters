@@ -2,15 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="src\GameStart\GameStart.cpp" />
-    <ClCompile Include="src\Engine\Entities\Entity.cpp" />
-    <ClCompile Include="src\Engine\Game.cpp" />
-    <ClCompile Include="src\Engine\GameStateSystem\EndState.cpp" />
-    <ClCompile Include="src\Engine\GameStateSystem\GameState.cpp" />
-    <ClCompile Include="src\Engine\GameStateSystem\MenuState.cpp" />
-    <ClCompile Include="src\Engine\GameStateSystem\State.cpp" />
-    <ClCompile Include="src\Engine\UI\Button.cpp" />
-    <ClCompile Include="src\Engine\UI\Text.cpp" />
-    <ClCompile Include="src\Engine\Utilities\Helpers.cpp" />
     <ClCompile Include="src\MainLoop\MainLoop.cpp" />
     <ClCompile Include="src\ResourceCounter\ResourceCounter.cpp" />
     <ClCompile Include="src\Scoring\Scoring.cpp" />
@@ -28,16 +19,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameStart\GameStart.h" />
-    <ClInclude Include="src\Engine\Entities\Entity.h" />
-    <ClInclude Include="src\Engine\Game.h" />
-    <ClInclude Include="src\Engine\GameStateSystem\EndState.h" />
-    <ClInclude Include="src\Engine\GameStateSystem\GameState.h" />
-    <ClInclude Include="src\Engine\GameStateSystem\MenuState.h" />
-    <ClInclude Include="src\Engine\GameStateSystem\State.h" />
-    <ClInclude Include="src\Engine\UI\Button.h" />
-    <ClInclude Include="src\Engine\UI\Text.h" />
-    <ClInclude Include="src\Engine\UI\UI.h" />
-    <ClInclude Include="src\Engine\Utilities\Helpers.h" />
     <ClInclude Include="src\MainLoop\MainLoop.h" />
     <ClInclude Include="src\ResourceCounter\ResourceCounter.h" />
     <ClInclude Include="src\Scoring\Scoring.h" />

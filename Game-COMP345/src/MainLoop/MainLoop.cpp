@@ -2,7 +2,6 @@
 
 #include "../GBMaps/GBMap.h"
 #include "../Resources/Resources.h"
-#include "../Engine/Utilities/Helpers.h"
 #include "TurnSequence.h"
 
 void maingame::MainLoop::init(int numberOfPlayer)

@@ -9,7 +9,6 @@
 #include <sstream>
 #include <string>
 
-#include "Engine/Game.h"
 #include "GBMaps/GBMap.h"
 #include "GameStart/GameStart.h"
 #include "MainLoop/MainLoop.h"
