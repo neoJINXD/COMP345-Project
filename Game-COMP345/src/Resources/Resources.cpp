@@ -3,6 +3,27 @@
 #include <ctime>
 #include <random>
 
+std::string resToStr(Resource res) {
+
+    switch (res) {
+
+    case Wheat:
+        return "Wheat";
+
+    case Stone:
+        return "Stone";
+
+    case Sheep:
+        return "Sheep";
+
+    case Timber:
+        return "Timber";
+
+    default:
+        exit(-69);
+    }
+}
+
 // Random Generator with random seeding
 int IOP(int x) {
   srand(time(nullptr));
