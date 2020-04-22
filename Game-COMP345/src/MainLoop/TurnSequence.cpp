@@ -56,10 +56,10 @@ void maingame::TurnSequence::playTurn(player::Player* player, player::Player** o
 		
 		subject->setState(obs::States::wealthShared);
 		subject->setCurrentPlayer(nowBuilding); // set current player placing the building
-		std::cout << "Build a village together" << std::endl;
+		//std::cout << "Build a village together" << std::endl;
 		subject->placedBuilding(nowBuilding->BuildVillage());
-		subject->setResourceMarkers(nowBuilding->getResCounter());
-		subject->notify();
+		//subject->setResourceMarkers(nowBuilding->getResCounter());
+		//subject->notify();
 		std::cout << std::endl;
 
 		//use resourceTracker to decrease based on cost, for nowBuilding

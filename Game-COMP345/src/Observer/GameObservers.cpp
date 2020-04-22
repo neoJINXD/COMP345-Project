@@ -81,7 +81,7 @@ void obs::TurnObserver::update() {
 		break;
 
 	case obs::States::turnStart:
-		std::cout << name << " IS NOW PLAYING!";
+		std::cout << name << " IS CURRENTLY PLAYING!";
 		break;
 
 	case obs::States::turnEnd:
@@ -140,6 +140,9 @@ void obs::StatisticsObserver::update() {
 
 
 	}
+
+	//Winning condition
+
 	
 }
 
