@@ -61,6 +61,7 @@ player::Player::~Player()
 		delete buildingsPlaced;
 		buildingsPlaced = nullptr;
 	}
+
 }
 
 void player::Player::createHand(deck::HarvestDeck* HDeck,

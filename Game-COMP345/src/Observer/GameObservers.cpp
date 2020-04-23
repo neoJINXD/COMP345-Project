@@ -207,7 +207,6 @@ void obs::ObserverDriver::run()
 
 	auto players = setGame.initPlayers(numberOfPlayers);
 	loop.setupPlayerOrder(players);
-	auto testPlayer = players->at(0);
 
 	//Set Observable objects
 	obs::Observable* subject = new Observable();

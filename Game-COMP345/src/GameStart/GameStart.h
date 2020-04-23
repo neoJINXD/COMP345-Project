@@ -33,6 +33,7 @@ namespace maingame {
 
 			delete harvestDeck;
 			harvestDeck = nullptr;
+
 		}
 		
 		deck::HarvestDeck* initHarvestDeck();

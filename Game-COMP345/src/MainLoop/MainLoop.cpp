@@ -55,6 +55,10 @@ void maingame::MainLoop::setupPlayerOrder(std::vector<player::Player*>* players)
 	i++;
 	}
 
+	players->clear();
+	delete players;
+	players = nullptr;
+
 }
 
 

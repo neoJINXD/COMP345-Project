@@ -24,10 +24,10 @@ maingame::EndGame::EndGame(std::vector<player::Player*>* _players)
 
 maingame::EndGame::~EndGame()
 {
-	for (auto i : *players)
-	{
-		delete i;
-	}
+	//for (auto i : *players)
+	//{
+	//	delete i;
+	//}
 
 	players->clear();
 	delete players;
