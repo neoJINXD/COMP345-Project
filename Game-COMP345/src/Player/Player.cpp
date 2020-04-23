@@ -324,6 +324,8 @@ bool player::Player::BuildVillage()
 		canBuild = false;
 	}
 
+
+	//SKIP this validation is user made building facedown
 	while (!canBuild) {
 		std::cout << "You do not have enough resources to place this building, pick another!\n";
 		std::cout << "Select a building: ( 0 to " << maxSize << " or -1 to skip )" << std::endl;
@@ -335,14 +337,14 @@ bool player::Player::BuildVillage()
 		selected = hands->peekBuilding(selection);
 		buildingsRes = *selected->getResource();
 
+		//Checks if building cost is valid
 		if (getResourceAmount(*selected->getResource()) - selected->getCost() >= 0) {
 			canBuild = true;
 		}
 		
 	}
 
-	//Consume a resource to palce the building
-	counters->at(*selected->getResource()) -= selected->getCost();
+	
 	bool firstTimeResource = true;
 
 	/*
@@ -371,15 +373,35 @@ bool player::Player::BuildVillage()
 		std::cout << std::endl;
 	}
 
+	
 	std::cout << "Select a location (1 to 30)" << std::endl;
 	std::cin >> location;
 	int row = ceil(location / 5.0f);
-	int cost = 7 - row;
-	std::cout << "Cost at location " << location << ": Row: " << row << " Cost: " << cost << std::endl;
+	int locationCost = 7 - row;
+	std::cout << "Cost at location " << location << ": Row: " << row << " Cost: " << locationCost << std::endl;
+
+	//If building is face down, do a validation for the location cost, make sure the resource markers do not go in the negatives
+	if (selected->getFaceDown() && (counters->at(*selected->getResource()) - locationCost) < 0) {
+
+		while (true) {
+			std::cout << "You do not have enough resources to place at this locaion!\n" 
+				<< "Select another location (1 to 30)" << std::endl;
+			std::cin >> location;
+			row = ceil(location / 5.0f);
+			locationCost = 7 - row;
+
+			//If chosen location does not make resource count to the negative, escape
+			if ((counters->at(*selected->getResource()) - locationCost) >= 0) {
+				break;
+			}
+		}
+	}
+	
+	
 
 	bool validLoc = std::find(resourceLoc->at(buildingsRes).begin(), resourceLoc->at(buildingsRes).end(), location) != resourceLoc->at(buildingsRes).end();
 	while (village->peekBuilding(location) != nullptr || 
-		(cost != selected->getCost()) || (!firstTimeResource && !validLoc)) {
+		(locationCost != selected->getCost() && !selected->getFaceDown()) || (!firstTimeResource && !validLoc)) {
 
 		//Check if selected location is not occupied by an existing building
 		if (village->peekBuilding(location) != nullptr) {
@@ -387,13 +409,13 @@ bool player::Player::BuildVillage()
 			std::cin >> location;
 		}
 
-		//Check if Cost is valid for the location
-		else if (cost != selected->getCost()) {
+		//Check if Cost is valid for the location unless its facedown
+		else if (locationCost != selected->getCost() && !selected->getFaceDown()) {
 			//std::cout << "Cost at location " << location << ": Row: " << row << " Cost: " << cost << std::endl;
 			std::cout << "Please Select the location with the correct cost\nSelect location: (1 to 30)\n";
 			std::cin >> location;
 			row = ceil(location / 5.0f);
-			cost = 7 - row;
+			locationCost = 7 - row;
 		}
 
 		//Check if selected location is adjacent to an existing building
@@ -411,6 +433,16 @@ bool player::Player::BuildVillage()
 	}
 
 	village->placeBuilding(location, selected);
+
+	//Consume a resource to place the building depending if its facedown
+	if (!selected->getFaceDown()) {
+		//Consume resource by building cost
+		counters->at(*selected->getResource()) -= selected->getCost();
+	}
+	else {
+		//Consume resource by location cost
+		counters->at(*selected->getResource()) -= locationCost;
+	}
 	//Track current buildings to show possible placements
 	trackBuildings(location, *selected->getResource());
 	std::cout << "Placing at " << location << std::endl;
