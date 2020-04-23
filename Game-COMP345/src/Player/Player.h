@@ -49,6 +49,7 @@ namespace player {
 		void init();
 
 		int freeSpaceInVillage = 30;
+		//int freeSpaceOnBoard;
 
 	public:
 		Player(std::string* _name, GB::GBMap* _board, deck::HarvestDeck* _Hdeck, deck::BuildingDeck* _Bdeck) : name(_name) 
@@ -98,6 +99,7 @@ namespace player {
 		int getCurrentScore();
 		inline int getBuildingCount() { return *buildingsPlaced; }
 		std::map<Resource, int>* getResCounter() { return counters; }
+		inline int getFreeSpaceLeftOnBoard() const { return *(board->getFreeSpace()); };
 	};
 
 	class PlayerDriver

@@ -61,6 +61,9 @@ namespace GB
 		void dat::Graph::addVertex(int loc);
 		void dat::Graph::addEdge(int src, int dest, EdgeLoc edgeSrc, EdgeLoc edgeDest);
 		inline Node* getNode(int nodeId) const { return graph->find(nodeId)->second; }
+
+		int* freeSpace;
+
 	public:
 
 		GBMap() = default;
@@ -82,6 +85,8 @@ namespace GB
 		deck::Tile* peekTile(int loc) const;
 		deck::Tile* getAdjTile(int loc, EdgeLoc adjDirection);
 		inline int getBoardSize() { return graph->size(); }
+
+		inline int* getFreeSpace() const { return freeSpace; };
 
 	};
 

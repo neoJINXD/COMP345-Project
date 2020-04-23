@@ -218,18 +218,22 @@ bool GB::GBMap::buildBoard()
 	{
 	case 2:
 		create5By5();
+		freeSpace = new int((5 * 5) - blockedKeys->size());
 		break;
 	case 3:
 		create5By7();
+		freeSpace = new int((7 * 5) - blockedKeys->size());
 		break;
 	case 4:
 		createFullBoard();
+		freeSpace = new int((7 * 7) - blockedKeys->size());
 		break;
 	default:
 		std::cout << "Invalid number of players!" << std::endl;
 		return false;
 
 	}
+	
 
 	return true; 
 }
@@ -269,6 +273,8 @@ void GB::GBMap::placeTile(int loc, deck::Tile* tile)
 	}
 	graph->find(loc)->second->setTile(tile);
 	*recentTile = loc; 
+
+	--(*freeSpace);
 }
 
 deck::Tile* GB::GBMap::peekTile(int loc) const
@@ -321,6 +327,9 @@ GB::GBMap::~GBMap()
 	blockedKeys->clear();
 	delete blockedKeys;
 	blockedKeys = nullptr;
+
+	delete freeSpace;
+	freeSpace = nullptr;
 
 }
 

@@ -30,11 +30,12 @@ void maingame::TurnSequence::playTurn(player::Player* player, player::Player** o
 	std::cout << std::endl;
 	//keep track of recently placed node? (within player)
 
+	int choice = 0;
 	int i = 0;
 	std::cout << "Do you wish to share the wealth? (1 = yes, 0 = no):\n";
-	std::cin >> i;
+	std::cin >> choice;
 
-	if (i == 0) {
+	if (choice == 0) {
 		i = 1337;
 	}
 	//use resourceTracker to decrease based on cost, for player

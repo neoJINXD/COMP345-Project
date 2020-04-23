@@ -7,8 +7,14 @@
 //#include "../Helpers/StrConversion.h"
 obs::Observable::~Observable()
 {
-
+	for (auto i : *players)
+	{
+		delete i.second;
+	}
+	players->clear();
+	delete players;
 	players = nullptr;
+
 	currentPlayer = nullptr;
 
 

@@ -45,6 +45,8 @@ namespace maingame
 
 		player::Player** getOtherPlayers();
 
+		inline player::Player* getAnyPlayer() const { return queue->at(0); }
+
 	};
 
 

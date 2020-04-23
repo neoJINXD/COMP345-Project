@@ -36,13 +36,13 @@ maingame::MainLoop::MainLoop(int numberOfPlayer)
 
 maingame::MainLoop::~MainLoop()
 {
-	for (auto i : *queue)
-	{
-		delete i.second;
-	}
+	//for (auto i : *queue)
+	//{
+	//	delete i.second;
+	//}
 
-	queue->clear();
-	delete queue;
+	//queue->clear();
+	//delete queue;
 	queue = nullptr;
 }
 

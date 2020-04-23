@@ -21,6 +21,7 @@
 #include "Scoring/Scoring.h"
 #include "VGMaps/VGMap.h"
 #include "Observer/GameObservers.h"
+#include "Game/Game.h"
 
 
 int main() 
@@ -85,6 +86,12 @@ int main()
   //A3----------------------------------------------------------------------------------
   obs::ObserverDriver observerTest;
   observerTest.run();
+
+
+  //Full Game--------------------------------------------------------------------
+  //Game playTime;
+  //playTime.playGame();
+
 
   system("pause");
   return 0;
