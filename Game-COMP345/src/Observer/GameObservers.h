@@ -63,7 +63,8 @@ namespace obs {
 		wealthShared,
 		turnStart,
 		turnEnd,
-		idle
+		idle,
+		done
 	};
 	class Observable {
 	private:
@@ -89,7 +90,6 @@ namespace obs {
 
 		//Use these mutator methods to change the state which will automatically update the observers 
 		void setPlayers(std::map<int, player::Player*>* playerQueue) { players = playerQueue; }
-		void setResourceMarkers(std::map<Resource, int>* _counter);
 		void setCurrentPlayer(player::Player* player);
 		void placedBuilding(bool isBuildingPlayed);
 		void setState(States state);

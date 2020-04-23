@@ -3,6 +3,7 @@
 #include "../MainLoop/TurnSequence.h"
 #include "../MainLoop/MainLoop.h"
 #include "../GameStart/GameStart.h"
+#include "../EndGame/EndGame.h"
 //#include "../Helpers/StrConversion.h"
 obs::Observable::~Observable()
 {
@@ -93,7 +94,6 @@ void obs::TurnObserver::update() {
 	case obs::States::idle:
 		std::cout << "NO ACTION WAS PLAYED!";
 		break;
-
 	}
 		
 	std::cout << std::endl;
@@ -136,11 +136,31 @@ void obs::StatisticsObserver::update() {
 		}
 		std::cout << "\n" << std::endl;
 
+		std::cout << "******STAT-OBSERVER END******\n";
 
 	}
 
 	//Winning condition
+	if (state == obs::States::done) {
+		std::cout << "STAT-OBSERVER - GAME FINISHED!\nWINNERS ARE..\n";
+		std::vector<player::Player*>* players = new std::vector<player::Player*>();
 
+		for (auto p : *model->getPlayers()) {
+			players->push_back(p.second);
+		}
+
+		maingame::EndGame winnableLmao(players);
+		auto winnerwinnerchickendinner = winnableLmao.computeScores();
+
+		for (auto losers : winnerwinnerchickendinner) {
+			std::cout << *losers->getName() << "\n";
+		}
+
+		delete players;
+		players = nullptr;
+		std::cout << "******STAT-OBSERVER END******\n";
+	}
+	
 	
 }
 
@@ -199,8 +219,8 @@ void obs::ObserverDriver::run()
 	
 
 	maingame::TurnSequence turnSeq;
-	for (int i = 0; i < 4; i++)
-	{
+	//for (int i = 0; i < 4; i++)
+	//{
 
 		loop.turnStart();
 
@@ -228,23 +248,14 @@ void obs::ObserverDriver::run()
 		//Turn's end
 		loop.turnEnd();
 
-	}
+	//}
+
+	subject->setState(obs::States::done);
 
 	//std::cout << loop.checkEndState() << std::endl;
 
-	//delete board;
-	//board = nullptr;
 
-	//delete hDeck;
-	//hDeck = nullptr;
-
-	//delete bDeck;
-	//bDeck = nullptr;
-
-	//delete count;
-	//count = nullptr;
-
-	delete subject;
-	subject = nullptr;
+	//delete subject;
+	//subject = nullptr;
 
 }
