@@ -379,7 +379,7 @@ bool player::Player::BuildVillage()
 
 	bool validLoc = std::find(resourceLoc->at(buildingsRes).begin(), resourceLoc->at(buildingsRes).end(), location) != resourceLoc->at(buildingsRes).end();
 	while (village->peekBuilding(location) != nullptr || 
-		(cost != selected->getCost() || (!firstTimeResource && !validLoc)) {
+		(cost != selected->getCost()) || (!firstTimeResource && !validLoc)) {
 
 		//Check if selected location is not occupied by an existing building
 		if (village->peekBuilding(location) != nullptr) {
