@@ -124,10 +124,10 @@ void maingame::MainLoop::drawBuildings()
 		amountToDraw--;
 	}
 
-	std::cout << "No more drawing" << std::endl;
-	std::cout << "Current hand is: " << std::endl;
+	std::cout << "No more drawing\n" << std::endl;
+	//std::cout << "Current hand is: " << std::endl;
 
-	activePlayer->printHand();
+	//activePlayer->printHand();
 
 }
 

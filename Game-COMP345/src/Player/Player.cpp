@@ -19,7 +19,7 @@ void player::Player::trackBuildings(int loc, Resource res)
 void player::Player::init()
 {
 	hands = new deck::Hand(Hdeck, Bdeck);
-	std::cout << "Creating Village" << std::endl;
+	//std::cout << "Creating Village" << std::endl;
 	village = new VG::VGMap("Boiomer"); //TODO remove
 	counters = new std::map<Resource, int>();
 	resourceLoc = new std::map<Resource, std::vector<int>>({ {Wheat,std::vector<int>()}, {Sheep,std::vector<int>()}, {Stone,std::vector<int>()}, {Timber,std::vector<int>()} });
@@ -154,7 +154,7 @@ int player::Player::countDrawAmountTiles()
 	int result = 2;
 	// hand always need to have 2 harvest tiles
 	result -= hands->countHarvestHand();
-	std::cout << "need to draw:  " << result << std::endl;
+	//std::cout << "need to draw:  " << result << std::endl;
 
 	return result;
 }
@@ -302,7 +302,7 @@ bool player::Player::BuildVillage()
 	std::cin >> selection;
 
 	if (selection < 0) {
-		std::cout << "You decided to not place a building!\n";
+		std::cout << "\nYou decided to not place a building!\n";
 		return false;
 	}
 

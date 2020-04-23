@@ -117,7 +117,7 @@ GB::GBMap* maploader::MapLoader::loadMap(std::string path, int playerCount)
 	inFile.close();
 
 	//Create GB from file
-	std::cout << "Success" << std::endl;
+	//std::cout << "Success" << std::endl;
 
 	GB::GBMap* newMap = new GB::GBMap(playerCount);
 

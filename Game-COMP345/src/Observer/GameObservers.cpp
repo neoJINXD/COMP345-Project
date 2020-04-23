@@ -67,6 +67,7 @@ void obs::TurnObserver::update() {
 	player::Player* currentPlayer = model->getCurrentPlayer();
 	std::string name = *currentPlayer->getName();
 
+	std::cout << std::endl;
 	std::cout << "***TURN OBSERVER:\t";
 
 	switch (model->getState()) {
@@ -97,7 +98,7 @@ void obs::TurnObserver::update() {
 	}
 		
 	std::cout << std::endl;
-	
+	std::cout << std::endl;
 }
 
 void obs::StatisticsObserver::update() {
@@ -106,6 +107,7 @@ void obs::StatisticsObserver::update() {
 
 	obs::States state = model->getState();
 
+	std::cout << std::endl;
 	if (state == obs::States::buildingPlaced || state == obs::States::harvestPlaced) {
 		//Only print this out if a building was placed
 		std::cout << "\n-------STAT-OBSERVER - CURRENT GAME STATE:-------\n\n";
@@ -160,6 +162,7 @@ void obs::StatisticsObserver::update() {
 		players = nullptr;
 		std::cout << "******STAT-OBSERVER END******\n";
 	}
+	std::cout << std::endl;
 	
 	
 }
