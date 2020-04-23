@@ -310,7 +310,17 @@ bool player::Player::BuildVillage()
 	Resource buildingsRes = *selected->getResource();
 	bool canBuild = true;
 
-	if (getResourceAmount(*selected->getResource()) - selected->getCost() < 0) {
+	std::cout << "Do you want to place the building face down? (1 = yes / 0 = no)\n";
+	int choice;
+	std::cin >> choice;
+
+	if (choice > 0) {
+		std::cout << "Setting selected building face down!\n";
+		selected->setFaceDown(true);
+	}
+
+
+	if (getResourceAmount(*selected->getResource()) - selected->getCost() < 0 && !selected->getFaceDown()) {
 		canBuild = false;
 	}
 
@@ -347,15 +357,6 @@ bool player::Player::BuildVillage()
 	if (!resourceLoc->at(*selected->getResource()).empty()) {
 		firstTimeResource = false;
 	}
-
-	std::cout << "Do you want to place the building face down? (1 = yes / 0 = no)\n";
-	int choice; 
-	std::cin >> choice;
-
-	if (choice > 0) {
-		std::cout << "Setting selected building face down!\n";
-		selected->setFaceDown(true);
-	} 
 
 	int location;
 
