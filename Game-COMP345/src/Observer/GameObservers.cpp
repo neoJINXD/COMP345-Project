@@ -254,7 +254,7 @@ void obs::ObserverDriver::run()
 	//std::cout << loop.checkEndState() << std::endl;
 
 
-	//delete subject;
-	//subject = nullptr;
+	delete subject;
+	subject = nullptr;
 
 }

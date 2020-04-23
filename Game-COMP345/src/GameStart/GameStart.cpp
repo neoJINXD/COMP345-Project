@@ -31,6 +31,21 @@ GB::GBMap* maingame::GameStart::initGameBoard(unsigned players)
 
 }
 
+maingame::GameStart::~GameStart()
+{
+	delete gameboard;
+	gameboard = nullptr;
+
+	delete buildingDeck;
+	buildingDeck = nullptr;
+
+	delete harvestDeck;
+	harvestDeck = nullptr;
+
+	delete count;
+	count = nullptr;
+}
+
 deck::HarvestDeck* maingame::GameStart::initHarvestDeck()
 {
 	return new deck::HarvestDeck();
@@ -67,7 +82,7 @@ std::vector<player::Player*>* maingame::GameStart::initPlayers(unsigned totalPla
 	gameboard = initGameBoard(totalPlayers);
 	buildingDeck = initBuildingDeck();
 	harvestDeck = initHarvestDeck();
-	counter::ResourceCounter* count = new counter::ResourceCounter();
+	count = new counter::ResourceCounter();
 
 	for (auto i = 0; i < totalPlayers; i++) {
 		std::string* name = new std::string("P" + std::to_string(i + 1));

@@ -18,23 +18,13 @@ namespace maingame {
 		GB::GBMap* gameboard;
 		deck::BuildingDeck* buildingDeck;
 		deck::HarvestDeck* harvestDeck;
-
+		counter::ResourceCounter* count;
 		
 		GB::GBMap* initGameBoard(unsigned);
 	public:
 	
 		//Temp
-		~GameStart() {
-			delete gameboard;
-			gameboard = nullptr;
-
-			delete buildingDeck;
-			buildingDeck = nullptr;
-
-			delete harvestDeck;
-			harvestDeck = nullptr;
-
-		}
+		~GameStart();
 		
 		deck::HarvestDeck* initHarvestDeck();
 		deck::BuildingDeck* initBuildingDeck();
