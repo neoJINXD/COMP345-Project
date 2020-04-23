@@ -379,7 +379,7 @@ bool player::Player::BuildVillage()
 
 	bool validLoc = std::find(resourceLoc->at(buildingsRes).begin(), resourceLoc->at(buildingsRes).end(), location) != resourceLoc->at(buildingsRes).end();
 	while (village->peekBuilding(location) != nullptr || 
-		(cost != selected->getCost() && !selected->getFaceDown()) || (!firstTimeResource && !validLoc)) {
+		(cost != selected->getCost() || (!firstTimeResource && !validLoc)) {
 
 		//Check if selected location is not occupied by an existing building
 		if (village->peekBuilding(location) != nullptr) {
@@ -388,7 +388,7 @@ bool player::Player::BuildVillage()
 		}
 
 		//Check if Cost is valid for the location
-		else if (cost != selected->getCost() && !selected->getFaceDown()) {
+		else if (cost != selected->getCost()) {
 			//std::cout << "Cost at location " << location << ": Row: " << row << " Cost: " << cost << std::endl;
 			std::cout << "Please Select the location with the correct cost\nSelect location: (1 to 30)\n";
 			std::cin >> location;

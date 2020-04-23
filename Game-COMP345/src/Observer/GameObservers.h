@@ -77,7 +77,6 @@ namespace obs {
 		
 		//Store possible states of game
 	
-
 		States* const gameState = new States(States::idle);
 
 	public:
