@@ -20,6 +20,26 @@ void obs::Observable::notify()
 	}
 }
 
+void obs::TurnObserver::update() {
+
+	for (auto& p : *model->getCurrentPlayer()) {
+		auto player = p.second;
+		// Print name of current Player
+		std::cout << player->getName() ":\t" << std::endl;
+
+		// Print the score of current player
+		std::cout << player->getCurrentScore() ":\t" << std::endl;
+
+		// Show the increase of resource markers when harvest tile is played
+		std::cout << player->displayResources() << ":\t" << std::endl;
+
+		// Show what the current player decided to do
+		std::cout << player->getTurnState() << ":\t" << std::endl;
+
+		// Update village builders count of player
+	}
+}
+
 void obs::StatisticsObserver::update() {
 	
 	int i = 0;
@@ -31,6 +51,7 @@ void obs::StatisticsObserver::update() {
 		std::cout << player->getName()  << ":\t" << std::endl;
 
 		//Print a user score
+		std::cout << player->getName() << ":\t" << std::endl;
 		std::cout << "COLONISTS:\t" << player->getCurrentScore() << ", ";
 		
 		//Print the number of buildings this player has on his village
@@ -44,6 +65,8 @@ void obs::StatisticsObserver::update() {
 		}
 	}
 }
+
+
 
 obs::StatisticsObserver::StatisticsObserver(Observable* _model)
 {
@@ -138,5 +161,7 @@ void obs::ObserverDriver::run()
 	delete count;
 	count = nullptr;
 
-
 }
+
+
+
