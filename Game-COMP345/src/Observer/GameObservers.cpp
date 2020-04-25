@@ -227,8 +227,8 @@ void obs::ObserverDriver::run()
 	
 
 	maingame::TurnSequence turnSeq;
-	//for (int i = 0; i < 4; i++)
-	//{
+	for (int i = 0; i < 2; i++)
+	{
 
 		loop.turnStart();
 
@@ -255,8 +255,7 @@ void obs::ObserverDriver::run()
 		subject->setState(obs::States::turnEnd);
 		//Turn's end
 		loop.turnEnd();
-
-	//}
+	}
 
 	subject->setState(obs::States::done);
 

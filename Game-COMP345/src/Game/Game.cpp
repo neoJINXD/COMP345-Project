@@ -55,9 +55,9 @@ void Game::playGame()
 		loop.turnEnd();
 
 		//For testing
-		if (test == 1)
+		/*if (test == 1)
 			break;
-		test++;
+		test++;*/
 	}
 
 
